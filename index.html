@@ -32,11 +32,11 @@
                 <div class="panel-body">
                     <p>Gold-Standard Story</p>
                     <ul>
-                      <!-- <li>Write a {{ (testingOrInterview == "Test" | iif : "testing" : "interview") || "testing/interview" }} plan.</li> -->
-                      <!-- <li>Get feedback on {{ (testingOrInterview == "Test" | iif : "testing" : "interview") || "testing/interview" }} plan.</li> -->
-                      <li>Recruit {{ (numUsers) || "3"}} for {{ (testingOrInterview == "Test" ? "testing" : "interview") || "testing/interview" }}.</li>
-                      <!-- <li>Conduct {{ (testingOrInterview == "Test" | iif : "testing" : "interview" || "testing/interview") }} session with users.</li> -->
-                      <!-- <li>Synthesize result & draw insights for {{ (testingOrInterview == "Test" | iif : "testing" : "interview") || "testing/interview" }}.</li>                       -->
+                      <li>Write an {{ (testingOrInterview == "Test" ? "testing" : "interview") || "testing/interview" }} plan.</li>
+                      <li>Get feedback on {{ (testingOrInterview == "Test" ? "testing" : "interview") || "testing/interview" }} plan.</li>
+                      <li>Recruit {{ (numUsers) || "3"}} users for {{ (testingOrInterview == "Test" ? "testing" : "interview") || "testing/interview" }}.</li>
+                      <li>Conduct {{ (testingOrInterview == "Test" ? "testing" : "interview" || "testing/interview") }} session with users.</li>
+                      <li>Synthesize result & draw insights for {{ (testingOrInterview == "Test" ? "testing" : "interview") || "testing/interview" }}.</li>                      
                     </ul>
 
                     <p>Is this a test or an interview</p>
