@@ -8,6 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="main.css">
     <style>
       .container {
         max-width: 1000px;
@@ -39,31 +40,31 @@
                       </thead>
                       <tr>
                         <td>1</td>
-                        <td>
+                        <td class="task">
                           Write an {{ (testingOrInterview == "Test" ? "testing" : "interview") || "testing/interview" }} plan.
                         </td>
                       </tr>
                       <tr>
                         <td>1</td>
-                        <td>
+                        <td class="task">
                           Get feedback on {{ (testingOrInterview == "Test" ? "testing" : "interview") || "testing/interview" }} plan.
                         </td>
                       </tr>
                       <tr>
                         <td>{{ (((numUsers) || 3)/3) | number: 0}}</td>
-                        <td>
+                        <td class="task">
                           Recruit {{ (numUsers) || "3"}} users for {{ (testingOrInterview == "Test" ? "testing" : "interview") || "testing/interview" }}.
                         </td>
                       </tr>
                       <tr>
                         <td>{{ (numUsers || 3)*((testTime || 60)/60) }}</td>
-                        <td>
+                        <td class="task">
                           Conduct {{ (testingOrInterview == "Test" ? "testing" : "interview" || "testing/interview") }} session with users.
                         </td>
                       </tr>
                       <tr>
                         <td>{{ (numUsers || 3)*((testTime || 60)/60) }}</td>
-                        <td>
+                        <td class="task">
                           Synthesize result & draw insights for {{ (testingOrInterview == "Test" ? "testing" : "interview") || "testing/interview" }}.
                         </td>
                       </tr>                     
@@ -78,10 +79,10 @@
                     
 
                     <p>Ideal number of users to recruit?
-                    <input type="number" ng-model="numUsers"></p>
+                    <input type="number" ng-model="numUsers" min="0"></p>
 
                     <p>How many minutes will your test/interview take?
-                    <input type="number" ng-model="testTime"></p>
+                    <input type="number" ng-model="testTime" min="0"></p>
 
                     <div class="panel panel-default">
                       <div class="panel-heading">Food for Thought</div>
