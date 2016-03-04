@@ -52,13 +52,13 @@
                         </td>
                       </tr>
                       <tr>
-                        <td>{{ (numUsers || 3)*(testTime/60) }}</td>
+                        <td>{{ (numUsers || 3)*((testTime || 60)/60) }}</td>
                         <td>
                           Conduct {{ (testingOrInterview == "Test" ? "testing" : "interview" || "testing/interview") }} session with users.
                         </td>
                       </tr>
                       <tr>
-                        <td>{{ (numUsers || 3)*(testTime/60) }}</td>
+                        <td>{{ (numUsers || 3)*((testTime || 60)/60) }}</td>
                         <td>
                           Synthesize result & draw insights for {{ (testingOrInterview == "Test" ? "testing" : "interview") || "testing/interview" }}.
                         </td>
@@ -78,6 +78,18 @@
 
                     <p>How many minutes will your test take?
                     <input type="number" ng-model="testTime"></p>
+
+                    <div class="panel panel-default">
+                      <div class="panel-heading">Food for Thought</div>
+                      <div class="panel-body">
+                        <ul>
+                          <li>How are you ensuring that your {{ (testingOrInterview == "Test" ? "testing" : "interview" || "testing/interview") }} helps you answer the important questions you have for each concept?</li>
+                          <li>How are you applying {{ (testingOrInterview == "Test" ? "testing" : "interview" || "testing/interview") }} techniques to get helpful, unbiased results?</li>
+                          <li>How will you record your session? (voice recorder, screen capture, audio recording, etc)</li>
+                        </ul>
+                      </div>
+                    </div>
+
                 </div>
             </div>
         </div>
