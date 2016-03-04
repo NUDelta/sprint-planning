@@ -57,13 +57,13 @@
                         </td>
                       </tr>
                       <tr>
-                        <td>{{ (numUsers || 3)*((testTime || 60)/60) }}</td>
+                        <td>{{ (numUsers || 3)*((testTime || 60)/60) | number: 0}}</td>
                         <td class="task">
                           Conduct {{ (testingOrInterview == "Test" ? "testing" : "interview" || "testing/interview") }} session with users.
                         </td>
                       </tr>
                       <tr>
-                        <td>{{ (numUsers || 3)*((testTime || 60)/60) }}</td>
+                        <td>{{ (numUsers || 3)*((testTime || 60)/60) | number: 0}}</td>
                         <td class="task">
                           Synthesize result & draw insights for {{ (testingOrInterview == "Test" ? "testing" : "interview") || "testing/interview" }}.
                         </td>
