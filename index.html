@@ -30,20 +30,48 @@
             </div>
             <div id="collapseOne" class="panel-collapse collapse in">
                 <div class="panel-body">
-                    <p>Gold-Standard Story</p>
-                    <ul>
-                      <li>Write an {{ (testingOrInterview == "Test" ? "testing" : "interview") || "testing/interview" }} plan.</li>
-                      <li>Get feedback on {{ (testingOrInterview == "Test" ? "testing" : "interview") || "testing/interview" }} plan.</li>
-                      <li>Recruit {{ (numUsers) || "3"}} users for {{ (testingOrInterview == "Test" ? "testing" : "interview") || "testing/interview" }}.</li>
-                      <li>Conduct {{ (testingOrInterview == "Test" ? "testing" : "interview" || "testing/interview") }} session with users.</li>
-                      <li>Synthesize result & draw insights for {{ (testingOrInterview == "Test" ? "testing" : "interview") || "testing/interview" }}.</li>                      
-                    </ul>
+                  <strong><p>Gold-Standard Story</p></strong>
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <tr>
+                        <td>1</td>
+                        <td>
+                          Write an {{ (testingOrInterview == "Test" ? "testing" : "interview") || "testing/interview" }} plan.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>1</td>
+                        <td>
+                          Get feedback on {{ (testingOrInterview == "Test" ? "testing" : "interview") || "testing/interview" }} plan.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>{{ (((numUsers) || 3)/3) | number: 0}}</td>
+                        <td>
+                          Recruit {{ (numUsers) || "3"}} users for {{ (testingOrInterview == "Test" ? "testing" : "interview") || "testing/interview" }}.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>1</td>
+                        <td>
+                          Conduct {{ (testingOrInterview == "Test" ? "testing" : "interview" || "testing/interview") }} session with users.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>1</td>
+                        <td>
+                          Synthesize result & draw insights for {{ (testingOrInterview == "Test" ? "testing" : "interview") || "testing/interview" }}.
+                        </td>
+                      </tr>                     
+                    </table>
+                  </div>
 
-                    <p>Is this a test or an interview</p>
-                    <select ng-model="testingOrInterview">
-                      <option>Test</option>
-                      <option>Interview</option>
-                    </select>
+                    <p>Is this a test or an interview?
+                      <select ng-model="testingOrInterview">
+                        <option>Test</option>
+                        <option>Interview</option>
+                      </select>
+                    </p>
 
                     <p>Ideally, how many users would you recruit for your tests?</p>
                     <input type="number" ng-model="numUsers">
