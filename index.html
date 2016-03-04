@@ -28,11 +28,15 @@
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">User Testing/Interview Planning</a>
                 </h4>
             </div>
-            <div id="collapseOne" class="panel-collapse collapse in">
+            <div id="collapseOne" class="panel-collapse collapse">
                 <div class="panel-body">
                   <strong><p>Gold-Standard Story</p></strong>
                   <div class="table-responsive">
                     <table class="table table-bordered">
+                      <thead>
+                        <td>Points</td>
+                        <td>Tasks</td>
+                      </thead>
                       <tr>
                         <td>1</td>
                         <td>
@@ -66,27 +70,33 @@
                     </table>
                   </div>
 
-                    <p>Is this a test or an interview?
+                    <p>Test or an interview?</p>
                       <select ng-model="testingOrInterview">
                         <option>Test</option>
                         <option>Interview</option>
                       </select>
-                    </p>
+                    
 
-                    <p>Ideally, how many users would you recruit for your tests?
+                    <p>Ideal number of users to recruit?
                     <input type="number" ng-model="numUsers"></p>
 
-                    <p>How many minutes will your test take?
+                    <p>How many minutes will your test/interview take?
                     <input type="number" ng-model="testTime"></p>
 
                     <div class="panel panel-default">
                       <div class="panel-heading">Food for Thought</div>
                       <div class="panel-body">
-                        <ul>
+                        How are you ensuring that your {{ (testingOrInterview == "Test" ? "testing" : "interview" || "testing/interview") }} helps you answer the important questions you have for each concept? <br><br>
+
+                        How are you applying {{ (testingOrInterview == "Test" ? "testing" : "interview" || "testing/interview") }} techniques to get helpful, unbiased results? <br><br>
+
+                        How will you record your session? (voice recorder, screen capture, audio recording, etc)
+
+                        <!-- <ul>
                           <li>How are you ensuring that your {{ (testingOrInterview == "Test" ? "testing" : "interview" || "testing/interview") }} helps you answer the important questions you have for each concept?</li>
                           <li>How are you applying {{ (testingOrInterview == "Test" ? "testing" : "interview" || "testing/interview") }} techniques to get helpful, unbiased results?</li>
                           <li>How will you record your session? (voice recorder, screen capture, audio recording, etc)</li>
-                        </ul>
+                        </ul> -->
                       </div>
                     </div>
 
@@ -96,15 +106,125 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Technology</a>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Writing A URG Grant</a>
                 </h4>
             </div>
             <div id="collapseTwo" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <p>[Task]<a href="http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/" target="_blank">Learn more.</a></p>
+                  <strong><p>Gold-Standard Story</p></strong>
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <td>Points</td>
+                        <td>Tasks</td>
+                      </thead>
+                      <tr>
+                        <td>1</td>
+                        <td>
+                          Read the URG Office's guide to writing a proposal.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>
+                          Write rough first draft.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>1</td>
+                        <td>
+                         Schedule a URG advising appointment to get feedback or contact Peter Civetta.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>1</td>
+                        <td>
+                          Get feedback from former URG winners in DTR.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>1</td>
+                        <td>
+                          Get feedback from Haoqi.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td>
+                          Iterate on feedback 3 times.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>1</td>
+                        <td>
+                          Submit your grant via the URG submission portal.
+                        </td>
+                      </tr>                     
+                    </table>
+                  </div>
+
+                    <!-- <div class="panel panel-default">
+                      <div class="panel-heading">Food for Thought</div>
+                      <div class="panel-body">
+                        <ul>
+                          <li>Check out the DTR Doc.</li>
+                        </ul>
+                      </div>
+                    </div> -->
+
                 </div>
             </div>
         </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Technology</a>
+                </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <strong><p>Gold-Standard Story</p></strong>
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <td>Points</td>
+                        <td>Tasks</td>
+                      </thead>
+                      <tr>
+                        <td>1</td>
+                        <td>
+                          Describe clearly defined tech outcomes with value-delivering milestones & perceived road blocks.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>N/A</td>
+                        <td>
+                          From plan, write some value-delivering tasks.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>1</td>
+                        <td>
+                         Test tech for possible bugs.
+                        </td>
+                      </tr>                   
+                    </table>
+                  </div>
+
+                    <div class="panel panel-default">
+                      <div class="panel-heading">Food for Thought</div>
+                      <div class="panel-body">
+                        What are your solutions to potential roadblocks?<br><br>
+                        Who will you contact in particular for help? Do you know when they are free?
+                      </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
     </div>
   </body>
 </html>
