@@ -8,6 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
     <link rel="stylesheet" type="text/css" href="main.css">
     <style>
       .container {
@@ -31,7 +32,8 @@
             </div>
             <div id="collapseOne" class="panel-collapse collapse">
                 <div class="panel-body">
-                  <strong><p>Gold-Standard Story</p></strong>
+                  <strong><p>Gold-Standard Story
+                    <button type="button" id="copy-usertesting" class="btn btn-primary">Copy Tasks</button></p></strong>
                   <div class="table-responsive">
                     <table class="table table-bordered">
                       <thead>
@@ -261,6 +263,67 @@
                       </tr>                   
                     </table>
                   </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">Creating User Personas</a>
+                </h4>
+            </div>
+            <div id="collapseFive" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <strong><p>Gold-Standard Story</p></strong>
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <td>Points</td>
+                        <td>Tasks</td>
+                      </thead>
+                      <tr>
+                        <td>0.5</td>
+                        <td>
+                          Review some examples of good personas on <a href="https://loft.io/guide/learning/understand/personas/#examples">The Loft</a>.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>{{ numPersonas || 1 }}</td>
+                        <td>
+                          Write out a 3-4 paragraph profile that summarizes key attributes about the subject's background background and personality.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>{{ (numPersonas || 1)* 0.5 }}</td>
+                        <td>
+                         Wite one representative quote that captures the essence of the subject.
+                        </td>
+                      </tr> 
+                      <tr>
+                        <td>{{ (numPersonas || 1) }}</td>
+                        <td>
+                         List the subject's goals/motivations to clarify why the persona is engaging with the system/tool.
+                        </td>
+                      </tr>  
+                      <tr>
+                        <td>{{ (numPersonas || 1) * 0.5 }}</td>
+                        <td>
+                         List your objectives for the persona by explaining what the system will do to positively influence the subject.
+                        </td>
+                      </tr> 
+                      <tr>
+                        <td>1</td>
+                        <td>
+                         Prioritize the personas (primary, secondary, unimportant).
+                        </td>
+                      </tr>                     
+                    </table>
+                  </div>
+
+                  <p>How many personas are you creating?
+                    <input type="number" ng-model="numPersonas" min="1"></p>
 
                 </div>
             </div>
