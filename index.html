@@ -10,6 +10,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
+    <!-- Add Font Awesome -->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+
     <!-- Add in Angular for front-end binding -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
 
@@ -85,7 +88,7 @@
                     <input type="number" ng-model="testTime" min="0"></p>
 
                     <div class="panel panel-success">
-                      <div class="panel-heading">Food for Thought</div>
+                      <div class="panel-heading"><i class="fa fa-cutlery"></i> Food for Thought</div>
                       <div class="panel-body">
                         How are you ensuring that your {{ (testingOrInterview == "Test" ? "testing" : "interview" || "testing/interview") }} helps you answer the important questions you have for each concept? <br><br>
 
@@ -199,7 +202,7 @@
                   </div>
 
                     <div class="panel panel-success">
-                      <div class="panel-heading">Food for Thought</div>
+                      <div class="panel-heading"><i class="fa fa-cutlery"></i> Food for Thought</div>
                       <div class="panel-body">
                         What are your solutions to potential roadblocks?<br><br>
                         Who will you contact in particular for help? Do you know when they are free?
@@ -366,12 +369,64 @@
                       </tr>                     
                     </table>
                   </div>
-                  
                 </div>
             </div>
         </div>
-
-
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">Brainstorming</a>
+                </h4>
+            </div>
+            <div id="collapseSeven" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <strong><p>Gold-Standard Story</p></strong>
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <td>Tasks</td>
+                        <td>Points</td>
+                      </thead>
+                      <tr>
+                        <td>
+                          <a href="https://s3.amazonaws.com/media.loft.io/attachments/Mindset_Games_for_Workshops_T5tFQ63.pdf">
+                          	Get into a creative mindset
+                          </a>
+                        </td>
+                        <td>0.25</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Brainstorm individually and then together on problem statement
+                        </td>
+                        <td>{{ (numProblemStatements || 1)* 1/4 | number:2 }}</td>
+                      </tr> 
+                      <tr>
+                        <td>
+                         Cluster ideas into themes and then determine which ideas to build
+                        </td>
+                        <td>{{ (numProblemStatements || 1)* 1/4 | number:2 }}</td>
+                      </tr>                      
+                    </table>
+                  </div>
+                  <p>How many problem statements do you have?
+                    <input type="number" ng-model="numProblemStatements" min="1"></p>
+                   <div class="panel panel-success">
+                      <div class="panel-heading"><i class="fa fa-cutlery"></i> Food for Thought - Rules of Brainstorming</div>
+                      <div class="panel-body">
+                       	<ol>
+                       		<li>Quantity over Quality</li>
+                       		<li>Defer Judgement</li>
+                       		<li>Build on ideas</li>
+                       		<li>Encourage Wild Ideas</li>
+                       		<li>Visualize Ideas</li>
+                       		<li>Stay Focused</li>
+                       	</ol>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
   </body>
 </html>

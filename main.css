@@ -7,6 +7,13 @@
 .panel-default .panel-title{
 	font-size: 0.9em;
 }
+.panel-success{
+	border-color:#27ae60;
+}
+.panel-success .panel-heading{
+	color:white;
+	background-color: #27ae60;
+}
 /*table {
 	border-collapse:collapse; 
 	table-layout:fixed; 
