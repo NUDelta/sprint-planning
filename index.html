@@ -68,13 +68,16 @@
                     </table>
                   </div>
 
+
+                    <!-- Determines if it is a test or an interview to decide which words to use in 
+                    the gold standard story. -->
                     <p>Test or an interview?</p>
                       <select ng-model="testingOrInterview">
                         <option>Test</option>
                         <option>Interview</option>
                       </select>
                     
-
+                    <!-- Sets the numUsers variable which is used for gold standard story. -->
                     <p>Ideal number of users to recruit?
                     <input type="number" ng-model="numUsers" min="0"></p>
 
@@ -302,6 +305,7 @@
                     </table>
                   </div>
 
+                  <!-- Specifies a number of personas that are being created to generate point suggestions. -->
                   <p>How many personas are you creating?
                     <input type="number" ng-model="numPersonas" min="1"></p>
 
