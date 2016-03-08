@@ -14,6 +14,12 @@
 	color:white;
 	background-color: #27ae60;
 }
+.panel-success .panel-heading span>a{
+	color:white;
+}
+.panel-success .panel-heading>span>a:hover,a:focus{
+	color:#bdc3c7;
+}
 /*table {
 	border-collapse:collapse; 
 	table-layout:fixed; 
