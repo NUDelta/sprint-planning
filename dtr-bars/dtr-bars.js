@@ -9,9 +9,12 @@ var chart = new Highcharts.Chart({
     },
 
     xAxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        categories: ['Design', 'Technology', 'Research']
     },
-
+    // yAxis:{
+    //     min:0,
+    //     max:100
+    // },
     plotOptions: {
         series: {
             point: {
@@ -40,6 +43,9 @@ var chart = new Highcharts.Chart({
         column: {
             stacking: 'normal'
         },
+        line: {
+            cursor: 'ns-resize'
+        }
     },
 
     tooltip: {
@@ -47,18 +53,20 @@ var chart = new Highcharts.Chart({
     },
 
     series: [{
-        data: [0, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+        data: [0, 30, 20],
         //draggableX: true,
         draggableY: true,
         dragMinY: 0,
         type: 'column',
-        minPointLength: 2
+        minPointLength: 2,
+        name: 'Knowledge You Want to Gain'
     }, {
-        data: [0, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4].reverse(),
+        data: [5, 10, 12],
         draggableY: true,
         dragMinY: 0,
         type: 'column',
-        minPointLength: 2
+        minPointLength: 2,
+        name: 'Knowledge You Have'
     }]
 
 });
