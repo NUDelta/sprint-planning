@@ -84,10 +84,10 @@ researchQuestions = function(){
     if(new_question.val()){
         question_number += 1;
         $('#new-question').before(
-            '<div class="col-xs-12"><div id=question-' + question_number + 
-            '" class="input-group"> <input type="text" class="form-control" ' +
-            'value="' + new_question.val() +  
-            '"><span class="input-group-btn"> <button class="btn btn-danger" type="button">-</button></span></div></div>');
+            '<div class="col-xs-12"><a href="#question-' + question_number + 
+            '">'+ new_question.val() + '</div>');
+        $(".container").append('<h3 id="question-' + question_number + '">' + new_question.val() + '</h3><div id="chart-' + question_number + '" style="height:400px;width:50%;"></div>');
+        chart(new_question.val(),'chart-'+question_number);
         new_question.val('');
     }
 };
