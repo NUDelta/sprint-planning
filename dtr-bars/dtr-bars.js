@@ -28,22 +28,22 @@ var question_number = 0,
                     point: {
                         events: {
 
-                            drag: function (e) {
-                                // Returning false stops the drag and drops. Example:
-                                /*
-                                if (e.newY > 300) {
-                                    this.y = 300;
-                                    return false;
-                                }
-                                */
+                            // drag: function (e) {
+                            //     // Returning false stops the drag and drops. Example:
+                            //     /*
+                            //     if (e.newY > 300) {
+                            //         this.y = 300;
+                            //         return false;
+                            //     }
+                            //     */
 
-                                $('#drag').html(
-                                    'Dragging <b>' + this.series.name + '</b>, <b>' + this.category + '</b> to <b>' + Highcharts.numberFormat(e.y, 2) + '</b>');
-                            },
-                            drop: function () {
-                                $('#drop').html(
-                                    'In <b>' + this.series.name + '</b>, <b>' + this.category + '</b> was set to <b>' + Highcharts.numberFormat(this.y, 2) + '</b>');
-                            }
+                            //     $('#drag').html(
+                            //         'Dragging <b>' + this.series.name + '</b>, <b>' + this.category + '</b> to <b>' + Highcharts.numberFormat(e.y, 2) + '</b>');
+                            // },
+                            // drop: function () {
+                            //     $('#drop').html(
+                            //         'In <b>' + this.series.name + '</b>, <b>' + this.category + '</b> was set to <b>' + Highcharts.numberFormat(this.y, 2) + '</b>');
+                            // }
                         }
                     },
                     stickyTracking: false
@@ -85,8 +85,8 @@ researchQuestions = function(){
         question_number += 1;
         $('#new-question').before(
             '<div class="col-xs-12"><a href="#question-' + question_number + 
-            '">'+ new_question.val() + '</div>');
-        $(".container").append('<h3 id="question-' + question_number + '">' + new_question.val() + '</h3><div id="chart-' + question_number + '" style="height:400px;width:50%;"></div>');
+            '">'+ question_number + '. '+new_question.val() + '</div>');
+        $(".container").append('<h3 id="question-' + question_number + '">'+ question_number + '. ' + new_question.val() + '</h3><div id="chart-' + question_number + '" style="height:400px;width:50%;"></div>');
         chart(new_question.val(),'chart-'+question_number);
         new_question.val('');
     }
