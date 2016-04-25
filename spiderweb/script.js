@@ -23,7 +23,8 @@ var claimCount = 0;
 var claimStart = 30
 var oldProgress = []
 var newProgress = []
-watchArray = []
+var watchArray = []
+var valsArray = []
 
 var app = angular.module('spiderweb', ['ngMaterial']);
 app.controller('MyCntrl', function($scope, $compile) {
@@ -54,14 +55,27 @@ app.controller('MyCntrl', function($scope, $compile) {
 	    oldProgress.push({axis:"Claim " + claimCount, value:claimStart});
 	    newProgress.push({axis:"Claim " + claimCount, value:claimStart});
 	    watchArray.push("claim" + claimCount + "Val");
+	    valsArray.push(0);
 	    resetGraph()
 	    var claims = (angular.element(document.getElementsByClassName('collection')));
 	    $compile(claims)($scope);
-	    $scope.$watchGroup(watchArray, function(newVal, oldVal) { 
-	    	if(newVal[watchArray.length-1]) {
-		    	captureChange(newVal[watchArray.length-1], claimCount) 
-		    	$scope.total = newVal.reduce((a, b) => a + b, 0);
-		    }
+	    $scope.$watchGroup(watchArray, function(newVals, oldVals) {
+    		console.log(valsArray) 
+    		idx = newVals.length-1;
+    		if(newVals[idx]) {
+		    	if(newVals.length == valsArray.length) {
+		    		valsArray = newVals;
+		    	}
+		    	else {
+		    		
+		    		valsArray[idx] = newVals[idx]
+		    	}
+		    	// if(newVal[watchArray.length-1]) {
+			    captureChange(valsArray[idx], claimCount) 
+			    
+			    $scope.total = valsArray.reduce((a, b) => a + b, 0);
+			    // }
+			}
 		    
 		});
 	  }
