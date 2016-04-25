@@ -14,6 +14,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
+
     <!-- Add Font Awesome -->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
 
@@ -24,19 +26,19 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
           
   </head>
-  <body>
-    <div class="container-fluid">
-<!--         <h1>Research Questions/Topics</h1>
- -->      <!-- <div id="row-research" class="row">
-        <div id="new-question" class="col-xs-12">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Write in your Research Question/Topic">
-                <span class="input-group-btn">
-                  <button class="btn btn-success" type="button">+</button>
-                </span>
-            </div>
-          </div>
-        </div> -->
+  <body ng-app="spiderweb">
+    <!-- Angular Material requires Angular.js Libraries -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+
+    <!-- Angular Material Library -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
+  
+    <div class="container-fluid" ng-controller="MyCntrl">
+    <p>Testing: {{(claim1Val)}}</p>
+    
       <div class="row">
         <div class="col-md-6 col-lg-6 z-depth-2 graphArea valign-wrapper">
           <p class="valign center-align" id="message">Add a few claims to begin planning!</p>
@@ -46,7 +48,7 @@
         <div class="input-group">
             <input type="text" class="form-control claimInput" placeholder="Write in your Research Question/Topic">
             <span class="input-group-btn">
-              <button class="btn addClaim" type="button">+</button>
+              <button class="btn addClaim" type="button" ng-click="addClaim()">+</button>
             </span>
         </div>
         <ul class="collection with-header">
@@ -54,24 +56,12 @@
             <h4>Claims</h4>
             <p>Use the sliders to indicate how much to increase this sprint</p>
           </li>
-          <!-- <li class="collection-item">
-            <p class="claim">Claim 1: Builing Regulation Skills in DTR Students</p>
-            <p class="range-field"><input type="range" value="0" class="claimSlider" id="claim1" min="0" max="10" /></p> 
-          </li>
-          <li class="collection-item">
-            <p class="claim">Claim 2: Builing Regulation Skills in DTR Students</p>
-            <p class="range-field"><input type="range" value="0" class="claimSlider" id="claim2" min="0" max="10" /></p>   
-          </li>
-          <li class="collection-item">
-            <p class="claim">Claim 3: Builing Regulation Skills in DTR Students</p>
-            <p class="range-field"><input type="range" value="0" class="claimSlider" id="claim3" min="0" max="10" /></p>   
-          </li> -->
         </ul>
                
         </div>
       </div>
     </div>
-    <script type="text/javascript" src="script.js"></script>
 
+    <script type="text/javascript" src="script.js"></script>
   </body>
 </html>
