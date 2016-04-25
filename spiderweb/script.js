@@ -48,6 +48,10 @@ $(function() {
 	var newProgress = []
 
 	$('.addClaim').click(function() {
+		if(claimCount == 0) {
+			$('#chart').show()
+			$('#message').hide()
+		}
 		claimCount++;
 		var newClaim = $(".claimInput").val()
 		var item = '<li class="collection-item">' +

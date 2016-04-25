@@ -16,3 +16,18 @@ body {
 .claim {
 	font-size: 20px;
 }
+
+#chart {
+	display: none;
+}
+
+.graphArea {
+	width:700px;
+	height:600px;
+}
+
+#message {
+	font-size: 20px;
+	font-weight: bold;
+	width:100%;
+}
