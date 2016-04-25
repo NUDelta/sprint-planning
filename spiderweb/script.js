@@ -1,3 +1,15 @@
+var claimCount = 0;
+
+$('.addClaim').click(function() {
+	claimCount++;
+	var newClaim = $(".claimInput").val()
+	var item = '<li class="collection-item">' +
+	'<p class="claim">Claim ' + claimCount + ': ' + newClaim + '</p>' +
+            '<p class="range-field"><input type="range" value="0" class="claimSlider" id="claim' + claimCount + '" min="0" max="10" /></p>' + 
+          '</li>'
+	$('.collection').append(item)
+});
+
 $(function() {
 	var w = 500,
 		h = 500;

@@ -25,7 +25,7 @@
           
   </head>
   <body>
-    <div class="container">
+    <div class="container-fluid">
 <!--         <h1>Research Questions/Topics</h1>
  -->      <!-- <div id="row-research" class="row">
         <div id="new-question" class="col-xs-12">
@@ -38,13 +38,19 @@
           </div>
         </div> -->
       <div class="row">
-        <div class="col-md-9 col-lg-9 z-depth-2">
+        <div class="col-md-6 col-lg-6 z-depth-2">
           <div id="chart"></div>
         </div>
-        <div class="col-md-3 col-lg-3">
+        <div class="col-md-6 col-lg-6">
+        <div class="input-group">
+            <input type="text" class="form-control claimInput" placeholder="Write in your Research Question/Topic">
+            <span class="input-group-btn">
+              <button class="btn addClaim" type="button">+</button>
+            </span>
+        </div>
         <ul class="collection with-header">
           <li class="collection-header"><h4>Claims</h4></li>
-          <li class="collection-item">
+          <!-- <li class="collection-item">
             <p class="claim">Claim 1: Builing Regulation Skills in DTR Students</p>
             <p class="range-field"><input type="range" value="0" class="claimSlider" id="claim1" min="0" max="10" /></p> 
           </li>
@@ -55,7 +61,7 @@
           <li class="collection-item">
             <p class="claim">Claim 3: Builing Regulation Skills in DTR Students</p>
             <p class="range-field"><input type="range" value="0" class="claimSlider" id="claim3" min="0" max="10" /></p>   
-          </li>
+          </li> -->
         </ul>
                
         </div>
