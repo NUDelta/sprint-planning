@@ -61,6 +61,7 @@ app.controller('MyCntrl', function($scope, $compile) {
 	    	if(newVal[watchArray.length-1]) {
 		    	captureChange(newVal[watchArray.length-1], claimCount) 
 		    }
+		    $scope.total = newVal.reduce((a, b) => a + b, 0);
 		});
 	  }
 
