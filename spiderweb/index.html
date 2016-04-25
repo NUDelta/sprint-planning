@@ -16,27 +16,51 @@
 
     <!-- Add Font Awesome -->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+
+    <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+          
   </head>
   <body>
-    <div class="container">
-      <h1>Research Questions/Topics</h1>
-      <div id="row-research" class="row">
+    <div class="container-fluid">
+<!--         <h1>Research Questions/Topics</h1>
+ -->      <!-- <div id="row-research" class="row">
         <div id="new-question" class="col-xs-12">
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Write in your Research Question/Topic">
                 <span class="input-group-btn">
                   <button class="btn btn-success" type="button">+</button>
                 </span>
-            </div><!-- /input-group -->
-          </div><!-- /.col-lg-6 -->
-        </div>
+            </div>
+          </div>
+        </div> -->
       <div class="row">
-        <div class="col-md-6 col-lg-6">
+        <div class="col-md-6 col-lg-6 z-depth-2">
           <div id="chart"></div>
+        </div>
+        <div class="col-md-6 col-lg-6">
+        <ul class="collection with-header">
+          <li class="collection-header"><h4>Claims</h4></li>
+          <li class="collection-item">
+            <p class="claim">Builing Regulation Skills in DTR Students</p>
+            <p class="range-field"><input type="range" value="0" class="claimSlider" id="claim1" min="0" max="100" /></p> 
+          </li>
+          <li class="collection-item">
+            <p class="claim">Builing Regulation Skills in DTR Students</p>
+            <p class="range-field"><input type="range" value="0" class="claimSlider" id="claim2" min="0" max="100" /></p>   
+          </li>
+          <li class="collection-item">
+            <p class="claim">Builing Regulation Skills in DTR Students</p>
+            <p class="range-field"><input type="range" value="0" class="claimSlider" id="claim3" min="0" max="100" /></p>   
+          </li>
+        </ul>
+               
         </div>
       </div>
     </div>
-  
     <script type="text/javascript" src="script.js"></script>
 
   </body>

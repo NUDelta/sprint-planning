@@ -8,3 +8,11 @@ body {
 #row-research {
 	padding-bottom: 5%;
 }
+
+.container-fluid {
+	padding-top: 5%;
+}
+
+.claim {
+	font-size: 20px;
+}
