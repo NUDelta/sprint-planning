@@ -8,6 +8,7 @@ $('.addClaim').click(function() {
             '<p class="range-field"><input type="range" value="0" class="claimSlider" id="claim' + claimCount + '" min="0" max="10" /></p>' + 
           '</li>'
 	$('.collection').append(item)
+	$(".claimInput").val('');
 });
 
 $(function() {
