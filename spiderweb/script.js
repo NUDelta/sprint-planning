@@ -39,7 +39,7 @@ app.controller('MyCntrl', function($scope, $compile) {
 
 	    var item = '<li class="collection-item">' +
 	    '<p class="claim">Claim ' + claimCount + ': ' + newClaim + '</p>' +
-	    '<p>Increase by {{ claim' + claimCount + 'Val * 10}} percent</p>' +
+	    '<p>Increase by {{ (claim' + claimCount + 'Val * 10) || 0}} percent</p>' +
 	    '<md-slider flex="" data-val="{{ claim' + claimCount + 'Val }}" ng-change=updateGraph() md-discrete="" ng-model="claim' + claimCount + 'Val" class="claimSlider" id="claim' + claimCount + '" step="1" min="0" max="10" aria-label="rating">'+
       	'</md-slider>'+
       	'</li>'
