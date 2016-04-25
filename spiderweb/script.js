@@ -8,27 +8,6 @@ $(function() {
 	//Legend titles
 	var LegendOptions = ['Things You Know','Things You Want To Know'];
 
-	// var claim1 = $("#claim1").val()
-	// console.log(claim1)
-
-	//Data
-	var claim1Start = 0.29; 
-	var claim2Start = 0.24; 
-	var claim3Start = 0.36; 
-	var claim4Start = 0.35;
-
-	var d = [
-			  [
-				{axis:"Claim 1",value:claim1Start},
-				{axis:"Claim 2",value:claim2Start},
-				{axis:"Claim 3",value:claim3Start}
-			  ],[
-				{axis:"Claim 1",value:claim1Start},
-				{axis:"Claim 2",value:claim2Start},
-				{axis:"Claim 3",value:claim3Start}
-			  ]
-			];
-
 	//Options for the Radar chart, other than default
 	var mycfg = {
 	  w: w,
@@ -38,9 +17,9 @@ $(function() {
 	  ExtraWidthX: 300
 	}
 
-	//Call function to draw the Radar chart
-	//Will expect that data is in %'s
-	RadarChart.draw("#chart", d, mycfg);
+	// //Call function to draw the Radar chart
+	// //Will expect that data is in %'s
+	// RadarChart.draw("#chart", d, mycfg);
 
 	var claimCount = 0;
 	var claimStart = .3
@@ -62,34 +41,38 @@ $(function() {
 		$(".claimInput").val('');
 
 		addClaimVal(claimCount)
-
 	});
-	function addClaimVal(claimCount) {
-		newObject = {axis:"Claim " + claimCount, value:claimStart}
-		oldProgress.push(newObject);
-		newProgress.push(newObject);
-		updatedData = [oldProgress, newProgress]
-		RadarChart.draw("#chart", updatedData, mycfg);
 
+	function addClaimVal(claimCount) {
+		oldProgress.push({axis:"Claim " + claimCount, value:claimStart});
+		newProgress.push({axis:"Claim " + claimCount, value:claimStart});
+		resetGraph()
+		$('#claim' + claimCount).change(function() {
+			captureChange(event, claimCount)
+		});
 	}
 
-	$('.claimSlider').change(function() {
-		var claim1 = $("#claim1").val()
-		var claim2 = $("#claim2").val()
-		var claim3 = $("#claim3").val()
-		var newData = [
-		  [
-			{axis:"Claim 1",value:claim1Start},
-			{axis:"Claim 2",value:claim2Start},
-			{axis:"Claim 3",value:claim3Start}
-		  ],[
-			{axis:"Claim 1",value:(claim1Start + (claim1/100))},
-			{axis:"Claim 2",value:(claim2Start + (claim2/100))},
-			{axis:"Claim 3",value:(claim3Start + (claim3/100))}
-		  ]
-		];
-		RadarChart.draw("#chart", newData, mycfg);
-	});
+	function resetGraph() {
+		updatedData = [oldProgress, newProgress]
+		console.log(updatedData)
+		RadarChart.draw("#chart", updatedData, mycfg);
+	}
+
+	function captureChange(event, claimCount) {
+		// var sliderID = $(event.target).attr('id');
+		var newVal = ($(event.target).val())/100
+		console.log(newVal)
+		//....
+		for (var i = 0; i < newProgress.length; i++) {
+			if( newProgress[i]["axis"].indexOf(claimCount) != -1 ) {
+				newProgress[i]["value"] = oldProgress[i]["value"] + newVal;
+			}
+			// newProgress[i]["value"] = claimStart
+		}
+		resetGraph()
+	}
+
+	
 
 
 	////////////////////////////////////////////
