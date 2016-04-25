@@ -11,17 +11,20 @@ $(function() {
 	// console.log(claim1)
 
 	//Data
+	var claim1Start = 0.29; 
+	var claim2Start = 0.24; 
+	var claim3Start = 0.36; 
+	var claim4Start = 0.35;
+
 	var d = [
 			  [
-				{axis:"Email",value:0.59},
-				{axis:"Social Networks",value:0.56},
-				{axis:"Internet Banking",value:0.42},
-				{axis:"News Sportsites",value:0.34}
+				{axis:"Claim 1",value:claim1Start},
+				{axis:"Claim 2",value:claim2Start},
+				{axis:"Claim 3",value:claim3Start}
 			  ],[
-				{axis:"Email",value:0.59},
-				{axis:"Social Networks",value:0.41},
-				{axis:"Internet Banking",value:0.27},
-				{axis:"News Sportsites",value:0.28}
+				{axis:"Claim 1",value:claim1Start},
+				{axis:"Claim 2",value:claim2Start},
+				{axis:"Claim 3",value:claim3Start}
 			  ]
 			];
 
@@ -39,7 +42,21 @@ $(function() {
 	RadarChart.draw("#chart", d, mycfg);
 
 	$('.claimSlider').change(function() {
-		console.log("Test")
+		var claim1 = $("#claim1").val()
+		var claim2 = $("#claim2").val()
+		var claim3 = $("#claim3").val()
+		var newData = [
+		  [
+			{axis:"Claim 1",value:claim1Start},
+			{axis:"Claim 2",value:claim2Start},
+			{axis:"Claim 3",value:claim3Start}
+		  ],[
+			{axis:"Claim 1",value:(claim1Start + (claim1/100))},
+			{axis:"Claim 2",value:(claim2Start + (claim2/100))},
+			{axis:"Claim 3",value:(claim3Start + (claim3/100))}
+		  ]
+		];
+		RadarChart.draw("#chart", newData, mycfg);
 	});
 
 
