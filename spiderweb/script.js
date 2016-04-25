@@ -1,15 +1,3 @@
-var claimCount = 0;
-
-$('.addClaim').click(function() {
-	claimCount++;
-	var newClaim = $(".claimInput").val()
-	var item = '<li class="collection-item">' +
-	'<p class="claim">Claim ' + claimCount + ': ' + newClaim + '</p>' +
-            '<p class="range-field"><input type="range" value="0" class="claimSlider" id="claim' + claimCount + '" min="0" max="10" /></p>' + 
-          '</li>'
-	$('.collection').append(item)
-	$(".claimInput").val('');
-});
 
 $(function() {
 	var w = 500,
@@ -53,6 +41,33 @@ $(function() {
 	//Call function to draw the Radar chart
 	//Will expect that data is in %'s
 	RadarChart.draw("#chart", d, mycfg);
+
+	var claimCount = 0;
+	var claimStart = .3
+	var oldProgress = []
+	var newProgress = []
+
+	$('.addClaim').click(function() {
+		claimCount++;
+		var newClaim = $(".claimInput").val()
+		var item = '<li class="collection-item">' +
+		'<p class="claim">Claim ' + claimCount + ': ' + newClaim + '</p>' +
+	            '<p class="range-field"><input type="range" value="0" class="claimSlider" id="claim' + claimCount + '" min="0" max="10" /></p>' + 
+	          '</li>'
+		$('.collection').append(item)
+		$(".claimInput").val('');
+
+		addClaimVal(claimCount)
+
+	});
+	function addClaimVal(claimCount) {
+		newObject = {axis:"Claim " + claimCount, value:claimStart}
+		oldProgress.push(newObject);
+		newProgress.push(newObject);
+		updatedData = [oldProgress, newProgress]
+		RadarChart.draw("#chart", updatedData, mycfg);
+
+	}
 
 	$('.claimSlider').change(function() {
 		var claim1 = $("#claim1").val()
