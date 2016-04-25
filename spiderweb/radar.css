@@ -1,0 +1,10 @@
+body {
+	overflow: hidden;
+	margin: 0;
+	font-size: 14px;
+	font-family: "Helvetica Neue", Helvetica;
+}
+
+#row-research {
+	padding-bottom: 5%;
+}

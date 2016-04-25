@@ -1,59 +1,43 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <link rel="logo" type="image/png" href="demo.png" />
-      <title>Demo Radar chart D3</title>
-      <style>
-      body{font-family: sans-serif}
-      </style>
-</head>
-<body>
- <div style='width:100%;display:block;'>
-  <h2>Example of radar chart</h2>
-  <h4><a href='https://github.com/alangrafu/radar-chart-d3'>https://github.com/alangrafu/radar-chart-d3</a></h4>
-  <div id="chart" style='float:left'></div>
-  <div style='float:left'>
-   Code:
-   <pre>
-d = [
-     {axis: "strength", value: 13, order:0}, 
-     {axis: "intelligence", value: 1, order:1}, 
-     {axis: "charisma", value: 8, order:2},  
-     {axis: "dexterity", value: 4, order:3},  
-     {axis: "luck", value: 10, order:4},
-     {axis: "azole", value: 10, order:5}
-    ]
-];
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>Radar chart</title>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="RadarChart.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="logo" type="image/png" href="demo.png" />
+    <title>Radar Chart</title>
+    <!-- Add in Bootstrap & jQuery -->
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="radar.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-RadarChart.draw("#chart", d);
+    <!-- Add Font Awesome -->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Research Questions/Topics</h1>
+      <div id="row-research" class="row">
+        <div id="new-question" class="col-xs-12">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Write in your Research Question/Topic">
+                <span class="input-group-btn">
+                  <button class="btn btn-success" type="button">+</button>
+                </span>
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-6 -->
+        </div>
+      <div class="row">
+        <div class="col-md-6 col-lg-6">
+          <div id="chart"></div>
+        </div>
+      </div>
+    </div>
+  
+    <script type="text/javascript" src="script.js"></script>
 
-   </pre>
-  </div>
- </div>
- 
-
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="radar-chart.js"></script>
-<script>
-var d = [
-         {axis: "strength", value: 13, order:0}, 
-         {axis: "intelligence", value: 1, order:1}, 
-         {axis: "charisma", value: 8, order:2},  
-         {axis: "dexterity", value: 4, order:3},  
-         {axis: "luck", value: 10, order:4},
-         {axis: "azole", value: 10, order:5}
-        ];
-
-
-RadarChart.draw("#chart", d);
-
-
-//This function generates a new array with 3 objects every time. The values for each axis are randomized
-//In order to re-generate the radar chart, you jsut need to run RadarChart.draw("#chart2", data) as usual.
-
-
-</script>
-
-</body>
+  </body>
 </html>
