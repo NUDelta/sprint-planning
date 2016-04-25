@@ -20,7 +20,7 @@ ExtraWidthX: 300
 // RadarChart.draw("#chart", d, mycfg);
 
 var claimCount = 0;
-var claimStart = .3
+var claimStart = 30
 var oldProgress = []
 var newProgress = []
 watchArray = []
@@ -39,8 +39,8 @@ app.controller('MyCntrl', function($scope, $compile) {
 
 	    var item = '<li class="collection-item">' +
 	    '<p class="claim">Claim ' + claimCount + ': ' + newClaim + '</p>' +
-	    '<p>Increase by {{ (claim' + claimCount + 'Val * 10) || 0}} percent</p>' +
-	    '<md-slider flex="" data-val="{{ claim' + claimCount + 'Val }}" ng-change=updateGraph() md-discrete="" ng-model="claim' + claimCount + 'Val" class="claimSlider" id="claim' + claimCount + '" step="1" min="0" max="10" aria-label="rating">'+
+	    '<p>Increase by {{ (claim' + claimCount + 'Val) || 0}} points</p>' +
+	    '<md-slider flex="" md-discrete="" ng-model="claim' + claimCount + 'Val" class="claimSlider" id="claim' + claimCount + '" step="1" min="0" max="10" aria-label="rating">'+
       	'</md-slider>'+
       	'</li>'
 
@@ -60,8 +60,9 @@ app.controller('MyCntrl', function($scope, $compile) {
 	    $scope.$watchGroup(watchArray, function(newVal, oldVal) { 
 	    	if(newVal[watchArray.length-1]) {
 		    	captureChange(newVal[watchArray.length-1], claimCount) 
+		    	$scope.total = newVal.reduce((a, b) => a + b, 0);
 		    }
-		    $scope.total = newVal.reduce((a, b) => a + b, 0);
+		    
 		});
 	  }
 
@@ -72,7 +73,7 @@ app.controller('MyCntrl', function($scope, $compile) {
 
 	  function captureChange(claimVal, claimCount) {
 	    // var sliderID = $(event.target).attr('id');
-	    var newVal = claimVal/100
+	    var newVal = claimVal
 	    //....
 	    for (var i = 0; i < newProgress.length; i++) {
 	      if( newProgress[i]["axis"].indexOf(claimCount) != -1 ) {
