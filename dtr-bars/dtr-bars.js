@@ -61,7 +61,7 @@ var question_number = 0,
             },
 
             series: [{
-                data: [30, 30, 30],
+                data: [10, 10, 10],
                 //draggableX: true,
                 draggableY: true,
                 dragMinY: 0,
@@ -70,7 +70,7 @@ var question_number = 0,
                 name: 'Knowledge You Want to Learn This Week',
                 color: '#74B8E6'
             }, {
-                data: [10, 10, 10],
+                data: [20, 20, 20],
                 draggableY: true,
                 dragMinY: 0,
                 type: 'column',
