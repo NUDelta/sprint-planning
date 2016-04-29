@@ -1,10 +1,9 @@
 var data = [];
-
-$(function () {
-    var chart = new Highcharts.Chart(chartOptions = {
+var chartOptions = {
         chart: {
             renderTo: 'container',
-            type: 'column'
+            type: 'column',
+            animation: false
         },
         title: {
             text: 'Stacked column chart'
@@ -54,26 +53,34 @@ $(function () {
         },
         series: [{
             name: 'Story 1',
-            // draggableY: true,
-            data: data 
+            draggableY: true,
+            type: 'column',
+            data: [] 
             
-        }]
-    }, function() {
-        var count = 0
-        $("#button").click( function() {
-            count++;
-            var newClaims = chart.axes[0].categories;
-            newClaims.push("Objective " + count);
-            data.push(2)
-            chart.isDirty = true;
-            chart.yAxis[0].isDirty = true;
-            chart.xAxis[0].isDirty = true;
-            chart.series[0].isDirty = true;
-            chart.axes[0].categories = newClaims;
-            chart.series[0].setData(data, true)
-            console.log("Categories: " + chart.axes[0].categories);
-            console.log("Chart Data: " + chart.series[0].data);
-        }); 
-    });
+        }]};
+var count = 0
+var claims = []
+
+$(function() {        
+    $("#button").click( function() {
+        if(count != 0) {
+            $('#container').highcharts().destroy();
+        }
+       
+        count++;
+
+        //Push Data In
+        claims.push("Objective " + count);
+        data.push(2)
+
+        chartOptions.xAxis.categories = claims;
+        chartOptions.series[0].data = data;
+
+        var chart = new Highcharts.Chart(chartOptions)
+
+        console.log("Categories: " + chart.axes[0].categories);
+        console.log("Chart Data: " + chart.series[0].data);
+
+    }); 
 
 });
