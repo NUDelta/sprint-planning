@@ -20,7 +20,7 @@ ExtraWidthX: 300
 // RadarChart.draw("#chart", d, mycfg);
 
 var claimCount = 0;
-var claimStart = 30
+var claimStart = 10
 var oldProgress = []
 var newProgress = []
 var watchArray = []
