@@ -41,7 +41,6 @@ var chartOptions = {
         },
         plotOptions: {
             column: {
-                stacking: 'normal',
                 dataLabels: {
                     enabled: true,
                     color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
@@ -54,7 +53,7 @@ var chartOptions = {
         series: [{
             name: 'Story 1',
             draggableY: true,
-            type: 'column',
+            // type: 'column',
             data: [] 
             
         }]};
@@ -63,18 +62,41 @@ var claims = []
 
 $(function() {        
     $("#button").click( function() {
+        var oldData = [];
+
         if(count != 0) {
+            for (var i = 0; i < chartOptions.series.length; i++) {
+                dataArr = chartOptions.series[i].data;
+                
+                for (var i = 0; i < dataArr.length; i++) {
+
+                    if(typeof(dataArr[i]) == 'object') {
+                        oldData.push(dataArr[i].y)
+                    }
+                    else {
+                        oldData.push(dataArr[i])
+                    }
+                }
+                console.log(oldData);
+            }
+            
             $('#container').highcharts().destroy();
         }
        
-        count++;
+
+        if(count == 0) {
+            chartOptions.series[0].data = [2];
+        }
+        else {
+            chartOptions.series[0].data = oldData.concat(2);
+        }
+        
 
         //Push Data In
+        count++;
         claims.push("Objective " + count);
-        data.push(2)
-
         chartOptions.xAxis.categories = claims;
-        chartOptions.series[0].data = data;
+
 
         var chart = new Highcharts.Chart(chartOptions)
 
