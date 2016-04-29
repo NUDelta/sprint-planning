@@ -18,7 +18,7 @@ var question_number = 0,
                     text: 'Knowledge'
                 },
                 min:0,
-                max:100
+                // max:100
             },
             legend: {
                     reversed: true
