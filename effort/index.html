@@ -1,15 +1,56 @@
 <html>
 	<head>
 		
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>	
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<!-- Compiled and minified CSS -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+
+		<!-- Compiled and minified JavaScript -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>	
+
+		<style>
+			.graphArea {
+				width: 50%;
+				height: 500px;
+			}
+
+			.container-fluid {
+				padding-top: 2%;
+			}
+			
+		</style>
 	</head>
 	<body>
-		<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-		<button id="button">Test</button>
+		 <div class="container-fluid">
+	      <div class="row">
+	        <div class="col s6 m6 l6 z-depth-2 graphArea valign-wrapper">
+	          <!-- <p class="valign center-align" id="message">Add a few claims to begin planning!</p> -->
+	          <div id="container"></div>
+	        </div>
+	        <div class="col s6 m6 l6">
+		        <div class="input-group">
+		            <input type="text" class="form-control claimInput col s10" placeholder="Write in your Research Question/Topic">
+		            <span class="input-group-btn col s2">
+		              <button class="btn addClaim" type="button">+</button>
+		            </span>
+		        </div>
+		        <div class="clearfix"></div>
+		        <div class="claimItems">
+		          <ul class="collection with-header">
+		            <li class="collection-header">
+		              <h4>Claims</h4>
+		            </li>
+		          </ul>
+		      	</div>
+	      	</div>
+	      </div>
+
 	</body>
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 	<script src="https://rawgithub.com/highslide-software/draggable-points/master/draggable-points.js"></script>
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script src="effort.js"></script>
+
+
 
 </html>

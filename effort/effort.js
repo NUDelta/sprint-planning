@@ -1,4 +1,6 @@
 var data = [];
+var defaultVal = 8
+var claimCount = 0;
 var chartOptions = {
         chart: {
             renderTo: 'container',
@@ -6,7 +8,7 @@ var chartOptions = {
             animation: false
         },
         title: {
-            text: 'Stacked column chart'
+            text: 'Effort on Sprint Claims'
         },
         xAxis: {
             categories: []
@@ -14,7 +16,7 @@ var chartOptions = {
         yAxis: {
             min: 0,
             title: {
-                text: 'Total fruit consumption'
+                text: 'Points'
             },
             stackLabels: {
                 enabled: true,
@@ -51,7 +53,7 @@ var chartOptions = {
             }
         },
         series: [{
-            name: 'Story 1',
+            name: 'Claim Points',
             draggableY: true,
             // type: 'column',
             data: [] 
@@ -61,7 +63,7 @@ var count = 0
 var claims = []
 
 $(function() {        
-    $("#button").click( function() {
+    function updateGraph() {
         var oldData = [];
 
         if(count != 0) {
@@ -85,16 +87,14 @@ $(function() {
        
 
         if(count == 0) {
-            chartOptions.series[0].data = [2];
+            chartOptions.series[0].data = [defaultVal];
         }
         else {
-            chartOptions.series[0].data = oldData.concat(2);
+            chartOptions.series[0].data = oldData.concat(defaultVal);
         }
-        
-
         //Push Data In
         count++;
-        claims.push("Objective " + count);
+        claims.push("Claim " + count);
         chartOptions.xAxis.categories = claims;
 
 
@@ -103,6 +103,34 @@ $(function() {
         console.log("Categories: " + chart.axes[0].categories);
         console.log("Chart Data: " + chart.series[0].data);
 
-    }); 
+    }; 
+
+    $(".addClaim").click( function() {
+        insertClaim();
+    });
+
+    function insertClaim() {
+        var newClaim = $(".claimInput").val();
+
+        claimCount++;
+
+        var item = '<li class="collection-item">' +
+        '<p class="claim">Claim ' + claimCount + ': ' + newClaim + '</p>' +
+        '</li>';
+
+        $('.collection').append(item);
+
+        updateGraph();
+
+        $(".claimInput").val('');
+
+    }
+
+    $(".claimInput").keypress(function(event) {
+       if (event.which == 13) {
+           event.preventDefault();
+           insertClaim();
+       }
+    });
 
 });
