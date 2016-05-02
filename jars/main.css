@@ -3,6 +3,10 @@
 }
 .btn-chart{
 	margin-bottom: 15px;
+	margin-left: 15px;
+}
+.ul-delieverables{
+	padding-left: inherit;
 }
 .circle-1{
 	color:#e67e22;

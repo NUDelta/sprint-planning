@@ -32,7 +32,7 @@ var story_number = 0,
             },
             xAxis:{
                 title: {
-                    text: 'Difficulty'
+                    text: 'Difficulty (Hard = -1/Easy = 1)'
                 },
                 min:-1,
                 max:1,
@@ -118,14 +118,14 @@ delieverables = function(){
         '<div class="col-xs-6" id="col-left-' + story_number + '">'+
         '<form class="col-xs-12">' + 
         	'<div class="form-group">' +
-            '<label for="basic-url">What are possible delieverables for this story?</label>' + 
+            '<h5>What are possible delieverables for this story?</h5>' + 
         	'<div class="input-group">' +
             '<input type="text" id="input-delieverable-' + story_number + '" '+
             'class="form-control" placeholder="Write in your Delieverable (Press Enter)"><span class="input-group-btn"><button class="btn btn-success" type="button">+</button></span></div></div>' +
         '</form>'+
         //End of form
         '<h5 class="col-xs-12">Delieverables List</h5>'+
-        '<ul id="deliverable-list-' + story_number + '" class="list-group col-xs-12"></ul>' +
+        '<ul id="deliverable-list-' + story_number + '" class="list-group col-xs-12 ul-delieverables"></ul>' +
         '</div>' + 
         //Make chart container
         '<div id="chart-' + story_number + '" class="col-xs-6"></div>' +
@@ -162,7 +162,7 @@ add_deliverables = function(story_number) {
             $('#col-left-' + story_number).append(
 
                 '<form class="col-xs-12"><div class="form-group">' +
-                    '<label for="Why">Which delieverable did you choose and why?</label>' + 
+                    '<label for="Why">Which delieverable(s) did you choose and why?</label>' + 
                     '<textarea class="form-control" placeholder=""></textarea></div></form>'
             );
             $('#btn-make-chart-' + story_number).click( function(){
