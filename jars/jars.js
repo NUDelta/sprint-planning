@@ -1,7 +1,16 @@
 var story_number = 0,
     colors = ['#e67e22','#3498db','#9b59b6','#f1c40f','#27ae60','#e74c3c','#95a5a6'],
+    data = [[0.5, 0.5, 7],
+            [0.75, 0.25, 7],
+            [-0.25, 0.25, 7],
+            [-0.5, 0.5, 7],
+            [0.75, -0.25, 7],
+            [-0.25, -0.25, 7],
+            [-0.25, -0.75, 7]],
     delieverables_list = [],
-    chart = function(title,renderLocation){
+    chart = function(title,renderLocation,story_number){
+        new_data = data.slice(0,delieverables_list[story_number])
+        console.log(new_data);
         new Highcharts.Chart({
             chart: {
                 renderTo: renderLocation,
@@ -58,11 +67,7 @@ var story_number = 0,
                 cursor: 'move',
                 draggableX: true,
                 draggableY: true,
-                data: [
-                    [0.5, 0.5, 7],
-                    [0.75, 0.25, 7],
-                    [-0.25, 0.25, 7]
-                ]
+                data: new_data
             }]
 
 
@@ -125,7 +130,7 @@ add_deliverables = function(story_number) {
                 '<button type="button" class="btn btn-primary" id="btn-make-chart-' + story_number + '">Make Chart</button>'
             );
             $('#btn-make-chart-' + story_number).click( function(){
-                chart('title','chart-' + story_number)
+                chart('title','chart-' + story_number,story_number)
             });
         }
     }
