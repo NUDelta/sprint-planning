@@ -1,4 +1,6 @@
 var story_number = 0,
+    colors = ['#e67e22','#3498db','#9b59b6','#f1c40f','#27ae60','#e74c3c','#95a5a6'],
+    delieverables_list = [],
     chart = function(title,renderLocation){
         new Highcharts.Chart({
             chart: {
@@ -79,18 +81,24 @@ delieverables = function(){
         
         //Add the textareas
         $(".container").append(
-        '<div class="col-xs-6"><form class="col-xs-12">' + 
+        '<div class="col-xs-6" id="col-left-' + story_number + '">'+
+        '<form class="col-xs-12">' + 
         	'<div class="form-group">' +
             '<label for="basic-url">What are possible delieverables for this story?</label>' + 
         	'<div class="input-group">' +
             '<input type="text" id="input-delieverable-' + story_number + '" '+
-            'class="form-control" placeholder="Write in your Delieverable (Press Enter)"><span class="input-group-btn"><button class="btn btn-success" type="button">+</button></span></div>' +
+            'class="form-control" placeholder="Write in your Delieverable (Press Enter)"><span class="input-group-btn"><button class="btn btn-success" type="button">+</button></span></div></div>' +
         '</form>'+
         //End of form
-        '<h5>Delieverables List</h5>'+
-        '<ul id="deliverable-list-' + story_number + '" class="list-group"></ul>' +
-        '</div><div class="clearfix"></div>'
+        '<h5 class="col-xs-12">Delieverables List</h5>'+
+        '<ul id="deliverable-list-' + story_number + '" class="list-group col-xs-12"></ul>' +
+        '</div>' + 
+        //Make chart container
+        '<div id="chart-' + story_number + '" class="col-xs-6"></div>' +
+        '<div class="clearfix"></div>'
         );
+        //Make delieverable dictionary entry
+        delieverables_list[story_number] = 0;
         $('#input-delieverable-' + story_number).keypress(function(event) {
             if (event.which == 13) {
                 event.preventDefault();
@@ -104,12 +112,22 @@ delieverables = function(){
 add_deliverables = function(story_number) {
     var new_deliverable = $('#input-delieverable-' + story_number);
     if(new_deliverable.val()){
+         delieverables_list[story_number] += 1; 
         $('#deliverable-list-' + story_number).append(
             '<li class="list-group-item">' + 
                 new_deliverable.val() +
+                '<span class="pull-right"><i class="fa fa-circle circle-' +  delieverables_list[story_number] + '" aria-hidden="true"></i></span>' + 
             '</li>'
         );
-        new_deliverable.val('')
+        new_deliverable.val('');
+        if (delieverables_list[story_number] == 1) {
+            $('#col-left-' + story_number).append(
+                '<button type="button" class="btn btn-primary" id="btn-make-chart-' + story_number + '">Make Chart</button>'
+            );
+            $('#btn-make-chart-' + story_number).click( function(){
+                chart('title','chart-' + story_number)
+            });
+        }
     }
 };
 $("#new-story input").keypress(function(event) {
