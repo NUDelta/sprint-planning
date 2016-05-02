@@ -1,16 +1,23 @@
 var story_number = 0,
     colors = ['#e67e22','#3498db','#9b59b6','#f1c40f','#27ae60','#e74c3c','#95a5a6'],
-    data = [[0.5, 0.5, 7],
-            [0.75, 0.25, 7],
-            [-0.25, 0.25, 7],
-            [-0.5, 0.5, 7],
-            [0.75, -0.25, 7],
-            [-0.25, -0.25, 7],
-            [-0.25, -0.75, 7]],
+    // data = [[0.5, 0.5, 7],
+    //         [0.75, 0.25, 7],
+    //         [-0.25, 0.25, 7],
+    //         [-0.5, 0.5, 7],
+    //         [0.75, -0.25, 7],
+    //         [-0.25, -0.25, 7],
+    //         [-0.25, -0.75, 7]],
+    data = [{x:0.5, y:0.5, z:7, name: '1'},
+            {x:0.75, y:0.25, z:7, name: '2'},
+            {x:-0.25, y:0.25, z:7, name: '3'},
+            {x:-0.5, y:0.5, z:7, name: '4'},
+            {x:0.75, y:-0.25, z:7, name: '5'},
+            {x:-0.25, y:-0.25, z:7, name: '6'},
+            {x:-0.25, y:-0.75, z:7, name: '7'}],
     delieverables_list = [],
     chart = function(title,renderLocation,story_number){
        
-        console.log(new_data);
+        // console.log(new_data);
         var current_chart = new Highcharts.Chart({
             chart: {
                 renderTo: renderLocation,
@@ -61,6 +68,14 @@ var story_number = 0,
             tooltip: {
                 enabled:false
             },
+            plotOptions: {
+                        series: {
+                            dataLabels: {
+                                enabled: true,
+                                format: '{point.name}'
+                            }
+                        }
+                    },
 
             // series: [{
             //     type: 'bubble',
@@ -131,9 +146,10 @@ delieverables = function(){
 add_deliverables = function(story_number) {
     var new_deliverable = $('#input-delieverable-' + story_number);
     if(new_deliverable.val()){
-         delieverables_list[story_number] += 1; 
+        delieverables_list[story_number] += 1; 
         $('#deliverable-list-' + story_number).append(
             '<li class="list-group-item">' + 
+                delieverables_list[story_number] + '. ' + 
                 new_deliverable.val() +
                 '<span class="pull-right"><i class="fa fa-circle circle-' +  delieverables_list[story_number] + '" aria-hidden="true"></i></span>' + 
             '</li>'
