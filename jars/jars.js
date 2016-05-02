@@ -18,7 +18,7 @@ var story_number = 0,
             },
             
             title: {
-                text: title
+                text: 'Essential vs. Difficulty'
             },
             legend: {
                 enabled: false
@@ -141,7 +141,13 @@ add_deliverables = function(story_number) {
         new_deliverable.val('');
         if (delieverables_list[story_number] == 1) {
             $('#col-left-' + story_number).append(
-                '<button type="button" class="btn btn-primary" id="btn-make-chart-' + story_number + '">Make Chart</button>'
+                '<button type="button" class="btn btn-primary btn-chart" id="btn-make-chart-' + story_number + '">Make Chart</button>'
+            );
+            $('#col-left-' + story_number).append(
+
+                '<form class="col-xs-12"><div class="form-group">' +
+                    '<label for="Why">Which delieverable did you choose and why?</label>' + 
+                    '<textarea class="form-control" placeholder=""></textarea></div></form>'
             );
             $('#btn-make-chart-' + story_number).click( function(){
                 chart('title','chart-' + story_number,story_number)
