@@ -9,9 +9,9 @@ var story_number = 0,
             [-0.25, -0.75, 7]],
     delieverables_list = [],
     chart = function(title,renderLocation,story_number){
-        new_data = data.slice(0,delieverables_list[story_number])
+       
         console.log(new_data);
-        new Highcharts.Chart({
+        var current_chart = new Highcharts.Chart({
             chart: {
                 renderTo: renderLocation,
                 animation: false
@@ -62,16 +62,30 @@ var story_number = 0,
                 enabled:false
             },
 
-            series: [{
+            // series: [{
+            //     type: 'bubble',
+            //     cursor: 'move',
+            //     draggableX: true,
+            //     draggableY: true,
+            //     data: new_data
+            // }]
+
+
+        });
+        for(var i = 0; i < delieverables_list[story_number]; i += 1){
+            var new_data = data.slice(i,i+1)
+            current_chart.addSeries({  
+                name: i,                      
                 type: 'bubble',
                 cursor: 'move',
                 draggableX: true,
                 draggableY: true,
-                data: new_data
-            }]
-
-
-        });
+                data: new_data,
+                color: colors[i]
+            });    
+        }
+        current_chart.redraw();
+        
 },
 delieverables = function(){
     var new_story = $('#new-story input');
