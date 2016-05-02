@@ -157,7 +157,7 @@ add_deliverables = function(story_number) {
         new_deliverable.val('');
         if (delieverables_list[story_number] == 1) {
             $('#col-left-' + story_number).append(
-                '<button type="button" class="btn btn-primary btn-chart" id="btn-make-chart-' + story_number + '">Make Chart</button>'
+                '<button type="button" class="btn btn-primary btn-chart" id="btn-make-chart-' + story_number + '">Make Evaluation Chart</button>'
             );
             $('#col-left-' + story_number).append(
 
