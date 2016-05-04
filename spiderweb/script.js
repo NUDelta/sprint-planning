@@ -129,7 +129,10 @@ app.controller('MyCntrl', function($scope, $compile) {
 	  	$(".tab").click(function() {
 			var tab = $(this).attr('id');
 			var tabNum = tab.match(/\d+/)[0];
-			loadTab(tabNum)
+			$('.collection').fadeTo(100, 0, function() {
+			   $('.collection').css("visibility", "hidden");  
+			   loadTab(tabNum) 
+			});
 		})
 
 		function loadTab(tabNum) {
@@ -156,6 +159,9 @@ app.controller('MyCntrl', function($scope, $compile) {
 				}
 			}
 			watchAll()
+			$('.collection').fadeTo(100, 1, function(){
+				$('.collection').css("visibility", "visible"); 
+			});
 		}
 
 		function addClaimVal(claimCount) {
