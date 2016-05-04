@@ -18,7 +18,16 @@ var question_number = 0,
                     text: 'Knowledge'
                 },
                 min:0,
-                max:100
+                max:100,
+                lineWidth: 0,
+                minorGridLineWidth: 0,
+                lineColor: 'transparent',
+                   
+                   labels: {
+                       enabled: false
+                   },
+                   minorTickLength: 0,
+                   tickLength: 0
             },
             legend: {
                     reversed: true
@@ -57,24 +66,26 @@ var question_number = 0,
             },
 
             tooltip: {
-                yDecimals: 2
+                enabled:false
             },
 
             series: [{
-                data: [10, 30, 20],
+                data: [10, 10, 10],
                 //draggableX: true,
                 draggableY: true,
                 dragMinY: 0,
                 type: 'column',
                 minPointLength: 2,
-                name: 'Knowledge You Want to Gain'
+                name: 'Knowledge You Want to Learn This Week',
+                color: '#74B8E6'
             }, {
-                data: [5, 10, 12],
+                data: [20, 20, 20],
                 draggableY: true,
                 dragMinY: 0,
                 type: 'column',
                 minPointLength: 2,
-                name: 'Knowledge You Have'
+                name: 'Knowledge You Have',
+                color: '#2980b9'
             }]
 
         });
@@ -83,13 +94,36 @@ researchQuestions = function(){
     var new_question = $('#new-question input');
     if(new_question.val()){
         question_number += 1;
+        //Add Question Link
         $('#new-question').before(
-            '<div class="col-xs-12"><a href="#question-' + question_number + 
+            '<div class="col-xs-12 link-question"><a href="#question-' + question_number + 
             '">'+ question_number + '. '+new_question.val() + '</div>');
-        $(".container").append('<h3 id="question-' + question_number + '">'+ question_number + '. ' + new_question.val() + '</h3><div id="chart-' + question_number + '" style="height:400px;width:50%;"></div>');
+        //Add the chart container
+        $(".container").append('<h3 id="question-' + question_number + '">'+ question_number + '. ' + new_question.val() + '</h3><div id="chart-' + question_number + '" class="col-xs-6"></div>');
+        //Insert the chart
         chart(new_question.val(),'chart-'+question_number);
+        //Add the textareas
+        $(".container").append(
+        '<form class="col-xs-6">' + 
+        	'<div class="form-group">' +
+        	'<label for="What you have done">What you have done</label>' + 
+        	'<textarea class="form-control" id="What you have done" placeholder="Your work"></textarea></div>' +
+        	'<div class="form-group">' +
+        	'<label for="What you want to learn this week">What you want to learn this week?</label>' + 
+        	'<textarea class="form-control" id="What you want to learn this week" placeholder="Your desired learning"></textarea></div>'+
+        	'<div class="form-group">' + 
+        	'<a href="#">Back to the top</a></div>'+
+        '</form><div class="clearfix"></div>'
+        );
+        //Clear the new question value
         new_question.val('');
     }
 };
+$("#new-question input").keypress(function(event) {
+    if (event.which == 13) {
+        event.preventDefault();
+        researchQuestions();
+    }
+});
 $('#new-question button').click(researchQuestions);
 chart('test','container');
