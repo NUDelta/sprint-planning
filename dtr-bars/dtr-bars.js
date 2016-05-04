@@ -1,129 +1,182 @@
-var question_number = 0,
-    chart = function(title,renderLocation){
-        new Highcharts.Chart({
+var story_number = 0,
+    colors = ['#e67e22','#3498db','#9b59b6','#f1c40f','#27ae60','#e74c3c','#95a5a6',"#2c3e50"],
+    // data = [[0.5, 0.5, 7],
+    //         [0.75, 0.25, 7],
+    //         [-0.25, 0.25, 7],
+    //         [-0.5, 0.5, 7],
+    //         [0.75, -0.25, 7],
+    //         [-0.25, -0.25, 7],
+    //         [-0.25, -0.75, 7]],
+    data = [{x:0.25, y:0.5, z:7, name: '1'},
+            {x:0.375, y:0.625, z:7, name: '2'},
+            {x:0.375, y:0.375, z:7, name: '3'},
+            {x:0.5, y:0.75, z:7, name: '4'},
+            {x:0.5, y:0.25, z:7, name: '5'},
+            {x:0.625, y:0.625, z:7, name: '6'},
+            {x:0.625, y:0.375, z:7, name: '7'},
+            {x:0.75, y:0.5, z:7, name: '8'}],
+    delieverables_list = [],
+    chart = function(title,renderLocation,story_number){
+       
+        // console.log(new_data);
+        var current_chart = new Highcharts.Chart({
             chart: {
                 renderTo: renderLocation,
                 animation: false
             },
             
             title: {
-                text: title
+                text: 'Essential vs. Difficulty'
             },
-
-            xAxis: {
-                categories: ['Design', 'Technology', 'Research']
+            legend: {
+                enabled: false
+            },
+            xAxis:{
+                title: {
+                    text: 'Difficulty'
+                },
+                min:0,
+                max:1,
+                lineWidth: 0,
+                minorGridLineWidth: 10,
+                lineColor: 'transparent',
+                labels: {
+                    enabled: true
+                },
+                minorTickLength: 10,
+                tickLength: 10,
+                endOnTick: true,
             },
             yAxis:{
                 title: {
-                    text: 'Knowledge'
+                    text: 'Essential'
                 },
+
                 min:0,
-                max:100,
-                lineWidth: 0,
-                minorGridLineWidth: 0,
+                max:1,
+                lineWidth: 1,
+                minorGridLineWidth: 10,
                 lineColor: 'transparent',
                    
                    labels: {
-                       enabled: false
+                       enabled: true
                    },
-                   minorTickLength: 0,
-                   tickLength: 0
-            },
-            legend: {
-                    reversed: true
-            },
-            plotOptions: {
-                series: {
-                    point: {
-                        events: {
+                   minorTickLength: 10,
+                   tickLength: 10,
+                    endOnTick: true,
 
-                            // drag: function (e) {
-                            //     // Returning false stops the drag and drops. Example:
-                            //     /*
-                            //     if (e.newY > 300) {
-                            //         this.y = 300;
-                            //         return false;
-                            //     }
-                            //     */
-
-                            //     $('#drag').html(
-                            //         'Dragging <b>' + this.series.name + '</b>, <b>' + this.category + '</b> to <b>' + Highcharts.numberFormat(e.y, 2) + '</b>');
-                            // },
-                            // drop: function () {
-                            //     $('#drop').html(
-                            //         'In <b>' + this.series.name + '</b>, <b>' + this.category + '</b> was set to <b>' + Highcharts.numberFormat(this.y, 2) + '</b>');
-                            // }
-                        }
-                    },
-                    stickyTracking: false
-                },
-                column: {
-                    stacking: 'normal'
-                },
-                line: {
-                    cursor: 'ns-resize'
-                }
             },
-
             tooltip: {
                 enabled:false
             },
+            plotOptions: {
+                        series: {
+                            dataLabels: {
+                                enabled: true,
+                                format: '{point.name}'
+                            }
+                        }
+                    },
 
-            series: [{
-                data: [10, 10, 10],
-                //draggableX: true,
-                draggableY: true,
-                dragMinY: 0,
-                type: 'column',
-                minPointLength: 2,
-                name: 'Knowledge You Want to Learn This Week',
-                color: '#74B8E6'
-            }, {
-                data: [20, 20, 20],
-                draggableY: true,
-                dragMinY: 0,
-                type: 'column',
-                minPointLength: 2,
-                name: 'Knowledge You Have',
-                color: '#2980b9'
-            }]
+            // series: [{
+            //     type: 'bubble',
+            //     cursor: 'move',
+            //     draggableX: true,
+            //     draggableY: true,
+            //     data: new_data
+            // }]
+
 
         });
+        for(var i = 0; i < delieverables_list[story_number]; i += 1){
+            var new_data = data.slice(i,i+1)
+            current_chart.addSeries({  
+                name: i,                      
+                type: 'bubble',
+                cursor: 'move',
+                draggableX: true,
+                draggableY: true,
+                data: new_data,
+                color: colors[i]
+            });    
+        }
+        current_chart.redraw();
+        
 },
-researchQuestions = function(){
-    var new_question = $('#new-question input');
-    if(new_question.val()){
-        question_number += 1;
-        //Add Question Link
-        $('#new-question').before(
-            '<div class="col-xs-12 link-question"><a href="#question-' + question_number + 
-            '">'+ question_number + '. '+new_question.val() + '</div>');
+delieverables = function(){
+    var new_story = $('#new-story input');
+    if(new_story.val()){
+        story_number += 1;
+        //Add story Link
+        $('#new-story').before(
+            '<div class="col-xs-12 link-story"><a href="#story-' + story_number + 
+            '">'+ story_number + '. '+new_story.val() + '</div>');
         //Add the chart container
-        $(".container").append('<h3 id="question-' + question_number + '">'+ question_number + '. ' + new_question.val() + '</h3><div id="chart-' + question_number + '" class="col-xs-6"></div>');
-        //Insert the chart
-        chart(new_question.val(),'chart-'+question_number);
+        $(".container").append('<h3 id="story-' + story_number + '">'+ story_number + '. ' + new_story.val() + '</h3>');
+        
         //Add the textareas
         $(".container").append(
-        '<form class="col-xs-6">' + 
+        '<div class="col-xs-6" id="col-left-' + story_number + '">'+
+        '<form class="col-xs-12">' + 
         	'<div class="form-group">' +
-        	'<label for="What you have done">What you have done</label>' + 
-        	'<textarea class="form-control" id="What you have done" placeholder="Your work"></textarea></div>' +
-        	'<div class="form-group">' +
-        	'<label for="What you want to learn this week">What you want to learn this week?</label>' + 
-        	'<textarea class="form-control" id="What you want to learn this week" placeholder="Your desired learning"></textarea></div>'+
-        	'<div class="form-group">' + 
-        	'<a href="#">Back to the top</a></div>'+
-        '</form><div class="clearfix"></div>'
+            '<h5>What are possible delieverables for this story?</h5>' + 
+        	'<div class="input-group">' +
+            '<input type="text" id="input-delieverable-' + story_number + '" '+
+            'class="form-control" placeholder="Write in your Delieverable (Press Enter)"><span class="input-group-btn"><button class="btn btn-success" type="button">+</button></span></div></div>' +
+        '</form>'+
+        //End of form
+        '<h5 class="col-xs-12">Delieverables List</h5>'+
+        '<ul id="deliverable-list-' + story_number + '" class="list-group col-xs-12 ul-delieverables"></ul>' +
+        '</div>' + 
+        //Make chart container
+        '<div id="chart-' + story_number + '" class="col-xs-6"></div>' +
+        '<div class="clearfix"></div>'
         );
-        //Clear the new question value
-        new_question.val('');
+        //Make delieverable dictionary entry
+        delieverables_list[story_number] = 0;
+        $('#input-delieverable-' + story_number).keypress(function(event) {
+            if (event.which == 13) {
+                event.preventDefault();
+                add_deliverables(story_number)
+            }
+        });
+        //Clear the new story value
+        new_story.val('');
+    }
+},
+add_deliverables = function(story_number) {
+    var new_deliverable = $('#input-delieverable-' + story_number);
+    if(new_deliverable.val()){
+        delieverables_list[story_number] += 1; 
+        $('#deliverable-list-' + story_number).append(
+            '<li class="list-group-item">' + 
+                delieverables_list[story_number] + '. ' + 
+                new_deliverable.val() +
+                '<span class="pull-right"><i class="fa fa-circle circle-' +  delieverables_list[story_number] + '" aria-hidden="true"></i></span>' + 
+            '</li>'
+        );
+        new_deliverable.val('');
+        if (delieverables_list[story_number] == 1) {
+            $('#col-left-' + story_number).append(
+                '<button type="button" class="btn btn-primary btn-chart" id="btn-make-chart-' + story_number + '">Make Evaluation Chart</button>'
+            );
+            $('#col-left-' + story_number).append(
+
+                '<form class="col-xs-12"><div class="form-group">' +
+                    '<label for="Why">Which delieverable(s) did you choose and why?</label>' + 
+                    '<textarea class="form-control" placeholder=""></textarea></div></form>'
+            );
+            $('#btn-make-chart-' + story_number).click( function(){
+                chart('title','chart-' + story_number,story_number)
+            });
+        }
     }
 };
-$("#new-question input").keypress(function(event) {
+$("#new-story input").keypress(function(event) {
     if (event.which == 13) {
         event.preventDefault();
-        researchQuestions();
+        delieverables();
     }
 });
-$('#new-question button').click(researchQuestions);
+$('#new-story button').click(delieverables);
 chart('test','container');
