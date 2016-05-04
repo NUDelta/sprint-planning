@@ -6,8 +6,7 @@ var chartOptions = {
     },
 
     title: {
-        text: 'Sprint Progress On Claims',
-        x: -80
+        text: ''
     },
     xAxis: {
         categories: [],
@@ -28,14 +27,15 @@ var chartOptions = {
 
     tooltip: {
         shared: true,
-        pointFormat: '<span style="color:{series.color}">{series.name}: <b>${point.y:,.0f}</b><br/>'
+        pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,.0f}</b><br/>'
     },
 
     legend: {
-        align: 'right',
-        verticalAlign: 'top',
-        y: 70,
-        layout: 'vertical'
+        reversed: true
+    },
+
+    exporting: { 
+    	enabled: false 
     },
 
     series: [{

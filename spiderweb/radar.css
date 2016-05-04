@@ -19,16 +19,20 @@ body {
 
 #chart {
 	display: none;
-}
+	width:100%;
+	height:600px;
+	text-align: center;
 
+}
 .graphArea {
 	width:700px;
 	height:600px;
 }
 
 .highchart-container {
-	width:100%;
-	height:100%;
+	/*width:100%;
+	height:600px;
+	text-align: center;*/
 }
 
 #message {
