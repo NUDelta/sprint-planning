@@ -20,6 +20,11 @@ var chartOptions = {
         lineWidth: 0,
         min: 0
     },
+     plotOptions: {
+	    series: {
+	        animation: false
+	    }
+	 },
 
     tooltip: {
         shared: true,
@@ -50,11 +55,6 @@ var chartOptions = {
     },
     {
         name: 'Option 3',
-        data: [],
-        pointPlacement: 'on'
-    },
-    {
-        name: 'Option 4',
         data: [],
         pointPlacement: 'on'
     }]
@@ -124,10 +124,16 @@ app.controller('MyCntrl', function($scope, $compile) {
 
 		function loadTab(tabNum) {
 			var tabDataArr = chartOptions.series[tabNum].data;
+			
+			//Remove all sliders from other tabs
 			$('.collection').empty();
+
+			//Remove all watched values
+			watchArray = []
+
 			for (var i = 0; i < tabDataArr.length; i++) {
 				appendTabClaims(tabNum, (i+1), claimNames[i])
-				
+
 				var newTab = "tab" + tabNum + "claim" + (i+1) + "Val";
 				if(watchArray.indexOf(newTab) == -1) {
 					watchArray.push("tab" + tabNum + "claim" + (i+1) + "Val");
@@ -165,70 +171,44 @@ app.controller('MyCntrl', function($scope, $compile) {
 	    		//Get Current Tab Number
 	   			var tabNum = $("a.active").parent().attr('id').match(/\d+/)[0];
 
+	   			//Replace undefines with zeros
+	   			newVals = newVals.map(function(x) { 
+	   				if(typeof(x) == "undefined") {
+	   					return(0)
+	   				}
+	   				else {
+	   					return(x)
+	   				}
+	   			});
+
+
 	    		var dataVals = chartOptions.series[tabNum].data;
 	    		
 	    		console.log(watchArray)
 	    		console.log(newVals);
 
 	    		idx = newVals.length-1;
-	    		if(newVals[idx]) {
-			    	if(newVals.length == dataVals.length) {
-			    		dataVals = newVals.map(function(x) { return((x+claimStart));});;
-			    	}
-			    	else {
-			    		dataVals[idx] = newVals[idx] + claimStart
-			    	}
+		    	if(newVals.length == dataVals.length) {
+		    		dataVals = newVals.map(function(x) { return((x+claimStart));});;
+		    	}
+		    	else {
+		    		dataVals[idx] = newVals[idx] + claimStart
+		    	}
+		    	chartOptions.series[tabNum].data = dataVals;
+		    	console.log(chartOptions.series[tabNum].data)
+		    	resetGraph();
 
-			    	chartOptions.series[tabNum].data = dataVals;
-			    	console.log(chartOptions.series[tabNum].data)
-			    	resetGraph();
-
-				    $scope.total = dataVals.reduce((a, b) => a + b, 0);
-				}
+			    $scope.total = dataVals.reduce((a, b) => a + b, 0);
 			    
 			});
 		}
 
-	  function updateChartData(claimCount, valsArray, claimFlag) {
-	  	//Update the data in the charts
-	 	if(claimFlag) {
-	 		console.log("Added a new claim")
-		    var newChartOptions = chartOptions.xAxis.categories.concat(['Claim ' + claimCount]);
-		    chartOptions.xAxis.categories = newChartOptions;
-		}
-
-	    console.log("Series Length: " + chartOptions.series.length + ". Vals Length: " + valsArray.length)
-	    //Iterate through series data and add the new point
-	    for (var i = 0; i < chartOptions.series.length; i++) {
-	    	if (i == 0) {
-	    		var newChartData = startArray
-	    		chartOptions.series[i].data = newChartData;
-	    	}
-	    	else {
-	    		var newChartData = valsArray.map(function(x) { return((x+claimStart));});
-	    		chartOptions.series[i].data = newChartData;
-	    	}
-	    }  
-
-	    //Reset the graph
-	    resetGraph()
-	  }
 
 	  function resetGraph() {
 	  	if(claimCount > 1) {
 			$('#chart').highcharts().destroy();
 		}
 	    var chart = new Highcharts.Chart(chartOptions)
-	  }
-
-	  function captureChange(claimVal, claimCount) {
-	  	
-
-	    console.log("Tab Num: " + tabNum + ". Claim Count: " + claimCount + ". Claim Val: " + claimVal)
-	    // var newVal = claimVal
-	    // console.log(chartOptions)
-	    // var claimFlag = false;
-	    // updateChartData(claimCount, valsArray, claimFlag)
 	  }
 
 	}
