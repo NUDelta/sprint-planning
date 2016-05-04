@@ -39,6 +39,11 @@ var chartOptions = {
     },
 
     series: [{
+        name: "Work You've Done So Far",
+        data: [],
+        pointPlacement: 'on'
+    },
+    {
         name: 'Alternative 1',
         data: [],
         pointPlacement: 'on'
@@ -51,28 +56,6 @@ var oldProgress = []
 var newProgress = []
 var watchArray = []
 var valsArray = []
-
-// var w = 500,
-// h = 500;
-
-// var colorscale = d3.scale.category10();
-
-// //Legend titles
-// var LegendOptions = ['Things You Know','Things You Want To Know'];
-
-// //Options for the Radar chart, other than default
-// var mycfg = {
-// w: w,
-// h: h,
-// maxValue: 0.6,
-// levels: 6,
-// ExtraWidthX: 300
-// }
-
-// // //Call function to draw the Radar chart
-// // //Will expect that data is in %'s
-// // RadarChart.draw("#chart", d, mycfg);
-
 
 var app = angular.module('spiderweb', ['ngMaterial']);
 app.controller('MyCntrl', function($scope, $compile) {
@@ -104,35 +87,42 @@ app.controller('MyCntrl', function($scope, $compile) {
 	    // newProgress.push({axis:"Claim " + claimCount, value:claimStart});
 	    // watchArray.push("claim" + claimCount + "Val");
 	    // valsArray.push(0);
+
+	    //Update the data in the charts
 	    var newChartOptions = chartOptions.xAxis.categories.concat(['Claim' + claimCount]);
-	    var newChartData = chartOptions.series[0].data.concat([0]);
 	    chartOptions.xAxis.categories = newChartOptions;
-	    chartOptions.series[0].data = newChartData;
+
+	    //Iterate through series data and add the new point
+	    for (var i = 0; i < chartOptions.series.length; i++) {
+	    	var newChartData = chartOptions.series[i].data.concat([claimStart]);
+	    	chartOptions.series[i].data = newChartData;
+	    }  
+
+	    //Reset the graph
 	    resetGraph()
-	 //    var claims = (angular.element(document.getElementsByClassName('collection')));
-	 //    $compile(claims)($scope);
 
-	 //    var chart = new Highcharts.Chart(chartOptions)
+	    var claims = (angular.element(document.getElementsByClassName('collection')));
+	    $compile(claims)($scope);
 
-	 //    $scope.$watchGroup(watchArray, function(newVals, oldVals) {
-  //   		console.log(valsArray) 
-  //   		idx = newVals.length-1;
-  //   		if(newVals[idx]) {
-		//     	if(newVals.length == valsArray.length) {
-		//     		valsArray = newVals;
-		//     	}
-		//     	else {
+	    $scope.$watchGroup(watchArray, function(newVals, oldVals) {
+    		console.log(valsArray) 
+    		idx = newVals.length-1;
+    		if(newVals[idx]) {
+		    	if(newVals.length == valsArray.length) {
+		    		valsArray = newVals;
+		    	}
+		    	else {
 		    		
-		//     		valsArray[idx] = newVals[idx]
-		//     	}
-		//     	// if(newVal[watchArray.length-1]) {
-		// 	    captureChange(valsArray[idx], claimCount) 
+		    		valsArray[idx] = newVals[idx]
+		    	}
+		    	// if(newVal[watchArray.length-1]) {
+			    captureChange(valsArray[idx], claimCount) 
 			    
-		// 	    $scope.total = valsArray.reduce((a, b) => a + b, 0);
-		// 	    // }
-		// 	}
+			    $scope.total = valsArray.reduce((a, b) => a + b, 0);
+			    // }
+			}
 		    
-		// });
+		});
 	  }
 
 	  function resetGraph() {
