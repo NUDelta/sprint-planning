@@ -42,6 +42,21 @@ var chartOptions = {
         name: 'Option 1',
         data: [],
         pointPlacement: 'on'
+    },
+    {
+        name: 'Option 2',
+        data: [],
+        pointPlacement: 'on'
+    },
+    {
+        name: 'Option 3',
+        data: [],
+        pointPlacement: 'on'
+    },
+    {
+        name: 'Option 4',
+        data: [],
+        pointPlacement: 'on'
     }]
 }
 
@@ -108,38 +123,37 @@ app.controller('MyCntrl', function($scope, $compile) {
 		})
 
 		function loadTab(tabNum) {
-			var tabDataArr = tabData[tabNum-1].data;
+			var tabDataArr = chartOptions.series[tabNum].data;
 			$('.collection').empty();
 			for (var i = 0; i < tabDataArr.length; i++) {
 				appendTabClaims(tabNum, (i+1), claimNames[i])
-				watchArray.push("tab" + tabNum + "claim" + (i+1) + "Val");
+				
+				var newTab = "tab" + tabNum + "claim" + (i+1) + "Val";
+				if(watchArray.indexOf(newTab) == -1) {
+					watchArray.push("tab" + tabNum + "claim" + (i+1) + "Val");
+				}
 			}
-
-			// valsArray.push(0);
-		    startArray.push(claimStart);
-		    var claimFlag = false;
-		    updateChartData(claimCount, valsArray, claimFlag)
 			watchAll()
 		}
 
 	  function addClaimVal(claimCount) {
-	    //Add a value to each of the tab arrays
-	    for (var i = 0; i < tabData.length; i++) {
-	    	//Add a new claim to each tab object
-	    	tabData[i].data.push(0)	
-	    }
+	    //Add category
+	    var newChartOptions = chartOptions.xAxis.categories.concat(['Claim ' + claimCount]);
+	    chartOptions.xAxis.categories = newChartOptions;
+   		
+   		//Add a new value to account for the new category to all series data
+   		for (var i = 0; i < chartOptions.series.length; i++) {
+	    	chartOptions.series[i].data.push(claimStart)
+	    }  
 
+	    //Get Current Tab Number
 	    var tabNum = $("a.active").parent().attr('id').match(/\d+/)[0];
+
+	    //Load the tab
 	    loadTab(tabNum)
 
-	    console.log(tabData)
-
-	    // valsArray.push(0);
-	    // startArray.push(claimStart);
-	    // var claimFlag = true;
-	    // updateChartData(claimCount, valsArray, claimFlag)
-
-	    watchAll()
+	    //Refresh the graph
+	    resetGraph()
 
 	  }
 
@@ -148,18 +162,28 @@ app.controller('MyCntrl', function($scope, $compile) {
 		    $compile(claims)($scope);
 
 		    $scope.$watchGroup(watchArray, function(newVals, oldVals) {
-	    		console.log(valsArray) 
+	    		//Get Current Tab Number
+	   			var tabNum = $("a.active").parent().attr('id').match(/\d+/)[0];
+
+	    		var dataVals = chartOptions.series[tabNum].data;
+	    		
+	    		console.log(watchArray)
+	    		console.log(newVals);
+
 	    		idx = newVals.length-1;
 	    		if(newVals[idx]) {
-			    	if(newVals.length == valsArray.length) {
-			    		valsArray = newVals;
+			    	if(newVals.length == dataVals.length) {
+			    		dataVals = newVals.map(function(x) { return((x+claimStart));});;
 			    	}
 			    	else {
-			    		valsArray[idx] = newVals[idx]
+			    		dataVals[idx] = newVals[idx] + claimStart
 			    	}
 
-				    captureChange(valsArray[idx], claimCount) 
-				    $scope.total = valsArray.reduce((a, b) => a + b, 0);
+			    	chartOptions.series[tabNum].data = dataVals;
+			    	console.log(chartOptions.series[tabNum].data)
+			    	resetGraph();
+
+				    $scope.total = dataVals.reduce((a, b) => a + b, 0);
 				}
 			    
 			});
@@ -198,10 +222,13 @@ app.controller('MyCntrl', function($scope, $compile) {
 	  }
 
 	  function captureChange(claimVal, claimCount) {
-	    var newVal = claimVal
-	    console.log(chartOptions)
-	    var claimFlag = false;
-	    updateChartData(claimCount, valsArray, claimFlag)
+	  	
+
+	    console.log("Tab Num: " + tabNum + ". Claim Count: " + claimCount + ". Claim Val: " + claimVal)
+	    // var newVal = claimVal
+	    // console.log(chartOptions)
+	    // var claimFlag = false;
+	    // updateChartData(claimCount, valsArray, claimFlag)
 	  }
 
 	}
