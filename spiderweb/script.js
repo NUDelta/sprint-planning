@@ -1,157 +1,242 @@
-var w = 500,
-h = 500;
+var chartOptions = { 
+	chart: {
+		renderTo: 'chart',
+        polar: true,
+    },
 
-var colorscale = d3.scale.category10();
+    title: {
+        text: ''
+    },
+    xAxis: {
+        categories: [],
+        tickmarkPlacement: 'on',
+        lineWidth: 0
+    },
 
-//Legend titles
-var LegendOptions = ['Things You Know','Things You Want To Know'];
+    yAxis: {
+        gridLineInterpolation: 'polygon',
+        lineWidth: 0,
+        min: 0
+    },
+     plotOptions: {
+	    series: {
+	        animation: false,
+	        marker: {
+	        	enabled: false
+	        }
+	    }
+	 },
 
-//Options for the Radar chart, other than default
-var mycfg = {
-w: w,
-h: h,
-maxValue: 0.6,
-levels: 6,
-ExtraWidthX: 300
+    tooltip: {
+        shared: true,
+        pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,.0f}</b><br/>'
+    },
+
+    legend: {
+        reversed: true
+    },
+
+    exporting: { 
+    	enabled: false 
+    },
+
+    series: [{
+        name: "Work You've Done So Far",
+        data: [],
+        pointPlacement: 'on',
+        type: 'area',
+        color: '#BDA0CB'
+    },
+    {
+        name: 'Option 1',
+        data: [],
+        pointPlacement: 'on',
+        type: 'area',
+        color: '#CDFFA7'	
+    },
+    {
+        name: 'Option 2',
+        data: [],
+        pointPlacement: 'on',
+        type: 'area',
+        color: '#FFA998'	
+    },
+    {
+        name: 'Option 3',
+        data: [],
+        pointPlacement: 'on',
+        type: 'area',
+        color: '#8bc5d1'
+    }]
 }
-
-// //Call function to draw the Radar chart
-// //Will expect that data is in %'s
-// RadarChart.draw("#chart", d, mycfg);
 
 var claimCount = 0;
 var claimStart = 10
-var oldProgress = []
-var newProgress = []
 var watchArray = []
 var valsArray = []
+var startArray = []
+var claimNames = []
+var tabData = [{
+		"data": []
+	},
+	{
+		"data": []
+	},
+	{
+		"data": []
+	},
+	{
+		"data": []
+}];
+
+
+
+function appendTabClaims(tabNum, claimNum, name) {
+	console.log(name)
+	var item = '<li class="collection-item">' +
+	    '<p class="claim">Claim ' + claimNum + ': ' + name + '</p>' +
+	    '<p>Increase by {{ (tab' + tabNum + 'claim' + claimNum + 'Val) || 0}} points</p>' +
+	    '<md-slider flex="" md-discrete="" ng-model="tab' + tabNum + 'claim' + claimNum + 'Val" class="claimSlider" id="claim' + claimNum + '" step="1" min="0" max="10" aria-label="rating">'+
+      	'</md-slider>'+
+      	'</li>'
+
+	    $('.collection').append(item)
+	    $(".claimInput").val('');
+}
 
 var app = angular.module('spiderweb', ['ngMaterial']);
 app.controller('MyCntrl', function($scope, $compile) {
 	
 	$scope.addClaim = function () {
 	  
-	  function insertClaim(newClaim) {
-	    if(claimCount == 0) {
-	      $('#chart').show()
-	      $('#message').hide()
-	    }
-	    claimCount++;
+		var newClaim = $(".claimInput").val()
+		insertClaim(newClaim)
 
-	    var item = '<li class="collection-item">' +
-	    '<p class="claim">Claim ' + claimCount + ': ' + newClaim + '</p>' +
-	    '<p>Increase by {{ (claim' + claimCount + 'Val) || 0}} points</p>' +
-	    '<md-slider flex="" md-discrete="" ng-model="claim' + claimCount + 'Val" class="claimSlider" id="claim' + claimCount + '" step="1" min="0" max="10" aria-label="rating">'+
-      	'</md-slider>'+
-      	'</li>'
-
-	    $('.collection').append(item)
-	    $(".claimInput").val('');
-
-	    addClaimVal(claimCount)
-	  }
-
-	  function addClaimVal(claimCount) {
-	    oldProgress.push({axis:"Claim " + claimCount, value:claimStart});
-	    newProgress.push({axis:"Claim " + claimCount, value:claimStart});
-	    watchArray.push("claim" + claimCount + "Val");
-	    valsArray.push(0);
-	    resetGraph()
-	    var claims = (angular.element(document.getElementsByClassName('collection')));
-	    $compile(claims)($scope);
-	    $scope.$watchGroup(watchArray, function(newVals, oldVals) {
-    		console.log(valsArray) 
-    		idx = newVals.length-1;
-    		if(newVals[idx]) {
-		    	if(newVals.length == valsArray.length) {
-		    		valsArray = newVals;
-		    	}
-		    	else {
-		    		
-		    		valsArray[idx] = newVals[idx]
-		    	}
-		    	// if(newVal[watchArray.length-1]) {
-			    captureChange(valsArray[idx], claimCount) 
-			    
-			    $scope.total = valsArray.reduce((a, b) => a + b, 0);
-			    // }
+		function insertClaim(newClaim) {
+			if(claimCount == 0) {
+				$('#chart').show()
+				$('#message').hide()
 			}
-		    
-		});
-	  }
+			claimCount++;
 
-	  function resetGraph() {
-	    updatedData = [oldProgress, newProgress]
-	    RadarChart.draw("#chart", updatedData, mycfg);
-	  }
+			//Add the claim's name to the list of names
+			claimNames.push(newClaim);
 
-	  function captureChange(claimVal, claimCount) {
-	    // var sliderID = $(event.target).attr('id');
-	    var newVal = claimVal
-	    //....
-	    for (var i = 0; i < newProgress.length; i++) {
-	      if( newProgress[i]["axis"].indexOf(claimCount) != -1 ) {
-	        newProgress[i]["value"] = oldProgress[i]["value"] + newVal;
-	      }
-	      // newProgress[i]["value"] = claimStart
-	    }
-	    resetGraph()
-	  }
-	  var newClaim = $(".claimInput").val()
-	  insertClaim(newClaim)
+			addClaimVal(claimCount)
 
+		}
+
+	  	$(".tab").click(function() {
+			var tab = $(this).attr('id');
+			var tabNum = tab.match(/\d+/)[0];
+			$('.collection').fadeTo(100, 0, function() {
+			   $('.collection').css("visibility", "hidden");  
+			   loadTab(tabNum) 
+			});
+		})
+
+		function loadTab(tabNum) {
+			var tabDataArr = chartOptions.series[tabNum].data;
+			
+			//Remove all sliders from other tabs
+			$('.collection').empty();
+
+			//Add collection header
+			$('.collection').append('<li class="collection-header"><p id="total">Total Points Used for Option ' + tabNum + ': {{total || 0}}</p></li>')
+
+			//Remove all watched values
+			watchArray = []
+
+			//Change Total
+			$scope.total = chartOptions.series[tabNum].data.reduce((a, b) => a + b, 0) - 10*chartOptions.series[tabNum].data.length;
+
+			for (var i = 0; i < tabDataArr.length; i++) {
+				appendTabClaims(tabNum, (i+1), claimNames[i])
+
+				var newTab = "tab" + tabNum + "claim" + (i+1) + "Val";
+				if(watchArray.indexOf(newTab) == -1) {
+					watchArray.push("tab" + tabNum + "claim" + (i+1) + "Val");
+				}
+			}
+			watchAll()
+			$('.collection').fadeTo(100, 1, function(){
+				$('.collection').css("visibility", "visible"); 
+			});
+		}
+
+		function addClaimVal(claimCount) {
+			//Add category
+			var newChartOptions = chartOptions.xAxis.categories.concat(['Claim ' + claimCount]);
+			chartOptions.xAxis.categories = newChartOptions;
+
+			//Add a new value to account for the new category to all series data
+			for (var i = 0; i < chartOptions.series.length; i++) {
+				chartOptions.series[i].data.push(claimStart)
+			}  
+
+			//Get Current Tab Number
+			var tabNum = $("a.active").parent().attr('id').match(/\d+/)[0];
+
+			//Load the tab
+			loadTab(tabNum)
+
+			//Refresh the graph
+			resetGraph()
+
+		}
+
+		function watchAll() {
+			var claims = (angular.element(document.getElementsByClassName('collection')));
+			$compile(claims)($scope);
+
+			$scope.$watchGroup(watchArray, function(newVals, oldVals) {
+				//Get Current Tab Number
+					var tabNum = $("a.active").parent().attr('id').match(/\d+/)[0];
+
+					//Replace undefines with zeros
+					newVals = newVals.map(function(x) { 
+						if(typeof(x) == "undefined") {
+							return(0)
+						}
+						else {
+							return(x)
+						}
+					});
+
+
+				var dataVals = chartOptions.series[tabNum].data;
+				
+				console.log(watchArray)
+				console.log(newVals);
+
+				idx = newVals.length-1;
+				if(newVals.length == dataVals.length) {
+					dataVals = newVals.map(function(x) { return((x+claimStart));});;
+				}
+				else {
+					dataVals[idx] = newVals[idx] + claimStart
+				}
+				chartOptions.series[tabNum].data = dataVals;
+				console.log(chartOptions.series[tabNum].data)
+				resetGraph();
+
+			    //Change Total
+				$scope.total = chartOptions.series[tabNum].data.reduce((a, b) => a + b, 0) - 10*chartOptions.series[tabNum].data.length;
+			});
+		}
+
+		function resetGraph() {
+			if(claimCount > 1) {
+				$('#chart').highcharts().destroy();
+			}
+			var chart = new Highcharts.Chart(chartOptions)
+		}
 
 	}
-});
-
-$(function() {
-	////////////////////////////////////////////
-	/////////// Initiate legend ////////////////
-	////////////////////////////////////////////
-
-	var svg = d3.select('#body')
-		.selectAll('svg')
-		.append('svg')
-		.attr("width", w+300)
-		.attr("height", h)
-
-	//Create the title for the legend
-	var text = svg.append("text")
-		.attr("class", "title")
-		.attr('transform', 'translate(90,0)') 
-		.attr("x", w - 70)
-		.attr("y", 10)
-		.attr("font-size", "12px")
-		.attr("fill", "#404040")
-		.text("What % of owners use a specific service in a week");
-			
-	//Initiate Legend	
-	var legend = svg.append("g")
-		.attr("class", "legend")
-		.attr("height", 100)
-		.attr("width", 200)
-		.attr('transform', 'translate(90,20)') 
-		;
-		//Create colour squares
-		legend.selectAll('rect')
-		  .data(LegendOptions)
-		  .enter()
-		  .append("rect")
-		  .attr("x", w - 65)
-		  .attr("y", function(d, i){ return i * 20;})
-		  .attr("width", 10)
-		  .attr("height", 10)
-		  .style("fill", function(d, i){ return colorscale(i);})
-		  ;
-		//Create text next to squares
-		legend.selectAll('text')
-		  .data(LegendOptions)
-		  .enter()
-		  .append("text")
-		  .attr("x", w - 52)
-		  .attr("y", function(d, i){ return i * 20 + 9;})
-		  .attr("font-size", "11px")
-		  .attr("fill", "#737373")
-		  .text(function(d) { return d; })
-		  ;	
+	$(".claimInput").keypress(function(event) {
+       if (event.which == 13) {
+           event.preventDefault();
+           $scope.addClaim();
+       }
+    });
 });

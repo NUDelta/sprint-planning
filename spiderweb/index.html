@@ -3,11 +3,8 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <title>Radar chart</title>
-    <script src="http://d3js.org/d3.v3.min.js"></script>
-    <script src="RadarChart.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="logo" type="image/png" href="demo.png" />
-    <title>Radar Chart</title>
     <!-- Add in Bootstrap & jQuery -->
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="radar.css" rel="stylesheet">
@@ -35,34 +32,42 @@
 
     <!-- Angular Material Library -->
     <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
-  
+   
     <div class="container-fluid" ng-controller="MyCntrl">
       <div class="row">
         <div class="col-md-6 col-lg-6 z-depth-2 graphArea valign-wrapper">
           <p class="valign center-align" id="message">Add a few claims to begin planning!</p>
           <div id="chart"></div>
         </div>
-        <div class="col-md-6 col-lg-6">
-        <div class="input-group">
-            <input type="text" class="form-control claimInput" placeholder="Write in your Research Question/Topic">
-            <span class="input-group-btn">
-              <button class="btn addClaim" type="button" ng-click="addClaim()">+</button>
-            </span>
-        </div>
-        <div class="claimItems">
-          <ul class="collection with-header">
-            <li class="collection-header">
+        <div class="col-md-6 col-lg-6 user-input">
+          <div class="input-group">
+              <input type="text" class="form-control claimInput" placeholder="Add your current research claims">
+              <span class="input-group-btn">
+                <button class="btn addClaim" type="button" ng-click="addClaim()">+</button>
+              </span>
+          </div>
+          <div class="claims-header z-depth-1">
+            <div class="content">
               <h4>Claims</h4>
               <p>Use the sliders to indicate how much to increase this sprint</p>
-              <p>Total Points Used: {{total || 0}}</p>
-            </li>
-          </ul>
-        </div>
-               
+            </div>
+            <ul class="tabs">
+              <li class="tab col s3" id="a1"><a href="#test1">Option 1</a></li>
+              <li class="tab col s3" id="a2"><a href="#test2">Option 2</a></li>
+              <li class="tab col s3" id="a3"><a href="#test3">Option 3</a></li>
+            </ul>
+          </div>
+          <div class="claimItems z-depth-1">
+            <ul class="collection with-header">
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
 
+    </div>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>  
     <script type="text/javascript" src="script.js"></script>
   </body>
 </html>
