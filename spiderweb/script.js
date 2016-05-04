@@ -46,7 +46,7 @@ var chartOptions = {
         data: [],
         pointPlacement: 'on',
         type: 'area',
-        color: '#BDA0CB'
+        color: '#F0B37D'
     },
     {
         name: 'Option 1',
@@ -60,7 +60,7 @@ var chartOptions = {
         data: [],
         pointPlacement: 'on',
         type: 'area',
-        color: '#FFA998'	
+        color: '#E91E63'	
     },
     {
         name: 'Option 3',
