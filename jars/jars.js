@@ -119,7 +119,7 @@ delieverables = function(){
         '<div class="col-xs-6" id="col-left-' + story_number + '">'+
         '<form class="col-xs-12">' + 
         	'<div class="form-group">' +
-            '<h5>What are possible delieverables for this story?</h5>' + 
+            '<h5>What are possible delieverables for this story? List out all possible fidelities</h5>' + 
         	'<div class="input-group">' +
             '<input type="text" id="input-delieverable-' + story_number + '" '+
             'class="form-control" placeholder="Write in your Delieverable (Press Enter)"><span class="input-group-btn"><button class="btn btn-success" type="button">+</button></span></div></div>' +
