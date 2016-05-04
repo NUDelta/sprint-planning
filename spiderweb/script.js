@@ -23,7 +23,8 @@ var chartOptions = {
 	        animation: false,
 	        marker: {
 	        	enabled: false
-	        }
+	        },
+	        fillOpacity: 0.1
 	    }
 	 },
 
