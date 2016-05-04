@@ -131,6 +131,9 @@ app.controller('MyCntrl', function($scope, $compile) {
 			//Remove all watched values
 			watchArray = []
 
+			//Change Total
+			$scope.total = chartOptions.series[tabNum].data.reduce((a, b) => a + b, 0) - 10*chartOptions.series[tabNum].data.length;
+
 			for (var i = 0; i < tabDataArr.length; i++) {
 				appendTabClaims(tabNum, (i+1), claimNames[i])
 
@@ -198,7 +201,9 @@ app.controller('MyCntrl', function($scope, $compile) {
 		    	console.log(chartOptions.series[tabNum].data)
 		    	resetGraph();
 
-			    $scope.total = dataVals.reduce((a, b) => a + b, 0);
+			    //Change Total
+				$scope.total = chartOptions.series[tabNum].data.reduce((a, b) => a + b, 0) - 10*chartOptions.series[tabNum].data.length;
+
 			    
 			});
 		}
