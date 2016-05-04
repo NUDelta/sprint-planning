@@ -6,14 +6,9 @@ var chartOptions = {
     },
 
     title: {
-        text: 'Budget vs spending',
+        text: 'Sprint Progress On Claims',
         x: -80
     },
-
-    pane: {
-        size: '80%'
-    },
-
     xAxis: {
         categories: [],
         tickmarkPlacement: 'on',
@@ -118,7 +113,7 @@ app.controller('MyCntrl', function($scope, $compile) {
 	  	//Update the data in the charts
 	 	if(claimFlag) {
 	 		console.log("Added a new claim")
-		    var newChartOptions = chartOptions.xAxis.categories.concat(['Claim' + claimCount]);
+		    var newChartOptions = chartOptions.xAxis.categories.concat(['Claim ' + claimCount]);
 		    chartOptions.xAxis.categories = newChartOptions;
 		}
 
