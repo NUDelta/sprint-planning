@@ -39,7 +39,7 @@ var chartOptions = {
         pointPlacement: 'on'
     },
     {
-        name: 'Alternative 1',
+        name: 'Option 1',
         data: [],
         pointPlacement: 'on'
     }]
@@ -47,67 +47,123 @@ var chartOptions = {
 
 var claimCount = 0;
 var claimStart = 10
-var oldProgress = []
-var newProgress = []
 var watchArray = []
 var valsArray = []
 var startArray = []
+var claimNames = []
+var tabData = [{
+		"data": []
+	},
+	{
+		"data": []
+	},
+	{
+		"data": []
+	},
+	{
+		"data": []
+}];
+
+
+
+function appendTabClaims(tabNum, claimNum, name) {
+	console.log(name)
+	var item = '<li class="collection-item">' +
+	    '<p class="claim">Claim ' + claimNum + ': ' + name + '</p>' +
+	    '<p>Increase by {{ (tab' + tabNum + 'claim' + claimNum + 'Val) || 0}} points</p>' +
+	    '<md-slider flex="" md-discrete="" ng-model="tab' + tabNum + 'claim' + claimNum + 'Val" class="claimSlider" id="claim' + claimNum + '" step="1" min="0" max="10" aria-label="rating">'+
+      	'</md-slider>'+
+      	'</li>'
+
+	    $('.collection').append(item)
+	    $(".claimInput").val('');
+}
 
 var app = angular.module('spiderweb', ['ngMaterial']);
 app.controller('MyCntrl', function($scope, $compile) {
 	
 	$scope.addClaim = function () {
 	  
-	  function insertClaim(newClaim) {
-	    if(claimCount == 0) {
-	      $('#chart').show()
-	      $('#message').hide()
-	    }
-	    claimCount++;
+		var newClaim = $(".claimInput").val()
+		insertClaim(newClaim)
 
-	    var item = '<li class="collection-item">' +
-	    '<p class="claim">Claim ' + claimCount + ': ' + newClaim + '</p>' +
-	    '<p>Increase by {{ (claim' + claimCount + 'Val) || 0}} points</p>' +
-	    '<md-slider flex="" md-discrete="" ng-model="claim' + claimCount + 'Val" class="claimSlider" id="claim' + claimCount + '" step="1" min="0" max="10" aria-label="rating">'+
-      	'</md-slider>'+
-      	'</li>'
+		function insertClaim(newClaim) {
+			if(claimCount == 0) {
+				$('#chart').show()
+				$('#message').hide()
+			}
+			claimCount++;
 
-	    $('.collection').append(item)
-	    $(".claimInput").val('');
+			//Add the claim's name to the list of names
+			claimNames.push(newClaim);
 
-	    addClaimVal(claimCount)
-	  }
+			addClaimVal(claimCount)
+
+		}
+
+	  	$(".tab").click(function() {
+			var tab = $(this).attr('id');
+			var tabNum = tab.match(/\d+/)[0];
+			loadTab(tabNum)
+		})
+
+		function loadTab(tabNum) {
+			var tabDataArr = tabData[tabNum-1].data;
+			$('.collection').empty();
+			for (var i = 0; i < tabDataArr.length; i++) {
+				appendTabClaims(tabNum, (i+1), claimNames[i])
+				watchArray.push("tab" + tabNum + "claim" + (i+1) + "Val");
+			}
+
+			// valsArray.push(0);
+		    startArray.push(claimStart);
+		    var claimFlag = false;
+		    updateChartData(claimCount, valsArray, claimFlag)
+			watchAll()
+		}
 
 	  function addClaimVal(claimCount) {
-	    oldProgress.push({axis:"Claim " + claimCount, value:claimStart});
-	    newProgress.push({axis:"Claim " + claimCount, value:claimStart});
-	    watchArray.push("claim" + claimCount + "Val");
+	    //Add a value to each of the tab arrays
+	    for (var i = 0; i < tabData.length; i++) {
+	    	//Add a new claim to each tab object
+	    	tabData[i].data.push(0)	
+	    }
 
-	    valsArray.push(0);
-	    startArray.push(claimStart);
-	    var claimFlag = true;
-	    updateChartData(claimCount, valsArray, claimFlag)
+	    var tabNum = $("a.active").parent().attr('id').match(/\d+/)[0];
+	    loadTab(tabNum)
 
-	    var claims = (angular.element(document.getElementsByClassName('collection')));
-	    $compile(claims)($scope);
+	    console.log(tabData)
 
-	    $scope.$watchGroup(watchArray, function(newVals, oldVals) {
-    		console.log(valsArray) 
-    		idx = newVals.length-1;
-    		if(newVals[idx]) {
-		    	if(newVals.length == valsArray.length) {
-		    		valsArray = newVals;
-		    	}
-		    	else {
-		    		valsArray[idx] = newVals[idx]
-		    	}
+	    // valsArray.push(0);
+	    // startArray.push(claimStart);
+	    // var claimFlag = true;
+	    // updateChartData(claimCount, valsArray, claimFlag)
 
-			    captureChange(valsArray[idx], claimCount) 
-			    $scope.total = valsArray.reduce((a, b) => a + b, 0);
-			}
-		    
-		});
+	    watchAll()
+
 	  }
+
+	  function watchAll() {
+		    var claims = (angular.element(document.getElementsByClassName('collection')));
+		    $compile(claims)($scope);
+
+		    $scope.$watchGroup(watchArray, function(newVals, oldVals) {
+	    		console.log(valsArray) 
+	    		idx = newVals.length-1;
+	    		if(newVals[idx]) {
+			    	if(newVals.length == valsArray.length) {
+			    		valsArray = newVals;
+			    	}
+			    	else {
+			    		valsArray[idx] = newVals[idx]
+			    	}
+
+				    captureChange(valsArray[idx], claimCount) 
+				    $scope.total = valsArray.reduce((a, b) => a + b, 0);
+				}
+			    
+			});
+		}
 
 	  function updateChartData(claimCount, valsArray, claimFlag) {
 	  	//Update the data in the charts
@@ -117,7 +173,7 @@ app.controller('MyCntrl', function($scope, $compile) {
 		    chartOptions.xAxis.categories = newChartOptions;
 		}
 
-	    console.log("Series Length: " + chartOptions.series.length + " .Vals Length: " + valsArray.length)
+	    console.log("Series Length: " + chartOptions.series.length + ". Vals Length: " + valsArray.length)
 	    //Iterate through series data and add the new point
 	    for (var i = 0; i < chartOptions.series.length; i++) {
 	    	if (i == 0) {
@@ -144,17 +200,9 @@ app.controller('MyCntrl', function($scope, $compile) {
 	  function captureChange(claimVal, claimCount) {
 	    var newVal = claimVal
 	    console.log(chartOptions)
-	    // for (var i = 0; i < newProgress.length; i++) {
-	    //   if( newProgress[i]["axis"].indexOf(claimCount) != -1 ) {
-	    //     newProgress[i]["value"] = oldProgress[i]["value"] + newVal;
-	    //   }
-	    // }
 	    var claimFlag = false;
 	    updateChartData(claimCount, valsArray, claimFlag)
 	  }
-
-	  var newClaim = $(".claimInput").val()
-	  insertClaim(newClaim)
 
 	}
 });
