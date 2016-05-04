@@ -138,6 +138,9 @@ app.controller('MyCntrl', function($scope, $compile) {
 			//Remove all sliders from other tabs
 			$('.collection').empty();
 
+			//Add collection header
+			$('.collection').append('<li class="collection-header"><p id="total">Total Points Used for Option ' + tabNum + ': {{total || 0}}</p></li>')
+
 			//Remove all watched values
 			watchArray = []
 
@@ -213,8 +216,6 @@ app.controller('MyCntrl', function($scope, $compile) {
 
 			    //Change Total
 				$scope.total = chartOptions.series[tabNum].data.reduce((a, b) => a + b, 0) - 10*chartOptions.series[tabNum].data.length;
-
-			    
 			});
 		}
 
