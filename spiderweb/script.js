@@ -152,61 +152,61 @@ app.controller('MyCntrl', function($scope, $compile) {
 			watchAll()
 		}
 
-	  function addClaimVal(claimCount) {
-	    //Add category
-	    var newChartOptions = chartOptions.xAxis.categories.concat(['Claim ' + claimCount]);
-	    chartOptions.xAxis.categories = newChartOptions;
-   		
-   		//Add a new value to account for the new category to all series data
-   		for (var i = 0; i < chartOptions.series.length; i++) {
-	    	chartOptions.series[i].data.push(claimStart)
-	    }  
+		function addClaimVal(claimCount) {
+			//Add category
+			var newChartOptions = chartOptions.xAxis.categories.concat(['Claim ' + claimCount]);
+			chartOptions.xAxis.categories = newChartOptions;
 
-	    //Get Current Tab Number
-	    var tabNum = $("a.active").parent().attr('id').match(/\d+/)[0];
+			//Add a new value to account for the new category to all series data
+			for (var i = 0; i < chartOptions.series.length; i++) {
+				chartOptions.series[i].data.push(claimStart)
+			}  
 
-	    //Load the tab
-	    loadTab(tabNum)
+			//Get Current Tab Number
+			var tabNum = $("a.active").parent().attr('id').match(/\d+/)[0];
 
-	    //Refresh the graph
-	    resetGraph()
+			//Load the tab
+			loadTab(tabNum)
 
-	  }
+			//Refresh the graph
+			resetGraph()
 
-	  function watchAll() {
-		    var claims = (angular.element(document.getElementsByClassName('collection')));
-		    $compile(claims)($scope);
+		}
 
-		    $scope.$watchGroup(watchArray, function(newVals, oldVals) {
-	    		//Get Current Tab Number
-	   			var tabNum = $("a.active").parent().attr('id').match(/\d+/)[0];
+		function watchAll() {
+			var claims = (angular.element(document.getElementsByClassName('collection')));
+			$compile(claims)($scope);
 
-	   			//Replace undefines with zeros
-	   			newVals = newVals.map(function(x) { 
-	   				if(typeof(x) == "undefined") {
-	   					return(0)
-	   				}
-	   				else {
-	   					return(x)
-	   				}
-	   			});
+			$scope.$watchGroup(watchArray, function(newVals, oldVals) {
+				//Get Current Tab Number
+					var tabNum = $("a.active").parent().attr('id').match(/\d+/)[0];
+
+					//Replace undefines with zeros
+					newVals = newVals.map(function(x) { 
+						if(typeof(x) == "undefined") {
+							return(0)
+						}
+						else {
+							return(x)
+						}
+					});
 
 
-	    		var dataVals = chartOptions.series[tabNum].data;
-	    		
-	    		console.log(watchArray)
-	    		console.log(newVals);
+				var dataVals = chartOptions.series[tabNum].data;
+				
+				console.log(watchArray)
+				console.log(newVals);
 
-	    		idx = newVals.length-1;
-		    	if(newVals.length == dataVals.length) {
-		    		dataVals = newVals.map(function(x) { return((x+claimStart));});;
-		    	}
-		    	else {
-		    		dataVals[idx] = newVals[idx] + claimStart
-		    	}
-		    	chartOptions.series[tabNum].data = dataVals;
-		    	console.log(chartOptions.series[tabNum].data)
-		    	resetGraph();
+				idx = newVals.length-1;
+				if(newVals.length == dataVals.length) {
+					dataVals = newVals.map(function(x) { return((x+claimStart));});;
+				}
+				else {
+					dataVals[idx] = newVals[idx] + claimStart
+				}
+				chartOptions.series[tabNum].data = dataVals;
+				console.log(chartOptions.series[tabNum].data)
+				resetGraph();
 
 			    //Change Total
 				$scope.total = chartOptions.series[tabNum].data.reduce((a, b) => a + b, 0) - 10*chartOptions.series[tabNum].data.length;
@@ -215,13 +215,18 @@ app.controller('MyCntrl', function($scope, $compile) {
 			});
 		}
 
-
-	  function resetGraph() {
-	  	if(claimCount > 1) {
-			$('#chart').highcharts().destroy();
+		function resetGraph() {
+			if(claimCount > 1) {
+				$('#chart').highcharts().destroy();
+			}
+			var chart = new Highcharts.Chart(chartOptions)
 		}
-	    var chart = new Highcharts.Chart(chartOptions)
-	  }
 
 	}
+	$(".claimInput").keypress(function(event) {
+       if (event.which == 13) {
+           event.preventDefault();
+           $scope.addClaim();
+       }
+    });
 });
