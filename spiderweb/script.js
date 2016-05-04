@@ -20,7 +20,10 @@ var chartOptions = {
     },
      plotOptions: {
 	    series: {
-	        animation: false
+	        animation: false,
+	        marker: {
+	        	enabled: false
+	        }
 	    }
 	 },
 
