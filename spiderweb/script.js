@@ -2,7 +2,6 @@ var chartOptions = {
 	chart: {
 		renderTo: 'chart',
         polar: true,
-        type: 'line'
     },
 
     title: {
@@ -41,22 +40,30 @@ var chartOptions = {
     series: [{
         name: "Work You've Done So Far",
         data: [],
-        pointPlacement: 'on'
+        pointPlacement: 'on',
+        type: 'area',
+        color: '#BDA0CB'
     },
     {
         name: 'Option 1',
         data: [],
-        pointPlacement: 'on'
+        pointPlacement: 'on',
+        type: 'area',
+        color: '#CDFFA7'	
     },
     {
         name: 'Option 2',
         data: [],
-        pointPlacement: 'on'
+        pointPlacement: 'on',
+        type: 'area',
+        color: '#FFA998'	
     },
     {
         name: 'Option 3',
         data: [],
-        pointPlacement: 'on'
+        pointPlacement: 'on',
+        type: 'area',
+        color: '#8bc5d1'
     }]
 }
 
