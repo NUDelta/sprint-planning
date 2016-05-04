@@ -3,11 +3,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <title>Radar chart</title>
-    <script src="http://d3js.org/d3.v3.min.js"></script>
-    <script src="RadarChart.js"></script>
+    <!-- <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="RadarChart.js"></script> -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="logo" type="image/png" href="demo.png" />
-    <title>Radar Chart</title>
     <!-- Add in Bootstrap & jQuery -->
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="radar.css" rel="stylesheet">
@@ -40,7 +42,7 @@
       <div class="row">
         <div class="col-md-6 col-lg-6 z-depth-2 graphArea valign-wrapper">
           <p class="valign center-align" id="message">Add a few claims to begin planning!</p>
-          <div id="chart"></div>
+          <div id="chart" style="min-width: 400px; max-width: 600px; height: 400px; margin: 0 auto"></div>
         </div>
         <div class="col-md-6 col-lg-6">
         <div class="input-group">
@@ -53,8 +55,8 @@
           <div class="col s12">
             <ul class="tabs">
               <li class="tab col s3"><a href="#test1">Test 1</a></li>
-              <li class="tab col s3"><a class="active" href="#test2">Test 2</a></li>
-              <li class="tab col s3 disabled"><a href="#test3">Disabled Tab</a></li>
+              <li class="tab col s3"><a href="#test2">Test 2</a></li>
+              <li class="tab col s3"><a href="#test3">Test 3</a></li>
               <li class="tab col s3"><a href="#test4">Test 4</a></li>
             </ul>
           </div>
