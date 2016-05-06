@@ -136,6 +136,17 @@ app.controller('MyCntrl', function($scope, $compile) {
 			});
 		})
 
+		function setTotal(data) {
+			var t = data.reduce((a, b) => a + b, 0) - 10*data.length;
+			$scope.total = t;
+			if (t > 16) {
+				$('#total').css("color", "red");
+			}
+			else {
+				$('#total').css("color", "black");
+			}
+		}
+
 		function loadTab(tabNum) {
 			var tabDataArr = chartOptions.series[tabNum].data;
 			
@@ -149,7 +160,7 @@ app.controller('MyCntrl', function($scope, $compile) {
 			watchArray = []
 
 			//Change Total
-			$scope.total = chartOptions.series[tabNum].data.reduce((a, b) => a + b, 0) - 10*chartOptions.series[tabNum].data.length;
+			setTotal(chartOptions.series[tabNum].data)
 
 			for (var i = 0; i < tabDataArr.length; i++) {
 				appendTabClaims(tabNum, (i+1), claimNames[i])
@@ -222,7 +233,8 @@ app.controller('MyCntrl', function($scope, $compile) {
 				resetGraph();
 
 			    //Change Total
-				$scope.total = chartOptions.series[tabNum].data.reduce((a, b) => a + b, 0) - 10*chartOptions.series[tabNum].data.length;
+				// $scope.total = chartOptions.series[tabNum].data.reduce((a, b) => a + b, 0) - 10*chartOptions.series[tabNum].data.length;
+				setTotal(chartOptions.series[tabNum].data)
 			});
 		}
 
