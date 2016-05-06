@@ -119,10 +119,10 @@ delieverables = function(){
         '<div class="col-xs-6" id="col-left-' + story_number + '">'+
         '<form class="col-xs-12">' + 
         	'<div class="form-group">' +
-            '<h5>What are possible delieverables for this story?</h5>' + 
+            '<h5>What are possible delieverables for this story? List out all possible fidelities</h5>' + 
         	'<div class="input-group">' +
             '<input type="text" id="input-delieverable-' + story_number + '" '+
-            'class="form-control" placeholder="Write in your Delieverable (Press Enter)"><span class="input-group-btn"><button class="btn btn-success" type="button">+</button></span></div></div>' +
+            'class="form-control delieverable-input" placeholder="Write in your Delieverable (Press Enter)"><span class="input-group-btn"><button class="btn btn-success" type="button">+</button></span></div></div>' +
         '</form>'+
         //End of form
         '<h5 class="col-xs-12">Delieverables List</h5>'+
@@ -134,10 +134,11 @@ delieverables = function(){
         );
         //Make delieverable dictionary entry
         delieverables_list[story_number] = 0;
-        $('#input-delieverable-' + story_number).keypress(function(event) {
+        $('.delieverable-input').keypress(function(event) {
             if (event.which == 13) {
                 event.preventDefault();
-                add_deliverables(story_number)
+                var id = $(this).attr('id');
+                add_deliverables(id.substring(id.length - 1, id.length));
             }
         });
         //Clear the new story value
