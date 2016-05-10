@@ -18,7 +18,19 @@ var question_number = 0,
     done_list = [],
     todo_list = [],
     chart = function(title,renderLocation,question_number){
-       
+        increment = 20;
+        //Make data
+        done_data = [];
+        done_data[0] = done_list[question_number]['Design'].length * increment;
+        done_data[1] = done_list[question_number]['Technology'].length * increment;
+        done_data[2] = done_list[question_number]['Research'].length * increment;
+
+
+        todo_data = [];
+        todo_data[0] = todo_list[question_number]['Design'].length * increment / 2;
+        todo_data[1] = todo_list[question_number]['Technology'].length * increment / 2;
+        todo_data[2] = todo_list[question_number]['Research'].length * increment / 2;
+
         // console.log(new_data);
         var current_chart = new Highcharts.Chart({
             chart: {
@@ -27,80 +39,72 @@ var question_number = 0,
             },
             
             title: {
-                text: 'Essential vs. Difficulty'
+                text: title
             },
-            legend: {
-                enabled: false
-            },
-            xAxis:{
-                title: {
-                    text: 'Difficulty'
-                },
-                min:0,
-                max:1,
-                lineWidth: 0,
-                minorGridLineWidth: 10,
-                lineColor: 'transparent',
-                labels: {
-                    enabled: true
-                },
-                minorTickLength: 10,
-                tickLength: 10,
-                endOnTick: true,
+
+            xAxis: {
+                categories: ['Design', 'Technology', 'Research']
             },
             yAxis:{
                 title: {
-                    text: 'Essential'
+                    text: 'Knowledge'
                 },
-
                 min:0,
-                max:1,
-                lineWidth: 1,
-                minorGridLineWidth: 10,
+                max:100,
+                lineWidth: 0,
+                minorGridLineWidth: 0,
                 lineColor: 'transparent',
                    
                    labels: {
-                       enabled: true
+                       enabled: false
                    },
-                   minorTickLength: 10,
-                   tickLength: 10,
-                    endOnTick: true,
-
+                   minorTickLength: 0,
+                   tickLength: 0
             },
+            legend: {
+                    reversed: true
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'normal'
+                },
+                line: {
+                    cursor: 'ns-resize'
+                }
+            },
+
             tooltip: {
                 enabled:false
             },
-            plotOptions: {
-                        series: {
-                            dataLabels: {
-                                enabled: true,
-                                format: '{point.name}'
-                            }
-                        }
-                    },
 
-            // series: [{
-            //     type: 'bubble',
-            //     cursor: 'move',
-            //     draggableX: true,
-            //     draggableY: true,
-            //     data: new_data
-            // }]
+            series: [{
+                data: todo_data,
+                type: 'column',
+                minPointLength: 2,
+                name: 'Knowledge You Want to Learn This Week',
+                color: '#74B8E6'
+            }, {
+                data: done_data,
+                type: 'column',
+                minPointLength: 2,
+                name: 'Knowledge You Have',
+                color: '#2980b9'
+            }]
 
 
         });
-        for(var i = 0; i < done_list[question_number]['number']; i += 1){
-            var new_data = data.slice(i,i+1)
-            current_chart.addSeries({  
-                name: i,                      
-                type: 'bubble',
-                cursor: 'move',
-                draggableX: true,
-                draggableY: true,
-                data: new_data,
-                color: colors[i]
-            });    
-        }
+        // for(var i = 0; i < done_list[question_number]['number']; i += 1){
+        //     var new_data = data.slice(i,i+1)
+        //     current_chart.addSeries({  
+        //         name: i,                      
+        //         type: 'bubble',
+        //         cursor: 'move',
+        //         draggableX: true,
+        //         draggableY: true,
+        //         data: new_data,
+        //         color: colors[i]
+        //     });    
+        // }
         current_chart.redraw();
         
 },
@@ -254,7 +258,7 @@ add_todo = function(question_number) {
             '</li>'
         );
         new_done_text.val('');
-        if (todo_list[question_number] == 1) {
+        if (todo_list[question_number]['number'] == 1) {
 
             $('#todo-left' + question_number).append(
                 '<button type="button" class="btn btn-primary btn-chart" id="btn-make-chart-' + question_number + '">Make Evaluation Chart</button>'
