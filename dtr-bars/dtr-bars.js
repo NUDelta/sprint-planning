@@ -203,6 +203,7 @@ add_todo_questions = function(){
 add_done = function(question_number) {
     var new_done_text = $('#input-done-' + question_number + ' .input-text'),new_done_type = $('#input-done-' + question_number + ' .btn'),
         type = new_done_type.text().substring(0,new_done_type.text().length-2);
+        console.log(type);
     if(new_done_text.val()){
         done_list[question_number] += 1; 
 
@@ -211,7 +212,7 @@ add_done = function(question_number) {
                 done_list[question_number] + '. ' + 
                type + ': '  +
                 new_done_text.val() +
-                '<span class="pull-right"><i class="fa fa-circle circle-' +  done_list[question_number] + '" aria-hidden="true"></i></span>' + 
+                '<span class="pull-right"><i class="fa fa-circle circle-' +  type + '" aria-hidden="true"></i></span>' + 
             '</li>'
         );
         new_done_text.val('');
@@ -228,7 +229,7 @@ add_todo = function(question_number) {
                 todo_list[question_number] + '. ' + 
                type + ': '  +
                 new_done_text.val() +
-                '<span class="pull-right"><i class="fa fa-circle circle-' +  todo_list[question_number] + '" aria-hidden="true"></i></span>' + 
+                '<span class="pull-right"><i class="fa fa-circle circle-' +  type + '" aria-hidden="true"></i></span>' + 
             '</li>'
         );
         new_done_text.val('');
