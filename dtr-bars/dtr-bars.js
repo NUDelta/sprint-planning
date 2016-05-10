@@ -37,11 +37,6 @@ var question_number = 0,
                 renderTo: renderLocation,
                 animation: false
             },
-            
-            title: {
-                text: title
-            },
-
             xAxis: {
                 categories: ['Design', 'Technology', 'Research']
             },
@@ -135,7 +130,7 @@ add_done_questions = function(){
         '</ul>' +
       '</div>'+
             '<input type="text" '+
-            'class="form-control input-text" placeholder="Write in your Delieverable (Press Enter)"><span class="input-group-btn"><button class="btn btn-success" type="button">+</button></span></div></div>' +
+            'class="form-control input-text" placeholder="Write in what you have done (Press Enter)"><span class="input-group-btn"><button class="btn btn-success" type="button">+</button></span></div></div>' +
         '</form>'+
         //End of form
         '<ul id="done-list-' + question_number + '" class="list-group col-xs-12 ul-delieverables"></ul>' +
@@ -162,10 +157,12 @@ add_done_questions = function(){
             'Research':[],
             'Technology':[]
         };
-        $('#input-done-' + question_number).keypress(function(event) {
+        $('.input-text').keypress(function(event) {
             if (event.which == 13) {
                 event.preventDefault();
-                add_done(question_number)
+                var id = $(this).parent().attr('id');
+                //console.log(id);
+                add_done(id.substring(id.length - 1, id.length))
             }
         });
         add_todo_questions();
@@ -190,7 +187,7 @@ add_todo_questions = function(){
     '</ul>' +
   '</div>'+
         '<input type="text" '+
-        'class="form-control input-text" placeholder="Write in your Delieverable (Press Enter)"><span class="input-group-btn"><button class="btn btn-success" type="button">+</button></span></div></div>' +
+        'class="form-control input-text" placeholder="Write in what you want to do (Press Enter)"><span class="input-group-btn"><button class="btn btn-success" type="button">+</button></span></div></div>' +
     '</form>'+
     //End of form
     '<ul id="todo-list-' + question_number + '" class="list-group col-xs-12 ul-delieverables"></ul>' +
@@ -215,10 +212,12 @@ add_todo_questions = function(){
         'Research':[],
         'Technology':[]
     };
-    $('#input-todo-' + question_number).keypress(function(event) {
+    $('.input-text').keypress(function(event) {
         if (event.which == 13) {
             event.preventDefault();
-            add_todo(question_number)
+            var id = $(this).parent().attr('id');
+            //console.log(id);
+            add_todo(id.substring(id.length - 1, id.length));
         }
     });
 
