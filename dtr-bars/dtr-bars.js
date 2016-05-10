@@ -162,8 +162,8 @@ add_done_questions = function(){
 },
 add_todo_questions = function(){    
     //Add form on left side with DTR dropdown and input
-    $(".container").append(
-    '<div class="col-xs-6" id="col-todo-left-' + question_number + '">'+
+    $("#col-done-left-" + question_number).append(
+    '<div id="todo-left' + question_number + '">'+
     '<form class="col-xs-12">' + 
         '<div class="form-group">' +
         '<h5>Work you will do towards this question/claim:</h5>' + 
@@ -181,10 +181,7 @@ add_todo_questions = function(){
     '</form>'+
     //End of form
     '<ul id="todo-list-' + question_number + '" class="list-group col-xs-12 ul-delieverables"></ul>' +
-    '</div>' + 
-    //Make chart container
-    '<div id="chart-' + question_number + '" class="col-xs-6"></div>' +
-    '<div class="clearfix"></div>'
+    '</div>' 
     );
     //Make dropdown change based off input
     $(".dropdown-menu li a").click(function(){
@@ -237,10 +234,10 @@ add_todo = function(question_number) {
         new_done_text.val('');
         if (todo_list[question_number] == 1) {
 
-            $('#col-todo-left-' + question_number).append(
+            $('#todo-left' + question_number).append(
                 '<button type="button" class="btn btn-primary btn-chart" id="btn-make-chart-' + question_number + '">Make Evaluation Chart</button>'
             );
-            $('#col-todo-left-' + question_number).append(
+            $('#todo-left' + question_number).append(
 
                 '<form class="col-xs-12"><div class="form-group">' +
                     '<label for="Why">Which delieverable(s) did you choose and why?</label>' + 
