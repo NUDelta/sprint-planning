@@ -147,7 +147,9 @@ add_done_questions = function(){
 
             //a>li>ul -prev-> btn to change the value
             $(this).parent().parent().prev().html($(this).text()+' <span class="caret"></span>');
-            // return false;
+            //Close dropdown
+            $(this).parent().parent().parent().removeClass('open');
+            return false;
         });
         //Make delieverable dictionary entry
         done_list[question_number] = {'number': 0};
@@ -192,7 +194,10 @@ add_todo_questions = function(){
 
         //a>li>ul -prev-> btn to change the value
         $(this).parent().parent().prev().html($(this).text()+' <span class="caret"></span>');
-         // return false;
+
+        //Close dropdown
+        $(this).parent().parent().parent().removeClass('open');
+         return false;
     });
     //Make delieverable dictionary entry
     todo_list[question_number] = {'number':0};
@@ -215,7 +220,7 @@ add_done = function(question_number) {
         } else {
             done_list[question_number][type] = [new_done_text.val()];
         }
-        console.log(done_list[question_number]);
+        // console.log(done_list[question_number]);
 
         $('#done-list-' + question_number).append(
             '<li class="list-group-item">' +
@@ -238,7 +243,7 @@ add_todo = function(question_number) {
         } else {
             todo_list[question_number][type] = [new_done_text.val()];
         }
-        console.log(todo_list[question_number]);
+        // console.log(todo_list[question_number]);
 
         $('#todo-list-' + question_number).append(
             '<li class="list-group-item">' +
