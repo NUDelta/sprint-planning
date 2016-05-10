@@ -37,6 +37,9 @@ var question_number = 0,
                 renderTo: renderLocation,
                 animation: false
             },
+            title: {
+                text: done_list[question_number]['title']
+            },
             xAxis: {
                 categories: ['Design', 'Technology', 'Research']
             },
@@ -155,7 +158,8 @@ add_done_questions = function(){
             'number':0,
             'Design':[],
             'Research':[],
-            'Technology':[]
+            'Technology':[],
+            'title':new_question.val()
         };
         $('.input-text').keypress(function(event) {
             if (event.which == 13) {
@@ -216,7 +220,7 @@ add_todo_questions = function(){
         if (event.which == 13) {
             event.preventDefault();
             var id = $(this).parent().attr('id');
-            //console.log(id);
+            //  console.log(id);
             add_todo(id.substring(id.length - 1, id.length));
         }
     });
@@ -262,12 +266,12 @@ add_todo = function(question_number) {
         if (todo_list[question_number]['number'] == 1) {
 
             $('#todo-left' + question_number).append(
-                '<button type="button" class="btn btn-primary btn-chart" id="btn-make-chart-' + question_number + '">Make Evaluation Chart</button>'
+                '<button type="button" class="btn btn-primary btn-chart" id="btn-make-chart-' + question_number + '">Make DTR Bars</button>'
             );
             $('#todo-left' + question_number).append(
 
                 '<form class="col-xs-12"><div class="form-group">' +
-                    '<label for="Why">Which delieverable(s) did you choose and why?</label>' + 
+                    '<label for="Why">Which things did you choose to do and why?</label>' + 
                     '<textarea class="form-control" placeholder=""></textarea></div></form>'
             );
             $('#btn-make-chart-' + question_number).click( function(){
