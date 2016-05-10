@@ -15,7 +15,7 @@ var question_number = 0,
             {x:0.625, y:0.625, z:7, name: '6'},
             {x:0.625, y:0.375, z:7, name: '7'},
             {x:0.75, y:0.5, z:7, name: '8'}],
-    delieverables_list = [],
+    done_list = [],
     chart = function(title,renderLocation,question_number){
        
         // console.log(new_data);
@@ -88,7 +88,7 @@ var question_number = 0,
 
 
         });
-        for(var i = 0; i < delieverables_list[question_number]; i += 1){
+        for(var i = 0; i < done_list[question_number]; i += 1){
             var new_data = data.slice(i,i+1)
             current_chart.addSeries({  
                 name: i,                      
@@ -114,58 +114,66 @@ add_questions = function(){
         //Add the chart container
         $(".container").append('<h3 id="question-' + question_number + '">'+ question_number + '. ' + new_question.val() + '</h3>');
         
-        //Add the textareas
+        //Add form on left side with DTR dropdown and input
         $(".container").append(
         '<div class="col-xs-6" id="col-left-' + question_number + '">'+
         '<form class="col-xs-12">' + 
         	'<div class="form-group">' +
-            '<h5>What work have you done towards this question/claim?</h5>' + 
-        	'<div class="input-group">' +
+            '<h5>Work done towards this question/claim:</h5>' + 
+        	'<div class="input-group" id="input-done-' + question_number + '">' +
             '<div class="input-group-btn">' + 
-        '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <span class="caret"></span></button>' +
+        '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Design <span class="caret"></span></button>' +
         '<ul class="dropdown-menu">' +
-          '<li><a href="#">Action</a></li>' +
-          '<li><a href="#">Another action</a></li>' +
-          '<li><a href="#">Something else here</a></li>' +
-          '<li role="separator" class="divider"></li>' +
-          '<li><a href="#">Separated link</a></li>' +
+          '<li><a href="#">Design</a></li>' +
+          '<li><a href="#">Technology</a></li>' +
+          '<li><a href="#">Research</a></li>'  +
         '</ul>' +
       '</div>'+
-            '<input type="text" id="input-delieverable-' + question_number + '" '+
-            'class="form-control" placeholder="Write in your Delieverable (Press Enter)"><span class="input-group-btn"><button class="btn btn-success" type="button">+</button></span></div></div>' +
+            '<input type="text" '+
+            'class="form-control input-text" placeholder="Write in your Delieverable (Press Enter)"><span class="input-group-btn"><button class="btn btn-success" type="button">+</button></span></div></div>' +
         '</form>'+
         //End of form
-        '<ul id="deliverable-list-' + question_number + '" class="list-group col-xs-12 ul-delieverables"></ul>' +
+        '<ul id="done-list-' + question_number + '" class="list-group col-xs-12 ul-delieverables"></ul>' +
         '</div>' + 
         //Make chart container
         '<div id="chart-' + question_number + '" class="col-xs-6"></div>' +
         '<div class="clearfix"></div>'
         );
+        //Make dropdown change based off input
+        $(".dropdown-menu li a").click(function(){
+            //5/9/16 - very jank way of doing this, but works for everything
+
+            //a>li>ul -prev-> btn to change the value
+            $(this).parent().parent().prev().html($(this).text()+' <span class="caret"></span>');
+        });
         //Make delieverable dictionary entry
-        delieverables_list[question_number] = 0;
-        $('#input-delieverable-' + question_number).keypress(function(event) {
+        done_list[question_number] = 0;
+        $('#input-done-' + question_number).keypress(function(event) {
             if (event.which == 13) {
                 event.preventDefault();
-                add_deliverables(question_number)
+                add_done(question_number)
             }
         });
         //Clear the new question value
         new_question.val('');
     }
 },
-add_deliverables = function(question_number) {
-    var new_deliverable = $('#input-delieverable-' + question_number);
-    if(new_deliverable.val()){
-        delieverables_list[question_number] += 1; 
-        $('#deliverable-list-' + question_number).append(
-            '<li class="list-group-item">' + 
-                delieverables_list[question_number] + '. ' + 
-                new_deliverable.val() +
-                '<span class="pull-right"><i class="fa fa-circle circle-' +  delieverables_list[question_number] + '" aria-hidden="true"></i></span>' + 
+add_done = function(question_number) {
+    var new_done_text = $('#input-done-' + question_number + ' .input-text'),new_done_type = $('#input-done-' + question_number + ' .btn'),
+        type = new_done_type.text().substring(0,new_done_type.text().length-2);
+    if(new_done_text.val()){
+        done_list[question_number] += 1; 
+
+        $('#done-list-' + question_number).append(
+            '<li class="list-group-item">' +
+                done_list[question_number] + '. ' + 
+               type + ': '  +
+                new_done_text.val() +
+                '<span class="pull-right"><i class="fa fa-circle circle-' +  done_list[question_number] + '" aria-hidden="true"></i></span>' + 
             '</li>'
         );
-        new_deliverable.val('');
-        if (delieverables_list[question_number] == 1) {
+        new_done_text.val('');
+        if (done_list[question_number] == 1) {
             $('#col-left-' + question_number).append(
                 '<button type="button" class="btn btn-primary btn-chart" id="btn-make-chart-' + question_number + '">Make Evaluation Chart</button>'
             );
