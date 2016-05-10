@@ -89,7 +89,7 @@ var question_number = 0,
 
 
         });
-        for(var i = 0; i < done_list[question_number]; i += 1){
+        for(var i = 0; i < done_list[question_number]['number']; i += 1){
             var new_data = data.slice(i,i+1)
             current_chart.addSeries({  
                 name: i,                      
@@ -142,13 +142,15 @@ add_done_questions = function(){
         );
         //Make dropdown change based off input
         $(".dropdown-menu li a").click(function(){
+
             //5/9/16 - very jank way of doing this, but works for everything
 
             //a>li>ul -prev-> btn to change the value
             $(this).parent().parent().prev().html($(this).text()+' <span class="caret"></span>');
+            // return false;
         });
         //Make delieverable dictionary entry
-        done_list[question_number] = 0;
+        done_list[question_number] = {'number': 0};
         $('#input-done-' + question_number).keypress(function(event) {
             if (event.which == 13) {
                 event.preventDefault();
@@ -185,13 +187,15 @@ add_todo_questions = function(){
     );
     //Make dropdown change based off input
     $(".dropdown-menu li a").click(function(){
+       
         //5/9/16 - very jank way of doing this, but works for everything
 
         //a>li>ul -prev-> btn to change the value
         $(this).parent().parent().prev().html($(this).text()+' <span class="caret"></span>');
+         // return false;
     });
     //Make delieverable dictionary entry
-    todo_list[question_number] = 0;
+    todo_list[question_number] = {'number':0};
     $('#input-todo-' + question_number).keypress(function(event) {
         if (event.which == 13) {
             event.preventDefault();
@@ -203,13 +207,19 @@ add_todo_questions = function(){
 add_done = function(question_number) {
     var new_done_text = $('#input-done-' + question_number + ' .input-text'),new_done_type = $('#input-done-' + question_number + ' .btn'),
         type = new_done_type.text().substring(0,new_done_type.text().length-2);
-        console.log(type);
+        //console.log(type);
     if(new_done_text.val()){
-        done_list[question_number] += 1; 
+        done_list[question_number]['number'] += 1;
+        if (type in done_list[question_number]){
+            done_list[question_number][type].push(new_done_text.val());
+        } else {
+            done_list[question_number][type] = [new_done_text.val()];
+        }
+        console.log(done_list[question_number]);
 
         $('#done-list-' + question_number).append(
             '<li class="list-group-item">' +
-                done_list[question_number] + '. ' + 
+                done_list[question_number]['number'] + '. ' + 
                type + ': '  +
                 new_done_text.val() +
                 '<span class="pull-right"><i class="fa fa-circle circle-' +  type + '" aria-hidden="true"></i></span>' + 
@@ -222,11 +232,17 @@ add_todo = function(question_number) {
     var new_done_text = $('#input-todo-' + question_number + ' .input-text'),new_done_type = $('#input-todo-' + question_number + ' .btn'),
         type = new_done_type.text().substring(0,new_done_type.text().length-2);
     if(new_done_text.val()){
-        todo_list[question_number] += 1; 
+        todo_list[question_number]['number'] += 1;
+        if (type in todo_list[question_number]){
+            todo_list[question_number][type].push(new_done_text.val());
+        } else {
+            todo_list[question_number][type] = [new_done_text.val()];
+        }
+        console.log(todo_list[question_number]);
 
         $('#todo-list-' + question_number).append(
             '<li class="list-group-item">' +
-                todo_list[question_number] + '. ' + 
+                todo_list[question_number]['number'] + '. ' + 
                type + ': '  +
                 new_done_text.val() +
                 '<span class="pull-right"><i class="fa fa-circle circle-' +  type + '" aria-hidden="true"></i></span>' + 
