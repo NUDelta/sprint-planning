@@ -156,7 +156,12 @@ add_done_questions = function(){
             return false;
         });
         //Make delieverable dictionary entry
-        done_list[question_number] = {'number': 0};
+        done_list[question_number] = {
+            'number':0,
+            'Design':[],
+            'Research':[],
+            'Technology':[]
+        };
         $('#input-done-' + question_number).keypress(function(event) {
             if (event.which == 13) {
                 event.preventDefault();
@@ -204,7 +209,12 @@ add_todo_questions = function(){
          return false;
     });
     //Make delieverable dictionary entry
-    todo_list[question_number] = {'number':0};
+    todo_list[question_number] = {
+        'number':0,
+        'Design':[],
+        'Research':[],
+        'Technology':[]
+    };
     $('#input-todo-' + question_number).keypress(function(event) {
         if (event.which == 13) {
             event.preventDefault();
@@ -219,11 +229,7 @@ add_done = function(question_number) {
         //console.log(type);
     if(new_done_text.val()){
         done_list[question_number]['number'] += 1;
-        if (type in done_list[question_number]){
-            done_list[question_number][type].push(new_done_text.val());
-        } else {
-            done_list[question_number][type] = [new_done_text.val()];
-        }
+        done_list[question_number][type].push(new_done_text.val());
         // console.log(done_list[question_number]);
 
         $('#done-list-' + question_number).append(
@@ -242,11 +248,7 @@ add_todo = function(question_number) {
         type = new_done_type.text().substring(0,new_done_type.text().length-2);
     if(new_done_text.val()){
         todo_list[question_number]['number'] += 1;
-        if (type in todo_list[question_number]){
-            todo_list[question_number][type].push(new_done_text.val());
-        } else {
-            todo_list[question_number][type] = [new_done_text.val()];
-        }
+        todo_list[question_number][type].push(new_done_text.val());
         // console.log(todo_list[question_number]);
 
         $('#todo-list-' + question_number).append(
