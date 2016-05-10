@@ -16,6 +16,7 @@ var question_number = 0,
             {x:0.625, y:0.375, z:7, name: '7'},
             {x:0.75, y:0.5, z:7, name: '8'}],
     done_list = [],
+    todo_list = [],
     chart = function(title,renderLocation,question_number){
        
         // console.log(new_data);
@@ -103,7 +104,7 @@ var question_number = 0,
         current_chart.redraw();
         
 },
-add_questions = function(){
+add_done_questions = function(){
     var new_question = $('#new-question input');
     if(new_question.val()){
         question_number += 1;
@@ -116,7 +117,7 @@ add_questions = function(){
         
         //Add form on left side with DTR dropdown and input
         $(".container").append(
-        '<div class="col-xs-6" id="col-left-' + question_number + '">'+
+        '<div class="col-xs-6" id="col-done-left-' + question_number + '">'+
         '<form class="col-xs-12">' + 
         	'<div class="form-group">' +
             '<h5>Work done towards this question/claim:</h5>' + 
@@ -154,9 +155,53 @@ add_questions = function(){
                 add_done(question_number)
             }
         });
+        add_todo_questions();
         //Clear the new question value
         new_question.val('');
     }
+},
+add_todo_questions = function(){    
+    //Add form on left side with DTR dropdown and input
+    $(".container").append(
+    '<div class="col-xs-6" id="col-todo-left-' + question_number + '">'+
+    '<form class="col-xs-12">' + 
+        '<div class="form-group">' +
+        '<h5>Work you will do towards this question/claim:</h5>' + 
+        '<div class="input-group" id="input-todo-' + question_number + '">' +
+        '<div class="input-group-btn">' + 
+    '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Design <span class="caret"></span></button>' +
+    '<ul class="dropdown-menu">' +
+      '<li><a href="#">Design</a></li>' +
+      '<li><a href="#">Technology</a></li>' +
+      '<li><a href="#">Research</a></li>'  +
+    '</ul>' +
+  '</div>'+
+        '<input type="text" '+
+        'class="form-control input-text" placeholder="Write in your Delieverable (Press Enter)"><span class="input-group-btn"><button class="btn btn-success" type="button">+</button></span></div></div>' +
+    '</form>'+
+    //End of form
+    '<ul id="todo-list-' + question_number + '" class="list-group col-xs-12 ul-delieverables"></ul>' +
+    '</div>' + 
+    //Make chart container
+    '<div id="chart-' + question_number + '" class="col-xs-6"></div>' +
+    '<div class="clearfix"></div>'
+    );
+    //Make dropdown change based off input
+    $(".dropdown-menu li a").click(function(){
+        //5/9/16 - very jank way of doing this, but works for everything
+
+        //a>li>ul -prev-> btn to change the value
+        $(this).parent().parent().prev().html($(this).text()+' <span class="caret"></span>');
+    });
+    //Make delieverable dictionary entry
+    todo_list[question_number] = 0;
+    $('#input-todo-' + question_number).keypress(function(event) {
+        if (event.which == 13) {
+            event.preventDefault();
+            add_todo(question_number)
+        }
+    });
+
 },
 add_done = function(question_number) {
     var new_done_text = $('#input-done-' + question_number + ' .input-text'),new_done_type = $('#input-done-' + question_number + ' .btn'),
@@ -173,11 +218,29 @@ add_done = function(question_number) {
             '</li>'
         );
         new_done_text.val('');
-        if (done_list[question_number] == 1) {
-            $('#col-left-' + question_number).append(
+    }
+},
+add_todo = function(question_number) {
+    var new_done_text = $('#input-todo-' + question_number + ' .input-text'),new_done_type = $('#input-todo-' + question_number + ' .btn'),
+        type = new_done_type.text().substring(0,new_done_type.text().length-2);
+    if(new_done_text.val()){
+        todo_list[question_number] += 1; 
+
+        $('#todo-list-' + question_number).append(
+            '<li class="list-group-item">' +
+                todo_list[question_number] + '. ' + 
+               type + ': '  +
+                new_done_text.val() +
+                '<span class="pull-right"><i class="fa fa-circle circle-' +  todo_list[question_number] + '" aria-hidden="true"></i></span>' + 
+            '</li>'
+        );
+        new_done_text.val('');
+        if (todo_list[question_number] == 1) {
+
+            $('#col-todo-left-' + question_number).append(
                 '<button type="button" class="btn btn-primary btn-chart" id="btn-make-chart-' + question_number + '">Make Evaluation Chart</button>'
             );
-            $('#col-left-' + question_number).append(
+            $('#col-todo-left-' + question_number).append(
 
                 '<form class="col-xs-12"><div class="form-group">' +
                     '<label for="Why">Which delieverable(s) did you choose and why?</label>' + 
@@ -192,8 +255,8 @@ add_done = function(question_number) {
 $("#new-question input").keypress(function(event) {
     if (event.which == 13) {
         event.preventDefault();
-        add_questions();
+        add_done_questions();
     }
 });
-$('#new-question button').click(add_questions);
+$('#new-question button').click(add_done_questions);
 chart('test','container');
