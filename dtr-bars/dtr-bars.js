@@ -48,7 +48,7 @@ var question_number = 0,
                     text: 'Knowledge'
                 },
                 min:0,
-                max:100,
+                // max:100,
                 lineWidth: 0,
                 minorGridLineWidth: 0,
                 lineColor: 'transparent',
