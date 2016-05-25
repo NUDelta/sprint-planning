@@ -170,6 +170,15 @@ add_deliverables = function(story_number) {
             '</li>'
         );
 
+        $("#checkbox-" + name).on( "click", function() {
+            if(this.checked) {
+                // $("#plan").append(name);
+            }
+            else {
+                
+            }
+        });
+
         //Add Option to Data List
         var newOption = {
             name: name,

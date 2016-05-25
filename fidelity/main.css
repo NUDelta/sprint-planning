@@ -32,10 +32,14 @@
 	padding-right: 0px;
 }
 
-#chart {
+.fixed {
 	padding-top: 5%;
 	position: fixed;
 }
+
+/*#plan {
+	margin-left: 10px;
+}*/
 
 .checker {
 	margin-right: 10px !important;
