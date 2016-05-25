@@ -160,19 +160,17 @@ add_deliverables = function(story_number) {
             '</li>'
         );
 
+        //Add Option to Data List
+        var newOption = {
+            name: name,
+            z: 7,
+            x: getRandomInclusive(0.1, 0.9),
+            y: getRandomInclusive(0.1, 0.9) 
+        }
+        data.push(newOption);
+
         var currentNum = delieverables_list[story_number]
         if((currentNum+1) != 3) {
-            
-
-            //Add Option to Data List
-            var newOption = {
-                name: name,
-                z: 7,
-                x: getRandomInclusive(0.1, 0.9),
-                y: getRandomInclusive(0.1, 0.9) 
-            }
-            data.push(newOption);
-
              //Change the type in the input header text
             var nextType = typeList[(delieverables_list[story_number]+1)]
             $("#type-" + story_number).removeClass().addClass(nextType)
