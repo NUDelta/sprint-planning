@@ -163,7 +163,7 @@ add_deliverables = function(story_number) {
         var name = currentType[0].toUpperCase() + story_number
 
         $('#deliverable-list-' + story_number).append(
-            '<li class="list-group-item">' + 
+            '<li class="list-group-item"><input type="checkbox" class="checker" id="checkbox-' + name +'">' + 
                 name + '. ' + 
                 new_deliverable.val() +
                 '<span class="pull-right"><i class="fa fa-circle circle-' +  currentType + '" aria-hidden="true"></i></span>' + 
@@ -220,6 +220,7 @@ add_deliverables = function(story_number) {
 
  $('#done').click( function() {
     chart()
+    $(".checker").show();
 });
 
 $("#new-story input").keypress(function(event) {

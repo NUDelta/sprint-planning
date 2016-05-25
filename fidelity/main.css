@@ -36,3 +36,9 @@
 	padding-top: 5%;
 	position: fixed;
 }
+
+.checker {
+	margin-right: 10px !important;
+	display: none;
+}
+
