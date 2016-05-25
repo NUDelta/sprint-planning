@@ -156,7 +156,7 @@ add_deliverables = function(story_number) {
             '<li class="list-group-item">' + 
                 name + '. ' + 
                 new_deliverable.val() +
-                '<span class="pull-right"><i class="fa fa-circle circle-' +  (delieverables_list[story_number]+1) + '" aria-hidden="true"></i></span>' + 
+                '<span class="pull-right"><i class="fa fa-circle circle-' +  currentType + '" aria-hidden="true"></i></span>' + 
             '</li>'
         );
 
