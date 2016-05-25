@@ -122,7 +122,7 @@ delieverables = function(){
         '<div class="col-xs-6" id="col-left-' + story_number + '">'+
         '<form class="col-xs-12">' + 
         	'<div class="form-group">' +
-            '<h5>What is your <span id="type" class="lo-fi">lo-fi</span> delieverable for this story?</h5>' + 
+            '<h5 id="input-header">What is your <span id="type" class="lo-fi">lo-fi</span> delieverable for this story?</h5>' + 
         	'<div class="input-group">' +
             '<span class="input-group-addon" id="option-name">L'+ story_number +'</span>' +
             '<input type="text" id="input-delieverable-' + story_number + '" '+
@@ -150,31 +150,35 @@ delieverables = function(){
     }
 },
 add_deliverables = function(story_number) {
+    console.log(delieverables_list[story_number])
     var new_deliverable = $('#input-delieverable-' + story_number);
     if(new_deliverable.val()){
-        delieverables_list[story_number] += 1; 
         $('#deliverable-list-' + story_number).append(
             '<li class="list-group-item">' + 
-                delieverables_list[story_number] + '. ' + 
+                (delieverables_list[story_number]+1) + '. ' + 
                 new_deliverable.val() +
-                '<span class="pull-right"><i class="fa fa-circle circle-' +  delieverables_list[story_number] + '" aria-hidden="true"></i></span>' + 
+                '<span class="pull-right"><i class="fa fa-circle circle-' +  (delieverables_list[story_number]+1) + '" aria-hidden="true"></i></span>' + 
             '</li>'
         );
 
         //Clear Input Box
         new_deliverable.val('');
 
-        //Change the type in the input header text
-        var currentType = typeList[delieverables_list[story_number]]
-        $("#type").removeClass().addClass(currentType)
-        $("#type").text(currentType);
+        if((delieverables_list[story_number]+1) != 3) {
+            //Change the type in the input header text
+            var currentType = typeList[(delieverables_list[story_number]+1)]
+            $("#type").removeClass().addClass(currentType)
+            $("#type").text(currentType);
 
-        //Change the input group addon text
-        console.log(currentType[0].toUpperCase() + story_number)
-        $("#option-name").text(currentType[0].toUpperCase() + story_number)
+            //Change the input group addon text
+            $("#option-name").text(currentType[0].toUpperCase() + story_number)
+        }
+        else {
+            //Stop the user from entering more in this story
+            new_deliverable.prop("disabled", true);
+            $("#input-header").text("All done! Move on to the next story.")
 
-        //Determine if the Make Chart Button and Add It
-        if (delieverables_list[story_number] == 3) {
+            //Determine if the Make Chart Button and Add It
             $('#col-left-' + story_number).append(
                 '<button type="button" class="btn btn-primary btn-chart" id="btn-make-chart-' + story_number + '">Make Evaluation Chart</button>'
             );
@@ -188,7 +192,11 @@ add_deliverables = function(story_number) {
                 chart('title','chart-' + story_number,story_number)
             });
         }
+
+        delieverables_list[story_number] += 1;
     }
+    
+
 };
 $("#new-story input").keypress(function(event) {
     if (event.which == 13) {
