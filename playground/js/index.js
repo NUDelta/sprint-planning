@@ -27,6 +27,7 @@ TweenLite.set(".box", {width:gridWidth, height:gridHeight, lineHeight:gridHeight
 function update() {
   var snap = $snap.prop("checked"),
       liveSnap = $liveSnap.prop("checked");
+      console.log(liveSnap);
 	Draggable.create(".box", {
 		bounds:$container,
 		edgeResistance:0.65,
