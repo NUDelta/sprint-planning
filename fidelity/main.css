@@ -1,0 +1,48 @@
+.link-story {
+	margin-bottom: 15px;
+}
+.btn-chart{
+	margin-bottom: 15px;
+	margin-left: 15px;
+}
+.ul-delieverables{
+	padding-left: inherit;
+}
+
+
+.lo-fi, .circle-lo-fi {
+	color: orange;
+}
+
+.medium-fi, .circle-medium-fi {
+	color: blue;
+}
+
+.hi-fi, .circle-hi-fi {
+	color: red;
+}
+
+#type {
+	color: ;
+	font-weight: bold;
+}
+
+.col-xs-12 {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.fixed {
+	padding-top: 5%;
+	position: fixed;
+}
+
+/*#plan {
+	margin-left: 10px;
+}*/
+
+.checker {
+	margin-right: 10px !important;
+	display: none;
+}
+
