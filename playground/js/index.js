@@ -33,38 +33,23 @@ TweenLite.set(".box", {width:gridWidth, height:gridHeight, lineHeight:gridHeight
 //the update() function is what creates the Draggable according to the options selected (snapping).
 function update() {
   var snap = $snap.prop("checked"),
-      liveSnap = $liveSnap.prop("checked"),
-      b;
-    $(".box").each(function(i, obj){
-    	console.log($(this).attr("id"));
-		b = Draggable.create("#" + $(obj).attr("id"), {
-			bounds:$container,
-			edgeResistance:0.65,
-			type:"x,y",
-			throwProps:true,
-	    autoScroll:true,
-			liveSnap:liveSnap,
-			snap:{
-				x: function(endValue) {
-					return (snap || liveSnap) ? Math.round(endValue / gridWidth) * gridWidth : endValue;
-				},
-				y: function(endValue) {
-					return (snap || liveSnap) ? Math.round(endValue / gridHeight) * gridHeight : endValue;
-				}
+      liveSnap = $liveSnap.prop("checked");  
+	Draggable.create(".box", {
+		bounds:$container,
+		edgeResistance:0.65,
+		type:"x,y",
+		throwProps:true,
+    autoScroll:true,
+		liveSnap:liveSnap,
+		snap:{
+			x: function(endValue) {
+				return (snap || liveSnap) ? Math.round(endValue / gridWidth) * gridWidth : endValue;
 			},
-			onDragEnd: addNewDraggable()
-		});
-    });
-    function addNewDraggable(){
-    	console.log(b.x);
-    	if(b == 0){
-    		$("#container").append(
-    			'<div class="box" style="top:' + y + 'px">' +  $("#new-task input").val() + 
-    			'</br><span class="text-center"><i class="fa fa-arrow-down" aria-hidden="true"></i></span></div>'
-    		);
-    		update();
-    	}
-    }
+			y: function(endValue) {
+				return (snap || liveSnap) ? Math.round(endValue / gridHeight) * gridHeight : endValue;
+			}
+		},
+	});
 }
 
 
@@ -85,18 +70,44 @@ function applySnap() {
 	}
 	update();
 }
+$("#points input").keypress(function(event) {
+    if (event.which == 13) {
+        event.preventDefault();
+        if($("#new-task input").val() && $("#points input").val()) {
+	        if(num_boxes < gridRows) {
+	        	for(var i = 0; i < gridColumns; i += 1){
+			        $("#container").append(
+			        	'<div class="box box-' + num_boxes + '" style="top:' + (gridHeight * num_boxes) + 'px">' +  $("#new-task input").val() + ' - ' + $("#points input").val() +
+			        	'</br><span class="text-center"><i class="fa fa-arrow-down" aria-hidden="true"></i></span></div>'
+			        );
+		    	}
+		        update();
+		        num_boxes += 1;
+		    }
+		    $("#new-task input").val('');
+		    $("#points input").val('');
+		    $("#new-task input").focus();
+		}
+    }
+});
 $("#new-task input").keypress(function(event) {
     if (event.which == 13) {
         event.preventDefault();
-        if(num_boxes < gridRows) {
-	        $("#container").append(
-	        	'<div class="box" id="box-' + num_boxes + '"style="top:' + (gridHeight * num_boxes) + 'px">' +  $("#new-task input").val() + 
-	        	'</br><span class="text-center"><i class="fa fa-arrow-down" aria-hidden="true"></i></span></div>'
-	        );
-	        update();
-	        num_boxes += 1;
-	    }
-	    $("#new-task input").val('');
+        if($("#new-task input").val() && $("#points input").val()) {
+	        if(num_boxes < gridRows) {
+	        	for(var i = 0; i < gridColumns; i += 1){
+			        $("#container").append(
+			        	'<div class="box box-' + num_boxes + '" style="top:' + (gridHeight * num_boxes) + 'px">' +  $("#new-task input").val() + ' - ' + $("#points input").val() +
+			        	'</br><span class="text-center"><i class="fa fa-arrow-down" aria-hidden="true"></i></span></div>'
+			        );
+		    	}
+		        update();
+		        num_boxes += 1;
+		    }
+		    $("#new-task input").val('');
+		    $("#points input").val('');
+		    $("#new-task input").focus();
+		}
     }
 });
 update();

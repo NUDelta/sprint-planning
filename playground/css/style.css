@@ -8,10 +8,11 @@ body {
   overflow:visible; 
   padding:0; 
   position:relative;
+  margin-top: 125px;
 }
 
 .box {
-	background-color: #91e600;
+	/*background-color: #91e600;*/
 	text-align: center;
 	font-family: Asap, Avenir, Arial, sans-serif;
 	width: 182px;
@@ -25,7 +26,29 @@ body {
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
-	border: solid 2px #70B300;
+	border: solid 2px #000000;
+}
+.box-0{
+	background-color: #2ecc71;
+	border: solid 2px #000000;
+}
+.box-1{
+	background-color: #3498db;
+}
+.box-2{
+	background-color: #9b59b6;
+}
+.box-3{
+	background-color: #f39c12;
+}
+.box-4{
+	background-color: #e74c3c;
+}
+.box-5{
+	background-color: #34495e;
+}
+.box-6{
+	background-color: #1abc9c;
 }
 
 .controls {
@@ -59,9 +82,11 @@ body {
 
 /*Extra stuff*/
 
+
 #row-research{
 	width:980px;
 	margin-bottom: 20px;
+
 }
 #input-story{
 	width:980px;

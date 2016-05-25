@@ -25,17 +25,20 @@
 </head>
 <body>
 	<div class="container">
-	<label for="basic-url">Story</label> 
-	<input type="text" class="form-control" placeholder="Write in your Story (Press Enter)" id="input-story">
+		<div class="col-xs-12"> 
+			<label for="basic-url">Story</label> 
+			<input type="text" class="form-control" placeholder="Write in your Story" id="input-story">
+		</div>
 	<div id="row-research">
-		<div id="new-task">
+		<div class="col-xs-6" id="new-task">
 			<label for="basic-url2">Tasks</label>
-	    	<div class="input-group">
-	      		<input type="text" class="form-control" placeholder="Write in your tasks here (Press Enter)">
-	      		<span class="input-group-btn">
-	        		<button class="btn btn-success" type="button">+</button>
-	      		</span>
-	    	</div><!-- /input-group -->
+	    	<input type="text" class="form-control" placeholder="Write in your tasks here (Press Tab)">
+	      		<!-- /input-group -->
+	  	</div>
+	  	<div class="col-xs-6" id="points">
+			<label for="basic-url2">Points</label>
+	    	<input type="number" class="form-control" placeholder="Write in points here (Press Enter)">
+	      		
 	  	</div><!-- /.col-lg-6 -->
 	</div>
 	<!-- Grid -->
