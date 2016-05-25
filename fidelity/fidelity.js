@@ -122,11 +122,12 @@ delieverables = function(){
         //     '">'+ story_number + '. '+new_story.val() + '</div>');
 
         //Add the chart container
-        $(".container").append('<h3 id="story-' + story_number + '">'+ story_number + '. ' + new_story.val() + '</h3>');
+        // $(".container").append('<h3 id="story-' + story_number + '">'+ story_number + '. ' + new_story.val() + '</h3>');
         
         //Add the textareas
-        $(".container").append(
-        '<div class="col-xs-6" id="col-left-' + story_number + '">'+
+        $("#stories-col").append(
+        '<div class="row" id="col-left-' + story_number + '">' +  
+        '<h3 id="story-' + story_number + '">'+ story_number + '. ' + new_story.val() + '</h3>' +
         '<form class="col-xs-12">' + 
         	'<div class="form-group">' +
             '<h5 id="input-header-' + story_number +'">What is your <span id="type-'+ story_number + '" class="lo-fi">lo-fi</span> delieverable for this story?</h5>' + 
@@ -140,8 +141,7 @@ delieverables = function(){
         '<ul id="deliverable-list-' + story_number + '" class="list-group col-xs-12 ul-delieverables"></ul>' +
         '</div>' + 
         //Make chart container
-        '<div id="chart-' + story_number + '" class="col-xs-6"></div>' +
-        '<div class="clearfix"></div>'
+        '<div id="chart-' + story_number + '" class="col-xs-6"></div>'
         );
         //Make delieverable dictionary entry
         delieverables_list[story_number] = 0;

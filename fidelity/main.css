@@ -26,3 +26,8 @@
 	color: ;
 	font-weight: bold;
 }
+
+.col-xs-12 {
+	padding-left: 0px;
+	padding-right: 0px;
+}
