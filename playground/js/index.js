@@ -7,9 +7,10 @@ var $snap = $("#snap"),
   $liveSnap = $("#liveSnap"),
 	$container = $("#container"),
 	gridWidth = 196,
-	gridHeight = 100,
-	gridRows = 6,
+	gridHeight = 70,
+	gridRows = 7,
 	gridColumns = 5,
+	num_boxes = 0,
 	i, x, y;
 
 //loop through and create the grid (a div for each cell). Feel free to tweak the variables above
@@ -63,5 +64,17 @@ function applySnap() {
 	}
 	update();
 }
-
+$("#new-task input").keypress(function(event) {
+    if (event.which == 13) {
+        event.preventDefault();
+        if(num_boxes < gridRows) {
+	        $("#container").append(
+	        	'<div class="box" id="box1" style="top:' + (gridHeight * num_boxes) + 'px">Drag and throw me too - ' + num_boxes + '</div>'
+	        );
+	        num_boxes += 1;
+	        update();
+	    }
+	    $("#new-task input").val('');
+    }
+});
 update();
