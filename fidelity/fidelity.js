@@ -158,25 +158,29 @@ add_deliverables = function(story_number) {
 
         //Clear Input Box
         new_deliverable.val('');
-
-        if((delieverables_list[story_number]+1) != 3) {
-            //Change the type in the input header text
-            var currentType = typeList[(delieverables_list[story_number]+1)]
-            $("#type-" + story_number).removeClass().addClass(currentType)
-            $("#type-" + story_number).text(currentType);
-
-            //Change the input group addon text
+        var currentNum = delieverables_list[story_number]
+        if((currentNum+1) != 3) {
+            //Get the name for the dot
+            var currentType = typeList[(delieverables_list[story_number])]
             var name = currentType[0].toUpperCase() + story_number
-            $("#option-name-" + story_number).text(name)
 
             //Add Option to Data List
             var newOption = {
                 name: name,
                 z: 7,
-                x: parseFloat(Math.random().toFixed(2)),
-                y: parseFloat(Math.random().toFixed(2)) 
+                x: getRandomInclusive(0.1, 0.9),
+                y: getRandomInclusive(0.1, 0.9) 
             }
             data.push(newOption);
+
+             //Change the type in the input header text
+            var nextType = typeList[(delieverables_list[story_number]+1)]
+            $("#type-" + story_number).removeClass().addClass(nextType)
+            $("#type-" + story_number).text(nextType);
+
+            //Change the input group addon text
+            var newName = nextType[0].toUpperCase() + story_number
+            $("#option-name-" + story_number).text(newName)
         }
         else {
             //Stop the user from entering more in this story
@@ -214,3 +218,7 @@ $("#new-story input").keypress(function(event) {
     }
 });
 $('#new-story button').click(delieverables);
+
+function getRandomInclusive(min, max) {
+  return parseFloat(((Math.random() * (max - min)) + min).toFixed(2));
+}
