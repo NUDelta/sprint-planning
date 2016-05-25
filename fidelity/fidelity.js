@@ -7,22 +7,15 @@ var story_number = 0,
     //         [0.75, -0.25, 7],
     //         [-0.25, -0.25, 7],
     //         [-0.25, -0.75, 7]],
-    data = [{x:0.25, y:0.5, z:7, name: '1'},
-            {x:0.375, y:0.625, z:7, name: '2'},
-            {x:0.375, y:0.375, z:7, name: '3'},
-            {x:0.5, y:0.75, z:7, name: '4'},
-            {x:0.5, y:0.25, z:7, name: '5'},
-            {x:0.625, y:0.625, z:7, name: '6'},
-            {x:0.625, y:0.375, z:7, name: '7'},
-            {x:0.75, y:0.5, z:7, name: '8'}],
+    data = [],
     delieverables_list = [],
     typeList = ["lo-fi", "medium-fi", "hi-fi"],
-    chart = function(title,renderLocation,story_number){
+    chart = function(){
        
         // console.log(new_data);
         var current_chart = new Highcharts.Chart({
             chart: {
-                renderTo: renderLocation,
+                renderTo: 'chart-1',
                 animation: false
             },
             
@@ -77,29 +70,31 @@ var story_number = 0,
                                 format: '{point.name}'
                             }
                         }
-                    },
+                    }
 
             // series: [{
             //     type: 'bubble',
             //     cursor: 'move',
             //     draggableX: true,
             //     draggableY: true,
-            //     data: new_data
+            //     data: []
             // }]
 
 
         });
-        for(var i = 0; i < delieverables_list[story_number]; i += 1){
-            var new_data = data.slice(i,i+1)
+        var sumDeliverables = delieverables_list.reduce(function(a,b) {return a+b});
+        for(var i = 0; i < sumDeliverables; i++ ){
+            var currentType = typeList[i%3]
+            console.log(data[i])
             current_chart.addSeries({  
                 name: i,                      
                 type: 'bubble',
                 cursor: 'move',
                 draggableX: true,
                 draggableY: true,
-                data: new_data,
-                color: colors[i]
-            });    
+                data: [data[i]],
+                color: colors[i%6]
+            });       
         }
         current_chart.redraw();
         
@@ -109,10 +104,10 @@ delieverables = function(){
     if(new_story.val()){
         story_number += 1;
 
-        //Add story Link
-        $('#new-story').before(
-            '<div class="col-xs-12 link-story"><a href="#story-' + story_number + 
-            '">'+ story_number + '. '+new_story.val() + '</div>');
+        // //Add story Link
+        // $('#new-story').before(
+        //     '<div class="col-xs-12 link-story"><a href="#story-' + story_number + 
+        //     '">'+ story_number + '. '+new_story.val() + '</div>');
 
         //Add the chart container
         $(".container").append('<h3 id="story-' + story_number + '">'+ story_number + '. ' + new_story.val() + '</h3>');
@@ -171,26 +166,35 @@ add_deliverables = function(story_number) {
             $("#type-" + story_number).text(currentType);
 
             //Change the input group addon text
-            $("#option-name-" + story_number).text(currentType[0].toUpperCase() + story_number)
+            var name = currentType[0].toUpperCase() + story_number
+            $("#option-name-" + story_number).text(name)
+
+            //Add Option to Data List
+            var newOption = {
+                name: name,
+                z: 7,
+                x: parseFloat(Math.random().toFixed(2)),
+                y: parseFloat(Math.random().toFixed(2)) 
+            }
+            data.push(newOption);
         }
         else {
             //Stop the user from entering more in this story
             new_deliverable.prop("disabled", true);
             $("#input-header-" + story_number).text("All done! Move on to the next story.")
 
-            //Determine if the Make Chart Button and Add It
-            $('#col-left-' + story_number).append(
-                '<button type="button" class="btn btn-primary btn-chart" id="btn-make-chart-' + story_number + '">Make Evaluation Chart</button>'
-            );
-            $('#col-left-' + story_number).append(
+            // $('#col-left-' + story_number).append(
+            //     '<button type="button" class="btn btn-primary btn-chart" id="btn-make-chart-' + story_number + '">Make Evaluation Chart</button>'
+            // );
+            // $('#col-left-' + story_number).append(
 
-                '<form class="col-xs-12"><div class="form-group">' +
-                    '<label for="Why">Which delieverable(s) did you choose and why?</label>' + 
-                    '<textarea class="form-control" placeholder=""></textarea></div></form>'
-            );
-            $('#btn-make-chart-' + story_number).click( function(){
-                chart('title','chart-' + story_number,story_number)
-            });
+            //     '<form class="col-xs-12"><div class="form-group">' +
+            //         '<label for="Why">Which delieverable(s) did you choose and why?</label>' + 
+            //         '<textarea class="form-control" placeholder=""></textarea></div></form>'
+            // );
+            // $('#btn-make-chart-' + story_number).click( function(){
+            //     chart('title','chart-' + story_number,story_number)
+            // });
         }
 
         delieverables_list[story_number] += 1;
@@ -198,6 +202,11 @@ add_deliverables = function(story_number) {
     
 
 };
+
+ $('#done').click( function() {
+    chart()
+});
+
 $("#new-story input").keypress(function(event) {
     if (event.which == 13) {
         event.preventDefault();
@@ -205,4 +214,3 @@ $("#new-story input").keypress(function(event) {
     }
 });
 $('#new-story button').click(delieverables);
-chart('test','container');
