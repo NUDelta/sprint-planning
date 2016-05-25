@@ -148,21 +148,21 @@ add_deliverables = function(story_number) {
     console.log("Story Number: " + story_number)
     var new_deliverable = $('#input-delieverable-' + story_number);
     if(new_deliverable.val()){
+        //Get the name for the dot
+        var currentType = typeList[(delieverables_list[story_number])]
+        var name = currentType[0].toUpperCase() + story_number
+
         $('#deliverable-list-' + story_number).append(
             '<li class="list-group-item">' + 
-                (delieverables_list[story_number]+1) + '. ' + 
+                name + '. ' + 
                 new_deliverable.val() +
                 '<span class="pull-right"><i class="fa fa-circle circle-' +  (delieverables_list[story_number]+1) + '" aria-hidden="true"></i></span>' + 
             '</li>'
         );
 
-        //Clear Input Box
-        new_deliverable.val('');
         var currentNum = delieverables_list[story_number]
         if((currentNum+1) != 3) {
-            //Get the name for the dot
-            var currentType = typeList[(delieverables_list[story_number])]
-            var name = currentType[0].toUpperCase() + story_number
+            
 
             //Add Option to Data List
             var newOption = {
@@ -181,6 +181,9 @@ add_deliverables = function(story_number) {
             //Change the input group addon text
             var newName = nextType[0].toUpperCase() + story_number
             $("#option-name-" + story_number).text(newName)
+
+            //Clear Input Box
+            new_deliverable.val('');
         }
         else {
             //Stop the user from entering more in this story
