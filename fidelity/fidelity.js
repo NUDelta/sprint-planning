@@ -27,7 +27,7 @@ var story_number = 0,
             },
             xAxis:{
                 title: {
-                    text: 'Difficulty'
+                    text: 'Realistic'
                 },
                 min:0,
                 max:1,
@@ -43,7 +43,7 @@ var story_number = 0,
             },
             yAxis:{
                 title: {
-                    text: 'Essential'
+                    text: 'Value-Delivering'
                 },
 
                 min:0,
