@@ -15,7 +15,7 @@ var story_number = 0,
         // console.log(new_data);
         var current_chart = new Highcharts.Chart({
             chart: {
-                renderTo: 'chart-1',
+                renderTo: 'chart',
                 animation: false
             },
             
@@ -126,22 +126,20 @@ delieverables = function(){
         
         //Add the textareas
         $("#stories-col").append(
-        '<div class="row" id="col-left-' + story_number + '">' +  
-        '<h3 id="story-' + story_number + '">'+ story_number + '. ' + new_story.val() + '</h3>' +
-        '<form class="col-xs-12">' + 
-        	'<div class="form-group">' +
-            '<h5 id="input-header-' + story_number +'">What is your <span id="type-'+ story_number + '" class="lo-fi">lo-fi</span> delieverable for this story?</h5>' + 
-        	'<div class="input-group">' +
-            '<span class="input-group-addon" id="option-name-' + story_number +'">L'+ story_number +'</span>' +
-            '<input type="text" id="input-delieverable-' + story_number + '" '+
-            'class="form-control delieverable-input" placeholder="Write in your Delieverable (Press Enter)"><span class="input-group-btn"><button class="btn btn-success" type="button">+</button></span></div></div>' +
-        '</form>'+
-        //End of form
-        '<h5 class="col-xs-12">Delieverables List</h5>'+
-        '<ul id="deliverable-list-' + story_number + '" class="list-group col-xs-12 ul-delieverables"></ul>' +
-        '</div>' + 
-        //Make chart container
-        '<div id="chart-' + story_number + '" class="col-xs-6"></div>'
+            '<div class="row" id="col-left-' + story_number + '">' +  
+            '<h3 id="story-' + story_number + '">'+ story_number + '. ' + new_story.val() + '</h3>' +
+            '<form class="col-xs-12">' + 
+            	'<div class="form-group">' +
+                '<h5 id="input-header-' + story_number +'">What is your <span id="type-'+ story_number + '" class="lo-fi">lo-fi</span> delieverable for this story?</h5>' + 
+            	'<div class="input-group">' +
+                '<span class="input-group-addon" id="option-name-' + story_number +'">L'+ story_number +'</span>' +
+                '<input type="text" id="input-delieverable-' + story_number + '" '+
+                'class="form-control delieverable-input" placeholder="Write in your Delieverable (Press Enter)"><span class="input-group-btn"><button class="btn btn-success" type="button">+</button></span></div></div>' +
+            '</form>'+
+            //End of form
+            '<h5 class="col-xs-12">Delieverables List</h5>'+
+            '<ul id="deliverable-list-' + story_number + '" class="list-group col-xs-12 ul-delieverables"></ul>' +
+            '</div>'
         );
         //Make delieverable dictionary entry
         delieverables_list[story_number] = 0;
