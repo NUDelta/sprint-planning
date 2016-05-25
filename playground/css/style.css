@@ -1,0 +1,93 @@
+body {
+  background-color:white;
+  font-family: Signika Negative, Asap, sans-serif;
+}
+
+#container {
+  height:801px; 
+  overflow:visible; 
+  padding:0; 
+  position:relative;
+  margin-top: 125px;
+}
+
+.box {
+	/*background-color: #91e600;*/
+	text-align: center;
+	font-family: Asap, Avenir, Arial, sans-serif;
+	width: 182px;
+	height: 62px;
+	padding-top: 20px;
+	/*line-height: 60px;*/
+	margin: 4px 7px;
+	color: black;
+	position: absolute;
+	top:0;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	border: solid 2px #000000;
+}
+.box-0{
+	background-color: #2ecc71;
+	border: solid 2px #000000;
+}
+.box-1{
+	background-color: #3498db;
+}
+.box-2{
+	background-color: #9b59b6;
+}
+.box-3{
+	background-color: #f39c12;
+}
+.box-4{
+	background-color: #e74c3c;
+}
+.box-5{
+	background-color: #34495e;
+}
+.box-6{
+	background-color: #1abc9c;
+}
+
+.controls {
+	background-color: #222;
+	border: 1px solid #555;
+	color: #bbb;
+	font-size: 18px;
+  	margin: 20px 0;
+  	display: none;
+}
+.controls ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.controls li {
+	display: inline-block;
+	padding: 8px 0 8px 10px;
+	margin:0;
+}
+.controls input {
+  vertical-align:middle;
+  cursor: pointer;
+}
+.controls .controlsTitle {
+  border-right:1px solid #555; 
+  border-bottom:none; 
+  padding-right:10px;
+}
+
+
+/*Extra stuff*/
+
+
+#row-research{
+	width:980px;
+	margin-bottom: 20px;
+
+}
+#input-story{
+	width:980px;
+}
