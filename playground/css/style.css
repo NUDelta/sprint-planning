@@ -1,5 +1,5 @@
 body {
-  background-color:black;
+  background-color:white;
   font-family: Signika Negative, Asap, sans-serif;
 }
 
@@ -14,16 +14,18 @@ body {
 	background-color: #91e600;
 	text-align: center;
 	font-family: Asap, Avenir, Arial, sans-serif;
-	width: 196px;
-	height: 70px;
-	line-height: 70px;
+	width: 182px;
+	height: 62px;
+	padding-top: 20px;
+	/*line-height: 60px;*/
+	margin: 4px 7px;
 	color: black;
 	position: absolute;
 	top:0;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
-	border: solid 4px black;
+	border: solid 2px #70B300;
 }
 
 .controls {

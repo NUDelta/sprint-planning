@@ -17,7 +17,13 @@ var $snap = $("#snap"),
 for (i = 0; i < gridRows * gridColumns; i++) {
 	y = Math.floor(i / gridColumns) * gridHeight;
 	x = (i * gridWidth) % (gridColumns * gridWidth);
-	$("<div/>").css({position:"absolute", border:"1px solid #454545", width:gridWidth-1, height:gridHeight-1, top:y, left:x}).prependTo($container);
+	if (x == 0) {
+		$("<div/>").css({position:"absolute", border:"1px solid #454545", "border-right":"3px solid #454545", width:gridWidth-1, height:gridHeight-1, top:y, left:x}).prependTo($container);
+	} else if (x == gridWidth) {
+		$("<div/>").css({position:"absolute", border:"1px solid #454545", "border-left":"3px solid #454545", width:gridWidth-1, height:gridHeight-1, top:y, left:x}).prependTo($container);
+	} else {
+		$("<div/>").css({position:"absolute", border:"1px solid #454545", width:gridWidth-1, height:gridHeight-1, top:y, left:x}).prependTo($container);
+	}
 }
 
 //set the container's size to match the grid, and ensure that the box widths/heights reflect the variables above
@@ -69,7 +75,8 @@ $("#new-task input").keypress(function(event) {
         event.preventDefault();
         if(num_boxes < gridRows) {
 	        $("#container").append(
-	        	'<div class="box" id="box1" style="top:' + (gridHeight * num_boxes) + 'px">Drag and throw me too - ' + num_boxes + '</div>'
+	        	'<div class="box" id="box1" style="top:' + (gridHeight * num_boxes) + 'px">Drag and throw me too - ' + num_boxes + 
+	        	'</br><span class="text-center"><i class="fa fa-arrow-down" aria-hidden="true"></i></span></div>'
 	        );
 	        num_boxes += 1;
 	        update();
