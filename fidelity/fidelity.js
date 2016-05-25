@@ -1,5 +1,5 @@
 var story_number = 0,
-    colors = ['#e67e22','#3498db','#9b59b6','#f1c40f','#27ae60','#e74c3c','#95a5a6',"#2c3e50"],
+    // colors = ['#e67e22','#3498db','#9b59b6','#f1c40f','#27ae60','#e74c3c','#95a5a6',"#2c3e50"],
     // data = [[0.5, 0.5, 7],
     //         [0.75, 0.25, 7],
     //         [-0.25, 0.25, 7],
@@ -85,7 +85,19 @@ var story_number = 0,
         var sumDeliverables = delieverables_list.reduce(function(a,b) {return a+b});
         for(var i = 0; i < sumDeliverables; i++ ){
             var currentType = typeList[i%3]
+
             console.log(data[i])
+            var color;
+            if(data[i].name[0] == "L") {
+                color = "orange"
+            }
+            else if (data[i].name[0] == "M"){
+                color = "blue"
+            }
+            else {
+                color = "red"
+            }
+
             current_chart.addSeries({  
                 name: i,                      
                 type: 'bubble',
@@ -93,7 +105,7 @@ var story_number = 0,
                 draggableX: true,
                 draggableY: true,
                 data: [data[i]],
-                color: colors[i%6]
+                color: color
             });       
         }
         current_chart.redraw();
