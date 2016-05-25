@@ -31,3 +31,8 @@
 	padding-left: 0px;
 	padding-right: 0px;
 }
+
+#chart {
+	padding-top: 5%;
+	position: fixed;
+}
