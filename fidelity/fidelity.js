@@ -117,7 +117,7 @@ delieverables = function(){
         '<div class="col-xs-6" id="col-left-' + story_number + '">'+
         '<form class="col-xs-12">' + 
         	'<div class="form-group">' +
-            '<h5 id="input-header-"' + story_number +'>What is your <span id="type-'+ story_number + '" class="lo-fi">lo-fi</span> delieverable for this story?</h5>' + 
+            '<h5 id="input-header-' + story_number +'">What is your <span id="type-'+ story_number + '" class="lo-fi">lo-fi</span> delieverable for this story?</h5>' + 
         	'<div class="input-group">' +
             '<span class="input-group-addon" id="option-name-' + story_number +'">L'+ story_number +'</span>' +
             '<input type="text" id="input-delieverable-' + story_number + '" '+
