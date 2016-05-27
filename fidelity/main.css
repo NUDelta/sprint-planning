@@ -46,3 +46,16 @@
 	display: none;
 }
 
+.fa-stack-1x {
+	color: white;
+}
+
+.fa-stack {
+	width: 3em;
+    height: 3em;
+    line-height: 3em;
+}
+
+.fa-stack-2x {
+    font-size: 3em;
+}
