@@ -172,10 +172,16 @@ add_deliverables = function(story_number) {
 
         $("#checkbox-" + name).on( "click", function() {
             if(this.checked) {
-                // $("#plan").append(name);
+                $("#plan").append(
+                    '<span class="fa-stack" id="' + name + '">' +
+                    '<i class="fa fa-circle fa-stack-2x"></i>' + 
+                    '<strong class="fa-stack-1x">' + name + '</strong>' + 
+                    '</span>'
+                );
             }
             else {
-                
+                console.log('#'+ name)
+                $('#'+ name).remove();
             }
         });
 
