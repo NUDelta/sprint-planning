@@ -1,18 +1,10 @@
 var story_number = 0,
-    // colors = ['#e67e22','#3498db','#9b59b6','#f1c40f','#27ae60','#e74c3c','#95a5a6',"#2c3e50"],
-    // data = [[0.5, 0.5, 7],
-    //         [0.75, 0.25, 7],
-    //         [-0.25, 0.25, 7],
-    //         [-0.5, 0.5, 7],
-    //         [0.75, -0.25, 7],
-    //         [-0.25, -0.25, 7],
-    //         [-0.25, -0.75, 7]],
     data = [],
     delieverables_list = [],
     typeList = ["lo-fi", "medium-fi", "hi-fi"],
+    //Make the evaluation chart
     chart = function(){
        
-        // console.log(new_data);
         var current_chart = new Highcharts.Chart({
             chart: {
                 renderTo: 'chart',
@@ -72,16 +64,11 @@ var story_number = 0,
                         }
                     }
 
-            // series: [{
-            //     type: 'bubble',
-            //     cursor: 'move',
-            //     draggableX: true,
-            //     draggableY: true,
-            //     data: []
-            // }]
+          
 
 
         });
+        //Add deliverables to the chart
         var sumDeliverables = delieverables_list.reduce(function(a,b) {return a+b});
         for(var i = 0; i < sumDeliverables; i++ ){
             var currentType = typeList[i%3]
@@ -111,19 +98,11 @@ var story_number = 0,
         current_chart.redraw();
         
 },
+//Add delieverables list
 delieverables = function(){
     var new_story = $('#new-story input');
     if(new_story.val()){
         story_number += 1;
-
-        // //Add story Link
-        // $('#new-story').before(
-        //     '<div class="col-xs-12 link-story"><a href="#story-' + story_number + 
-        //     '">'+ story_number + '. '+new_story.val() + '</div>');
-
-        //Add the chart container
-        // $(".container").append('<h3 id="story-' + story_number + '">'+ story_number + '. ' + new_story.val() + '</h3>');
-        
         //Add the textareas
         $("#stories-col").append(
             '<div class="row" id="col-left-' + story_number + '">' +  
@@ -154,6 +133,7 @@ delieverables = function(){
         new_story.val('');
     }
 },
+//Add individual deliverables
 add_deliverables = function(story_number) {
     console.log("Story Number: " + story_number)
     var new_deliverable = $('#input-delieverable-' + story_number);
@@ -169,7 +149,7 @@ add_deliverables = function(story_number) {
                 '<span class="pull-right"><i class="fa fa-circle circle-' +  currentType + '" aria-hidden="true"></i></span>' + 
             '</li>'
         );
-
+        //Display chosen delieverable
         $("#checkbox-" + name).on( "click", function() {
             if(this.checked) {
                 $("#plan").append(
@@ -185,7 +165,7 @@ add_deliverables = function(story_number) {
             }
         });
 
-        //Add Option to Data List
+        //Add Option to Data List with random placement of circle
         var newOption = {
             name: name,
             z: 7,
@@ -212,19 +192,6 @@ add_deliverables = function(story_number) {
             //Stop the user from entering more in this story
             new_deliverable.prop("disabled", true);
             $("#input-header-" + story_number).text("All done! Move on to the next story.")
-
-            // $('#col-left-' + story_number).append(
-            //     '<button type="button" class="btn btn-primary btn-chart" id="btn-make-chart-' + story_number + '">Make Evaluation Chart</button>'
-            // );
-            // $('#col-left-' + story_number).append(
-
-            //     '<form class="col-xs-12"><div class="form-group">' +
-            //         '<label for="Why">Which delieverable(s) did you choose and why?</label>' + 
-            //         '<textarea class="form-control" placeholder=""></textarea></div></form>'
-            // );
-            // $('#btn-make-chart-' + story_number).click( function(){
-            //     chart('title','chart-' + story_number,story_number)
-            // });
         }
 
         delieverables_list[story_number] += 1;
@@ -238,7 +205,7 @@ add_deliverables = function(story_number) {
     $(".checker").show();
 });
 
-$("#new-story input").keypress(function(event) {
+$("#new-story input").keypress(function(event) { //Allows enter submissions
     if (event.which == 13) {
         event.preventDefault();
         delieverables();
