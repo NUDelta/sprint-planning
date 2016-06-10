@@ -1,12 +1,5 @@
 var question_number = 0,
     colors = ['#e67e22','#3498db','#9b59b6','#f1c40f','#27ae60','#e74c3c','#95a5a6',"#2c3e50"],
-    // data = [[0.5, 0.5, 7],
-    //         [0.75, 0.25, 7],
-    //         [-0.25, 0.25, 7],
-    //         [-0.5, 0.5, 7],
-    //         [0.75, -0.25, 7],
-    //         [-0.25, -0.25, 7],
-    //         [-0.25, -0.75, 7]],
     data = [{x:0.25, y:0.5, z:7, name: '1'},
             {x:0.375, y:0.625, z:7, name: '2'},
             {x:0.375, y:0.375, z:7, name: '3'},
@@ -17,6 +10,7 @@ var question_number = 0,
             {x:0.75, y:0.5, z:7, name: '8'}],
     done_list = [],
     todo_list = [],
+    //Makes the chart
     chart = function(title,renderLocation,question_number){
         increment = 20;
         //Make data
@@ -31,7 +25,6 @@ var question_number = 0,
         todo_data[1] = todo_list[question_number]['Technology'].length * increment / 2;
         todo_data[2] = todo_list[question_number]['Research'].length * increment / 2;
 
-        // console.log(new_data);
         var current_chart = new Highcharts.Chart({
             chart: {
                 renderTo: renderLocation,
@@ -48,7 +41,6 @@ var question_number = 0,
                     text: 'Knowledge'
                 },
                 min:0,
-                // max:100,
                 lineWidth: 0,
                 minorGridLineWidth: 0,
                 lineColor: 'transparent',
@@ -91,30 +83,20 @@ var question_number = 0,
 
 
         });
-        // for(var i = 0; i < done_list[question_number]['number']; i += 1){
-        //     var new_data = data.slice(i,i+1)
-        //     current_chart.addSeries({  
-        //         name: i,                      
-        //         type: 'bubble',
-        //         cursor: 'move',
-        //         draggableX: true,
-        //         draggableY: true,
-        //         data: new_data,
-        //         color: colors[i]
-        //     });    
-        // }
         current_chart.redraw();
         
 },
+//Adds questions to the top of the page
 add_done_questions = function(){
     var new_question = $('#new-question input');
+    //Checks if there is something in the input field
     if(new_question.val()){
         question_number += 1;
         //Add question Link
         $('#new-question').before(
             '<div class="col-xs-12 link-question"><a href="#question-' + question_number + 
             '">'+ question_number + '. '+new_question.val() + '</div>');
-        //Add the chart container
+        //Add questions
         $(".container").append('<h3 id="question-' + question_number + '">'+ question_number + '. ' + new_question.val() + '</h3>');
         
         //Add form on left side with DTR dropdown and input
@@ -165,7 +147,6 @@ add_done_questions = function(){
             if (event.which == 13) {
                 event.preventDefault();
                 var id = $(this).parent().attr('id');
-                //console.log(id);
                 add_done(id.substring(id.length - 1, id.length))
             }
         });
@@ -201,7 +182,6 @@ add_todo_questions = function(){
     $(".dropdown-menu li a").click(function(){
        
         //5/9/16 - very jank way of doing this, but works for everything
-
         //a>li>ul -prev-> btn to change the value
         $(this).parent().parent().prev().html($(this).text()+' <span class="caret"></span>');
 
@@ -226,6 +206,7 @@ add_todo_questions = function(){
     });
 
 },
+//function add_done -> Adds a done item to the list for the corresponding research question
 add_done = function(question_number) {
     var new_done_text = $('#input-done-' + question_number + ' .input-text'),new_done_type = $('#input-done-' + question_number + ' .btn'),
         type = new_done_type.text().substring(0,new_done_type.text().length-2);
@@ -246,14 +227,13 @@ add_done = function(question_number) {
         new_done_text.val('');
     }
 },
+//function add_todo -> Adds a todo item to the list for the corresponding research question
 add_todo = function(question_number) {
     var new_done_text = $('#input-todo-' + question_number + ' .input-text'),new_done_type = $('#input-todo-' + question_number + ' .btn'),
         type = new_done_type.text().substring(0,new_done_type.text().length-2);
     if(new_done_text.val()){
         todo_list[question_number]['number'] += 1;
         todo_list[question_number][type].push(new_done_text.val());
-        // console.log(todo_list[question_number]);
-
         $('#todo-list-' + question_number).append(
             '<li class="list-group-item">' +
                 todo_list[question_number]['number'] + '. ' + 
@@ -280,7 +260,8 @@ add_todo = function(question_number) {
         }
     }
 };
-$("#new-question input").keypress(function(event) {
+
+$("#new-question input").keypress(function(event) { //Allows submission when pressing enter
     if (event.which == 13) {
         event.preventDefault();
         add_done_questions();
