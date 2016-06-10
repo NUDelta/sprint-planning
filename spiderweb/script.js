@@ -1,3 +1,4 @@
+// Chart Variables
 var chartOptions = { 
 	chart: {
 		renderTo: 'chart',
@@ -91,7 +92,7 @@ var tabData = [{
 }];
 
 
-
+// Make the slider for a particular claim
 function appendTabClaims(tabNum, claimNum, name) {
 	console.log(name)
 	var item = '<li class="collection-item">' +
@@ -113,6 +114,7 @@ app.controller('MyCntrl', function($scope, $compile) {
 		var newClaim = $(".claimInput").val()
 		insertClaim(newClaim)
 
+		//adds a claim to claimNames and to the chart
 		function insertClaim(newClaim) {
 			if(claimCount == 0) {
 				$('#chart').show()
@@ -126,7 +128,7 @@ app.controller('MyCntrl', function($scope, $compile) {
 			addClaimVal(claimCount)
 
 		}
-
+		//Change the view depending on which tab is clicked
 	  	$(".tab").click(function() {
 			var tab = $(this).attr('id');
 			var tabNum = tab.match(/\d+/)[0];
@@ -135,7 +137,7 @@ app.controller('MyCntrl', function($scope, $compile) {
 			   loadTab(tabNum) 
 			});
 		})
-
+	  	//check point total of sliders and show red if above 16
 		function setTotal(data) {
 			var t = data.reduce((a, b) => a + b, 0) - 10*data.length;
 			$scope.total = t;
@@ -146,7 +148,7 @@ app.controller('MyCntrl', function($scope, $compile) {
 				$('#total').css("color", "black");
 			}
 		}
-
+		//Load the tab based off the clicked tab
 		function loadTab(tabNum) {
 			var tabDataArr = chartOptions.series[tabNum].data;
 			
@@ -175,7 +177,7 @@ app.controller('MyCntrl', function($scope, $compile) {
 				$('.collection').css("visibility", "visible"); 
 			});
 		}
-
+		//add a claim to the chart
 		function addClaimVal(claimCount) {
 			//Add category
 			var newChartOptions = chartOptions.xAxis.categories.concat(['Claim ' + claimCount]);
@@ -196,7 +198,7 @@ app.controller('MyCntrl', function($scope, $compile) {
 			resetGraph()
 
 		}
-
+		//Change graph according to sliders
 		function watchAll() {
 			var claims = (angular.element(document.getElementsByClassName('collection')));
 			$compile(claims)($scope);
@@ -237,7 +239,7 @@ app.controller('MyCntrl', function($scope, $compile) {
 				setTotal(chartOptions.series[tabNum].data)
 			});
 		}
-
+		//redraw graph
 		function resetGraph() {
 			if(claimCount > 1) {
 				$('#chart').highcharts().destroy();
@@ -246,7 +248,7 @@ app.controller('MyCntrl', function($scope, $compile) {
 		}
 
 	}
-	$(".claimInput").keypress(function(event) {
+	$(".claimInput").keypress(function(event) { //Add Claim with enter input
        if (event.which == 13) {
            event.preventDefault();
            $scope.addClaim();
