@@ -1,6 +1,5 @@
 /*
 See http://www.greensock.com/draggable/ for details. 
-This demo uses ThrowPropsPlugin which is a membership benefit of Club GreenSock, http://www.greensock.com/club/
 */
 
 var $snap = $("#snap"),
@@ -70,10 +69,12 @@ function applySnap() {
 	}
 	update();
 }
+//Allows enter submission on points input field if both field are full
 $("#points input").keypress(function(event) {
     if (event.which == 13) {
         event.preventDefault();
         if($("#new-task input").val() && $("#points input").val()) {
+        	//Adds tasks on top each other instead of making new ones when one is moved
 	        if(num_boxes < gridRows) {
 	        	for(var i = 0; i < gridColumns; i += 1){
 			        $("#container").append(
@@ -90,10 +91,12 @@ $("#points input").keypress(function(event) {
 		}
     }
 });
+//Allows enter submission on task input field if both field are full
 $("#new-task input").keypress(function(event) {
     if (event.which == 13) {
         event.preventDefault();
         if($("#new-task input").val() && $("#points input").val()) {
+        	//Adds tasks on top each other instead of making new ones when one is moved
 	        if(num_boxes < gridRows) {
 	        	for(var i = 0; i < gridColumns; i += 1){
 			        $("#container").append(
