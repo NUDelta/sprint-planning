@@ -1,12 +1,6 @@
 var story_number = 0,
+    //Colors and names for data points
     colors = ['#e67e22','#3498db','#9b59b6','#f1c40f','#27ae60','#e74c3c','#95a5a6',"#2c3e50"],
-    // data = [[0.5, 0.5, 7],
-    //         [0.75, 0.25, 7],
-    //         [-0.25, 0.25, 7],
-    //         [-0.5, 0.5, 7],
-    //         [0.75, -0.25, 7],
-    //         [-0.25, -0.25, 7],
-    //         [-0.25, -0.75, 7]],
     data = [{x:0.25, y:0.5, z:7, name: '1'},
             {x:0.375, y:0.625, z:7, name: '2'},
             {x:0.375, y:0.375, z:7, name: '3'},
@@ -16,9 +10,8 @@ var story_number = 0,
             {x:0.625, y:0.375, z:7, name: '7'},
             {x:0.75, y:0.5, z:7, name: '8'}],
     delieverables_list = [],
+    //Draw the chart
     chart = function(title,renderLocation,story_number){
-       
-        // console.log(new_data);
         var current_chart = new Highcharts.Chart({
             chart: {
                 renderTo: renderLocation,
@@ -77,17 +70,8 @@ var story_number = 0,
                             }
                         }
                     },
-
-            // series: [{
-            //     type: 'bubble',
-            //     cursor: 'move',
-            //     draggableX: true,
-            //     draggableY: true,
-            //     data: new_data
-            // }]
-
-
         });
+        //Add data points based off number of delieverables for the story
         for(var i = 0; i < delieverables_list[story_number]; i += 1){
             var new_data = data.slice(i,i+1)
             current_chart.addSeries({  
@@ -103,6 +87,7 @@ var story_number = 0,
         current_chart.redraw();
         
 },
+//Add the delieverables List
 delieverables = function(){
     var new_story = $('#new-story input');
     if(new_story.val()){
@@ -145,6 +130,7 @@ delieverables = function(){
         new_story.val('');
     }
 },
+//Add individual delieverables
 add_deliverables = function(story_number) {
     var new_deliverable = $('#input-delieverable-' + story_number);
     if(new_deliverable.val()){
@@ -173,7 +159,7 @@ add_deliverables = function(story_number) {
         }
     }
 };
-$("#new-story input").keypress(function(event) {
+$("#new-story input").keypress(function(event) { //Allow enter input
     if (event.which == 13) {
         event.preventDefault();
         delieverables();
